@@ -6,8 +6,15 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ServiceChargeAffaire</name>
-<modules>  <module>ServiceChargeAffaire-ear</module>
-    <module>ServiceChargeAffaire-web</module>
-    <module>ServiceChargeAffaire-ejb</module>
-  </modules>
+    <modules>  <module>ServiceChargeAffaire-ear</module>
+        <module>ServiceChargeAffaire-web</module>
+        <module>ServiceChargeAffaire-ejb</module>
+      </modules>
+    <dependencies>
+        <dependency>
+            <groupId>miage.m2</groupId>
+            <artifactId>MenuisMiageShared</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

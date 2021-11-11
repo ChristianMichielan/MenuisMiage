@@ -52,6 +52,8 @@ public class GestionAffaire implements GestionAffaireRemote {
             System.out.println("***** " + ex.getMessage());
         }
         
+        System.out.println("**** coucou j'ai continué...");
+        
         // Construction du transient object
         ArrayList<AffaireTransient> affairesTransient = new ArrayList<>();
         
@@ -63,6 +65,8 @@ public class GestionAffaire implements GestionAffaireRemote {
         
         // Objet transient à retourner
         ChargerAffaireTransient caTransient = new ChargerAffaireTransient(chargerAffaire.getNom(), chargerAffaire.getPrenom(), affairesTransient);
+        
+        System.out.println("**** le ca trouvé : " + caTransient.getNom());
         
         return caTransient;
     }
