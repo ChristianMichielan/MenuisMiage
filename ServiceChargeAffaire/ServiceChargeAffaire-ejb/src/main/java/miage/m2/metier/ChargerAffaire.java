@@ -24,4 +24,54 @@ public class ChargerAffaire {
         this.nom = nom;
         this.prenom = prenom;
     }
+
+    /**
+     * Retourne l'identifiant du charger d'affaire
+     * @return 
+     */
+    public int getIdChargerAffaire() {
+        return idChargerAffaire;
+    }
+
+    /**
+     * Défni l'identifiant du charger d'affaire
+     * @param idChargerAffaire 
+     */
+    public void setIdChargerAffaire(int idChargerAffaire) {
+        this.idChargerAffaire = idChargerAffaire;
+    }
+
+    /**
+     * Retourne le nom du charger d'affaire
+     * @return 
+     */
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     * Défini le nom du charger d'affaire
+     * @param nom 
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    /**
+     * Retourne le prénom du charger d'affaire
+     * @return 
+     */
+    public String getPrenom() {
+        return prenom;
+    }
+
+    /**
+     * Défini le prénom du charger d'affaire
+     * @param prenom 
+     */
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+    
+    
 }
