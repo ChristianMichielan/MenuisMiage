@@ -4,14 +4,13 @@
  */
 package miage.m2.metier;
 
-import java.util.List;
+import java.util.ArrayList;
 import javax.ejb.Local;
 import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.exceptions.AucuneAffaireException;
-import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CreerAffaireException;
 
 /**
@@ -21,7 +20,7 @@ import miage.m2.exceptions.CreerAffaireException;
 @Local
 public interface AffaireBeanLocal {
     
-    public List<Affaire> affairePourUnChargerAffaire(int idChargerAffaire) throws ChargerAffaireInconnuException, AucuneAffaireException;
+    public ArrayList<Affaire> affairesPourUnChargerAffaire(int idChargerAffaire) throws AucuneAffaireException;
     
     public Affaire creerAffaire(String nomC, String prenomC, String adresseC, String mailC, int telC, String locC, ChargerAffaire chargerAffaire) throws CreerAffaireException;
     

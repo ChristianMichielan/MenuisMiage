@@ -6,14 +6,12 @@ package miage.m2.metier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.ejb.Singleton;
 import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.exceptions.AucuneAffaireException;
-import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CreerAffaireException;
 
 /**
@@ -24,38 +22,26 @@ import miage.m2.exceptions.CreerAffaireException;
 public class AffaireBean implements AffaireBeanLocal {
 
     private HashMap<Integer, Affaire> listeAffaire;
-    private HashMap<Integer, ChargerAffaire> listeChargerAffaire;
     private int idAffaire;
-    private int idChargerAffaire;
-
+    
     /**
      * Constructeur
      */
     public AffaireBean() {
         this.listeAffaire = new HashMap<>();
         this.idAffaire = 1;
-        this.idChargerAffaire = 1;
-        
-        // Initialisation d'un jeu de données de charger d'affaire
-        this.initialiserDonneesChargerAffaire();
     }
 
     /**
      * Retourne les affaire pour un chargé d'affaire
      * @param idChargerAffaire
      * @return
-     * @throws ChargerAffaireInconnuException
      * @throws AucuneAffaireException 
      */
     @Override
-    public List<Affaire> affairePourUnChargerAffaire(int idChargerAffaire) throws ChargerAffaireInconnuException, AucuneAffaireException {
-        // Vérification que le commercial existe dans le système
-        if(this.listeChargerAffaire.get(idChargerAffaire) == null) {
-            throw new ChargerAffaireInconnuException();
-        }
-        
-        // Recherche les affaire du CA selon son id
-        List toReturn = new ArrayList();
+    public ArrayList<Affaire> affairesPourUnChargerAffaire(int idChargerAffaire) throws AucuneAffaireException {
+         // Recherche les affaire du CA selon son id
+        ArrayList toReturn = new ArrayList();
         for(Affaire affaire : this.listeAffaire.values()) {
             if(affaire.getChargerAffaire().getIdChargerAffaire() == idChargerAffaire) {
                 toReturn.add(affaire);
@@ -112,18 +98,4 @@ public class AffaireBean implements AffaireBeanLocal {
         this.listeAffaire.get(idAffaire).setEtat(etat);        
     }
     
-    
-    /**
-     * Initialise les données des charger d'affaire dans le système
-     */
-    private void initialiserDonneesChargerAffaire() {
-        ChargerAffaire ca1 = new ChargerAffaire(this.idChargerAffaire, "Dupon", "Toto");
-        this.listeChargerAffaire.put(ca1.getIdChargerAffaire(), ca1);
-        this.idChargerAffaire++;
-        
-        ChargerAffaire ca2 = new ChargerAffaire(this.idChargerAffaire, "Dupon", "Toto");
-        this.listeChargerAffaire.put(ca2.getIdChargerAffaire(), ca2);
-        this.idChargerAffaire++;
-    }
-
 }
