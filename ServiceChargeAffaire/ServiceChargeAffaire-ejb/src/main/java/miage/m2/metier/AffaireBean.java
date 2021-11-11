@@ -34,6 +34,10 @@ public class AffaireBean implements AffaireBeanLocal {
     public AffaireBean() {
         this.listeAffaire = new HashMap<>();
         this.idAffaire = 1;
+        this.idChargerAffaire = 1;
+        
+        // Initialisation d'un jeu de données de charger d'affaire
+        this.initialiserDonneesChargerAffaire();
     }
 
     /**
@@ -106,6 +110,20 @@ public class AffaireBean implements AffaireBeanLocal {
         }
         
         this.listeAffaire.get(idAffaire).setEtat(etat);        
+    }
+    
+    
+    /**
+     * Initialise les données des charger d'affaire dans le système
+     */
+    private void initialiserDonneesChargerAffaire() {
+        ChargerAffaire ca1 = new ChargerAffaire(this.idChargerAffaire, "Dupon", "Toto");
+        this.listeChargerAffaire.put(ca1.getIdChargerAffaire(), ca1);
+        this.idChargerAffaire++;
+        
+        ChargerAffaire ca2 = new ChargerAffaire(this.idChargerAffaire, "Dupon", "Toto");
+        this.listeChargerAffaire.put(ca2.getIdChargerAffaire(), ca2);
+        this.idChargerAffaire++;
     }
 
 }
