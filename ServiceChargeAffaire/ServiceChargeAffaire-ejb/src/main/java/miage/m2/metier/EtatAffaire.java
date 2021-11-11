@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Projet EAI MenuisMIAGE.
+ * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
 package miage.m2.metier;
 
