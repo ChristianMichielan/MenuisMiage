@@ -52,12 +52,12 @@ public class AffaireTransient implements Serializable {
     }
 
     /**
-     * 
+     * Redéfinition de la l'affichage d'une affaire
      * @return 
      */
     @Override
     public String toString() {
-        return "AffaireTransient{" + "idAffaire=" + idAffaire + ", nomC=" + nomC + ", etat=" + etat + '}';
+        return this.idAffaire + " - " + this.nomC + " | " + " Etat : " + this.etat;
     }
     
 }

@@ -8,6 +8,7 @@ import java.util.Scanner;
 import javax.ejb.EJBException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exposition.GestionAffaireRemote;
+import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
 
 
@@ -19,9 +20,12 @@ public class AppCACLI {
     
     private final int MENU_CHOIX_UN = 1;
     private final int MENU_CHOIX_DEUX = 2;
-    private final int MENU_CHOIX_QUITTER = 3;
-    private final int PREMIER_MENU_CHOIX_MAX = 4;
-    private final int DEUXIEME_MENU_CHOIX_MAX = 4;
+    private final int MENU_CHOIX_TROIS = 3;
+    private final int MENU_CHOIX_QUATRE = 4;
+    private final int MENU_CHOIX_QUITTER_PREMIER_MENU = 2;
+    private final int MENU_CHOIX_QUITTER_DEUXIEME_MENU = 5;
+    private final int PREMIER_MENU_CHOIX_MAX = 2;
+    private final int DEUXIEME_MENU_CHOIX_MAX = 3;
     private final GestionAffaireRemote gestionAffaireRemote;
     private final Scanner scanner = new Scanner(System.in);
     private ChargerAffaireTransient chargerAffaire = null;
@@ -52,10 +56,7 @@ public class AppCACLI {
                             this.authentifier();
                             this.runApplicationAuthentifier();
                             break;
-                        case MENU_CHOIX_DEUX:
-                            this.standBy();
-                            break;
-                        case MENU_CHOIX_QUITTER:
+                        case MENU_CHOIX_QUITTER_PREMIER_MENU:
                             this.quitterApplication();
                             break;
                         default:
@@ -64,9 +65,9 @@ public class AppCACLI {
                 } catch (EJBException ex) {
                     CLICA.afficherMessageErreur(" [EJB] " + ex.getMessage());
                 } finally {
-                    choixPremierMenu = 3;
+                    choixPremierMenu = 2;
                 }
-            } while (choixPremierMenu != 3);
+            } while (choixPremierMenu != 2);
         } while (!menuUnQuitte);
     }
     
@@ -82,18 +83,24 @@ public class AppCACLI {
                 choixDeuxiemeMenu = CLICA.saisirEntier(scanner, "Votre choix : ", DEUXIEME_MENU_CHOIX_MAX);
                 switch(choixDeuxiemeMenu) {
                     case MENU_CHOIX_UN:
-                        this.standBy();
+                        this.consulterLesAffaire();
                         break;
                     case MENU_CHOIX_DEUX:
-                        this.standBy();
+                        this.creerAffaire();
                         break;
-                    case MENU_CHOIX_QUITTER:
+                    case MENU_CHOIX_TROIS:
+                        this.realiserOperationAffaire();
+                        break;
+                    case MENU_CHOIX_QUATRE:
+                        this.voirNotificationAffaire();
+                        break;
+                    case MENU_CHOIX_QUITTER_DEUXIEME_MENU:
                         this.deconnexionCA();
                         break;
                     default:
                         CLICA.afficherMessageErreur("Vous avez fait une erreur dans votre choix");
                 }
-            } while (choixDeuxiemeMenu != 3);
+            } while (choixDeuxiemeMenu != 5);
         } while (!menuDeuxQuitte);
     }
     
@@ -108,25 +115,63 @@ public class AppCACLI {
 
                 // Saisie des informations
                 CLICA.afficherTitreChoix("authentification");
-                CLICA.afficherInformation("Veuillez vous identifier");
 
-                idCA = CLICA.saisirEntier(scanner, "Saisir votre identifiant", 999);
+                idCA = CLICA.saisirEntier(scanner, "Saisir votre identifiant :", 999);
                 
                 // Demande d'authentification du CA
                 this.chargerAffaire = gestionAffaireRemote.authentifier(idCA);
                 CLICA.afficherInformation("Connexion réussie !");
-                CLICA.afficherInformation("Bonjour " + this.chargerAffaire.getPrenom());                
+                CLICA.afficherInformation("Bonjour " + this.chargerAffaire.getPrenom());
+                CLICA.afficherInformation("");
             } catch (ChargerAffaireInconnuException ex) {
                 CLICA.afficherMessageErreur(ex.getMessage());
             } 
         }
     }
     
+    /**
+     * Creer une affaire
+     */
+    private void creerAffaire() {
+        //String 
+    }
     
     /**
-     * En attente...
+     * Consulte les différentes affaires attachées au Charger d'affaire
      */
-    private void standBy() { }
+    private void consulterLesAffaire() { 
+        boolean reponse = false;
+        while(reponse==false){
+            // Affiche les affaire
+            CLICA.afficherInformation("Liste des affaires : ");
+            
+            if(this.chargerAffaire.getListeAffaire().isEmpty()) {
+                CLICA.afficherInformation("\tAucune affaire");
+            } else {
+                for(AffaireTransient affaire : this.chargerAffaire.getListeAffaire()) {
+                    CLICA.afficherInformation("\t" + affaire.toString());
+                }
+            }
+                
+            // Saisie des informations
+            reponse = CLICA.yesQuestion(scanner, "Revenir au menu (y)");
+        }
+        CLICA.afficherInformation("");
+    }
+    
+    /**
+     * Réaliser une opération sur une affaire (prendre rdv poseur ou cloturer l'affaire)
+     */
+    private void realiserOperationAffaire() {
+        
+    }
+    
+    /**
+     * Permet de consulter les notifications reçus pour une affaire 
+     */
+    private void voirNotificationAffaire() {
+        // Ecouter le topic de notification des chargés d'affaire
+    }
     
     /**
      * Met fin à la session du CA
