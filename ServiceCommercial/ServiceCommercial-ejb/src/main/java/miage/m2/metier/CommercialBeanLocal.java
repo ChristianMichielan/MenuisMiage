@@ -4,8 +4,10 @@
  */
 package miage.m2.metier;
 
+import java.util.ArrayList;
 import javax.ejb.Local;
 import miage.m2.entities.Commercial;
+import miage.m2.exceptions.AucunCommercialException;
 import miage.m2.exceptions.CommercialInconnuException;
 
 /**
@@ -15,6 +17,8 @@ import miage.m2.exceptions.CommercialInconnuException;
 @Local
 public interface CommercialBeanLocal {
     
-     Commercial obtenirCommercial(int idCommercial) throws CommercialInconnuException;
+    public Commercial obtenirCommercial(int idCommercial) throws CommercialInconnuException;
+    
+    public ArrayList<Commercial> obtenirLesCommerciaux() throws AucunCommercialException;
      
 }

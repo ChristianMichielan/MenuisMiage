@@ -4,9 +4,11 @@
  */
 package miage.m2.metier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.ejb.Singleton;
 import miage.m2.entities.Commercial;
+import miage.m2.exceptions.AucunCommercialException;
 import miage.m2.exceptions.CommercialInconnuException;
 
 /**
@@ -44,6 +46,19 @@ public class CommercialBean implements CommercialBeanLocal {
         
         return this.listeCommercial.get(idCommercial);
     }
+    
+    /**
+     * Retourne tous les commerciaux enregistrés dans le système
+     * @return
+     * @throws AucunCommercialException 
+     */
+    @Override
+    public ArrayList<Commercial> obtenirLesCommerciaux() throws AucunCommercialException {
+        ArrayList<Commercial> listeCommerciaux = (ArrayList<Commercial>) this.listeCommercial.values();
+        
+        return listeCommerciaux;
+    }
+
     
     /**
      * Initialise les données des commerciaux dans le système

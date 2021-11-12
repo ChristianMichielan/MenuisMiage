@@ -17,7 +17,7 @@ import miage.m2.metier.AffaireBeanLocal;
 import miage.m2.metier.ChargerAffaireBeanLocal;
 import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
-import miage.m2.transientobjects.RdvCommercialTransient;
+import miage.m2.transientobjects.RDVCommercialTransient;
 
 /**
  * Classe Stateless GestionAffaire qui représente les différentes opérations possibles par un Charger Affaire depuis son poste client lourd
@@ -74,7 +74,7 @@ public class GestionAffaire implements GestionAffaireRemote {
      * @throws CommercialDemandeRDVException 
      */
     @Override
-    public RdvCommercialTransient demandeDisponibiliteRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException {
+    public RDVCommercialTransient demandeDisponibiliteRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         // Appel l'API du service commercial pour OBTENIR une possibilité de RDV
@@ -89,7 +89,7 @@ public class GestionAffaire implements GestionAffaireRemote {
      * @throws CommercialConfirmRDVException 
      */
     @Override
-    public boolean validerRdvCommercial(RdvCommercialTransient rdvCommercial, String localisation, int idAffaire) throws CommercialConfirmRDVException {
+    public boolean validerRdvCommercial(RDVCommercialTransient rdvCommercial, String localisation, int idAffaire) throws CommercialConfirmRDVException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         // Appel l'API du service commercial pour VALIDER le rdv

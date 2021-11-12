@@ -20,5 +20,4 @@ public interface RDVCommercialBeanLocal {
     public ArrayList<RDVCommercial> rdvPourUnCommercial(int idCommercial);
 
     public boolean creerRdvCommercial(String date, Commercial commercial, String localisation, int idAffaire) throws CommercialConfirmRDVException;
-
 }

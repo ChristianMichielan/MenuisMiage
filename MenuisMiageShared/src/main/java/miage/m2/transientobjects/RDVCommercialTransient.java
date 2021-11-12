@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Transient Object qui permet de retourner les informations conernant le rdv Commercial à un chargé d'affaire
  * @author QuentinDouris
  */
-public class RdvCommercialTransient implements Serializable {
+public class RDVCommercialTransient implements Serializable {
     private String date;
     private int idCommercial;
 
@@ -19,7 +19,7 @@ public class RdvCommercialTransient implements Serializable {
      * @param date
      * @param idCommercial 
      */
-    public RdvCommercialTransient(String date, int idCommercial) {
+    public RDVCommercialTransient(String date, int idCommercial) {
         this.date = date;
         this.idCommercial = idCommercial;
     }

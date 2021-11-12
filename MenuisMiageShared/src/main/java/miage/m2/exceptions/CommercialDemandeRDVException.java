@@ -11,7 +11,7 @@ package miage.m2.exceptions;
 public class CommercialDemandeRDVException extends Exception {
 
     public CommercialDemandeRDVException() {
-        super("Aucun rendez-vous commercial disponible pour la date saisie.");
+        super("Aucun rendez-vous commercial n'est disponible pour la date saisie.");
     }
     
 }
