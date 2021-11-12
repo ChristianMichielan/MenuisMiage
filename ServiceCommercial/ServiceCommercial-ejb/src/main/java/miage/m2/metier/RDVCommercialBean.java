@@ -61,11 +61,37 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
             throw new CommercialConfirmRDVException();
         }
         
-        // Creer un nouveau RDV commercial et ajout au planning
+        // Créer un nouveau RDV commercial et l'ajoute au planning
         RDVCommercial newRdv = new RDVCommercial(date, idAffaire, commercial, localisation);
         this.listeRDVCommercial.put(newRdv.getIdAffaire(), newRdv);
         
         return true;
+    }
+
+    /**
+     * Vérifie la disponibilité d'un commercial à une date donnée
+     * @param date
+     * @param commercial
+     * @return 
+     */
+    @Override
+    public boolean commercialDisponible(String date, Commercial commercial) {
+        boolean commercialDispo = true;
+        int cptRdv = 0;
+        ArrayList<RDVCommercial> listeRdv = this.rdvPourUnCommercial(commercial.getIdCommercial());
+        
+        // Parcours les rdv du commercial pour vérifier sa disponibilité
+        while(commercialDispo == true || cptRdv < listeRdv.size()) {
+            // Récupere le rdv courant 
+            RDVCommercial rdvCourrant = listeRdv.get(cptRdv);
+            if(rdvCourrant.getDateRdvCom() == date){
+                   commercialDispo = false;
+            }
+            // Passage au rdv suivant
+            cptRdv++;
+        }
+        
+        return commercialDispo;
     }
     
 }

@@ -13,6 +13,8 @@ import java.io.Serializable;
 public class RDVCommercialTransient implements Serializable {
     private String date;
     private int idCommercial;
+    private String localisation;
+    private int idAffaire;
 
     /**
      * Constructeur
@@ -54,6 +56,38 @@ public class RDVCommercialTransient implements Serializable {
      */
     public void setIdCommercial(int idCommercial) {
         this.idCommercial = idCommercial;
+    }
+
+    /**
+     * Retourne la localisation d'un rendez-vous
+     * @return 
+     */
+    public String getLocalisation() {
+        return localisation;
+    }
+
+    /**
+     * Défini la localisation d'un rendez-vous
+     * @param localisation 
+     */
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
+    }
+
+    /**
+     * Retourne l'identifiant de l'affaire
+     * @return 
+     */
+    public int getIdAffaire() {
+        return idAffaire;
+    }
+    
+    /**
+     * Défini l'identifiant de l'affaire
+     * @param idAffaire 
+     */
+    public void setIdAffaire(int idAffaire) {
+        this.idAffaire = idAffaire;
     }
     
 }
