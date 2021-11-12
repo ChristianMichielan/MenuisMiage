@@ -4,11 +4,13 @@
  */
 package miage.m2.exposition;
 
+import java.util.ArrayList;
 import javax.ejb.Remote;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
 import miage.m2.exceptions.CreerAffaireException;
+import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
 import miage.m2.transientobjects.RdvCommercialTransient;
 
@@ -21,10 +23,11 @@ public interface GestionAffaireRemote {
     
     public ChargerAffaireTransient authentifier(int idCA) throws ChargerAffaireInconnuException;
     
-    public int creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String locC, int idChargerAffaire) throws ChargerAffaireInconnuException, CreerAffaireException;
+    public int creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String telC, String locC, int idChargerAffaire) throws ChargerAffaireInconnuException, CreerAffaireException;
     
     public RdvCommercialTransient demandeDisponibiliteRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException;
     
     public boolean validerRdvCommercial(RdvCommercialTransient rdvCommercial, String localisation, int idAffaire) throws CommercialConfirmRDVException;
     
+    public ArrayList<AffaireTransient> affairesDuChargerAffaire(int idCA) throws ChargerAffaireInconnuException;
 }

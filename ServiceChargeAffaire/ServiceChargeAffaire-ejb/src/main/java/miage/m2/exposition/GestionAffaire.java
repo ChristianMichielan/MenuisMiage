@@ -42,22 +42,7 @@ public class GestionAffaire implements GestionAffaireRemote {
     @Override
     public ChargerAffaireTransient authentifier(int idCA) throws ChargerAffaireInconnuException {
         ChargerAffaire chargerAffaire = chargerAffaireBean.authentifier(idCA);
-        ArrayList<Affaire> listAffaire = new ArrayList<>();
-        
-        // Recherche les affaires d'un CA
-        listAffaire = affaireBean.affairesPourUnChargerAffaire(idCA);
-        
-        // Construction du transient object
-        ArrayList<AffaireTransient> affairesTransient = new ArrayList<>();
-        
-        if(!listAffaire.isEmpty()) {
-            for(Affaire item : listAffaire) {
-                affairesTransient.add(new AffaireTransient(item.getIdAffaire(), item.getNomC(), item.getEtat().name()));
-            }
-        }
-        
-        // Objet transient à retourner
-        ChargerAffaireTransient caTransient = new ChargerAffaireTransient(chargerAffaire.getNom(), chargerAffaire.getPrenom(), affairesTransient);
+        ChargerAffaireTransient caTransient = new ChargerAffaireTransient(chargerAffaire.getIdChargerAffaire(), chargerAffaire.getNom(), chargerAffaire.getPrenom());
         
         return caTransient;
     }
@@ -75,9 +60,9 @@ public class GestionAffaire implements GestionAffaireRemote {
      * @throws miage.m2.exceptions.CreerAffaireException 
      */
     @Override
-    public int creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String locC, int idChargerAffaire) throws ChargerAffaireInconnuException, CreerAffaireException {
+    public int creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String telC, String locC, int idChargerAffaire) throws ChargerAffaireInconnuException, CreerAffaireException {
         ChargerAffaire ca = chargerAffaireBean.obtenirChargerAffaire(idChargerAffaire);
-        Affaire affaire = affaireBean.creerAffaire(nomC, prenomC, adresseC, mailC, 0, locC, ca);
+        Affaire affaire = affaireBean.creerAffaire(nomC, prenomC, adresseC, mailC, telC, locC, ca);
         
         return affaire.getIdAffaire();
     }
@@ -108,6 +93,26 @@ public class GestionAffaire implements GestionAffaireRemote {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         // Appel l'API du service commercial pour VALIDER le rdv
+    }
+
+    /**
+     * Retourne les affaires d'un CA
+     * @param idCA
+     * @return
+     * @throws ChargerAffaireInconnuException 
+     */
+    @Override
+    public ArrayList<AffaireTransient> affairesDuChargerAffaire(int idCA) throws ChargerAffaireInconnuException {
+        // Recherche les affaires d'un CA
+        ArrayList<Affaire> listAffaireCA = affaireBean.affairesPourUnChargerAffaire(idCA);
+        ArrayList<AffaireTransient> listAffaireCATransient = new ArrayList<>();
+        
+        // Construit un transient object
+        for(Affaire affaire : listAffaireCA) {
+            listAffaireCATransient.add(new AffaireTransient(affaire.getIdAffaire(), affaire.getNomC(), affaire.getEtat().name()));
+        }
+        
+        return listAffaireCATransient;
     }
     
 }

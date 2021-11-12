@@ -4,9 +4,11 @@
  */
 package miage.m2;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.ejb.EJBException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
+import miage.m2.exceptions.CreerAffaireException;
 import miage.m2.exposition.GestionAffaireRemote;
 import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
@@ -22,10 +24,11 @@ public class AppCACLI {
     private final int MENU_CHOIX_DEUX = 2;
     private final int MENU_CHOIX_TROIS = 3;
     private final int MENU_CHOIX_QUATRE = 4;
+    private final int MENU_CHOIX_CINQ = 5;
     private final int MENU_CHOIX_QUITTER_PREMIER_MENU = 2;
-    private final int MENU_CHOIX_QUITTER_DEUXIEME_MENU = 5;
+    private final int MENU_CHOIX_QUITTER_DEUXIEME_MENU = 6;
     private final int PREMIER_MENU_CHOIX_MAX = 2;
-    private final int DEUXIEME_MENU_CHOIX_MAX = 3;
+    private final int DEUXIEME_MENU_CHOIX_MAX = 6;
     private final GestionAffaireRemote gestionAffaireRemote;
     private final Scanner scanner = new Scanner(System.in);
     private ChargerAffaireTransient chargerAffaire = null;
@@ -89,9 +92,12 @@ public class AppCACLI {
                         this.creerAffaire();
                         break;
                     case MENU_CHOIX_TROIS:
-                        this.realiserOperationAffaire();
+                        this.definirRdvCommercialAffaire();
                         break;
                     case MENU_CHOIX_QUATRE:
+                        this.definirRdvPoseAffaire();
+                        break;
+                    case MENU_CHOIX_CINQ:
                         this.voirNotificationAffaire();
                         break;
                     case MENU_CHOIX_QUITTER_DEUXIEME_MENU:
@@ -100,7 +106,7 @@ public class AppCACLI {
                     default:
                         CLICA.afficherMessageErreur("Vous avez fait une erreur dans votre choix");
                 }
-            } while (choixDeuxiemeMenu != 5);
+            } while (choixDeuxiemeMenu != 6);
         } while (!menuDeuxQuitte);
     }
     
@@ -130,40 +136,76 @@ public class AppCACLI {
     }
     
     /**
-     * Creer une affaire
+     * Créer une affaire
      */
     private void creerAffaire() {
-        //String 
+        try {
+            String nomC, prenomC, adresseC, mailC, telC, loC;
+
+            // Message d'accueil
+            CLICA.afficherTitreChoix("creer affaire");
+            CLICA.afficherInformation("Veuillez saisir les informations de la nouvelle affaire :");
+
+            // Saisie des informations de l'affaire
+            nomC = CLICA.saisirChaine(scanner, "Saisir le nom du client : ");
+            prenomC = CLICA.saisirChaine(scanner, "Saisir le prénom du client : ");
+            adresseC = CLICA.saisirChaine(scanner, "Saisir l'adresse du client : ");
+            mailC = CLICA.saisirChaine(scanner, "Saisir le mail du client : ");
+            telC = CLICA.saisirChaine(scanner, "Saisir le téléphone du client : ");
+            loC = CLICA.saisirChaine(scanner, "Saisir la localisation de l'affaire : ");
+
+            // Création de l'affaire dans le système
+            int idAffaireCreee = this.gestionAffaireRemote.creerAffaire(nomC, prenomC, adresseC, mailC, telC, loC, this.chargerAffaire.getId());
+            CLICA.afficherInformationFinEtape("Affaire n°" + idAffaireCreee + " créée avec succès !");
+        } 
+        catch (ChargerAffaireInconnuException | CreerAffaireException ex) {
+            CLICA.afficherMessageErreur(ex.getMessage());
+        }
     }
     
     /**
      * Consulte les différentes affaires attachées au Charger d'affaire
      */
     private void consulterLesAffaire() { 
-        boolean reponse = false;
-        while(reponse==false){
-            // Affiche les affaire
-            CLICA.afficherInformation("Liste des affaires : ");
-            
-            if(this.chargerAffaire.getListeAffaire().isEmpty()) {
-                CLICA.afficherInformation("\tAucune affaire");
-            } else {
-                for(AffaireTransient affaire : this.chargerAffaire.getListeAffaire()) {
-                    CLICA.afficherInformation("\t" + affaire.toString());
+        try {
+            boolean reponse = false;
+            while(reponse==false){
+                // Affiche les affaire
+                CLICA.afficherInformation("Liste des affaires : ");
+
+                ArrayList<AffaireTransient> affaires = this.gestionAffaireRemote.affairesDuChargerAffaire(this.chargerAffaire.getId());
+
+                if(affaires.isEmpty()) {
+                    CLICA.afficherInformation("\tAucune affaire enregistrée");
+                } else {
+                    for(AffaireTransient item : affaires) {
+                        CLICA.afficherInformation("\t" + item.toString());
+                    }
                 }
+
+                // Saisie des informations
+                reponse = CLICA.yesQuestion(scanner, "Revenir au menu (y)");
             }
-                
-            // Saisie des informations
-            reponse = CLICA.yesQuestion(scanner, "Revenir au menu (y)");
+            CLICA.afficherInformation("");
+        } catch (ChargerAffaireInconnuException ex) {
+            CLICA.afficherMessageErreur(ex.getMessage());
         }
-        CLICA.afficherInformation("");
     }
     
     /**
-     * Réaliser une opération sur une affaire (prendre rdv poseur ou cloturer l'affaire)
+     * Définir un rendez-vous commercial pour une affaire
      */
-    private void realiserOperationAffaire() {
-        
+    private void definirRdvCommercialAffaire() {
+        // TODO Etape 0 et 1
+        CLICA.afficherInformation("TODO / définir rdv commercial");
+    }
+    
+    /**
+     * Définir un rendez-vous de pose pour une affaire
+     */
+    private void definirRdvPoseAffaire() {  
+        // TODO Etape 5
+        CLICA.afficherInformation("TODO / définir rdv pose");
     }
     
     /**
@@ -171,6 +213,7 @@ public class AppCACLI {
      */
     private void voirNotificationAffaire() {
         // Ecouter le topic de notification des chargés d'affaire
+        CLICA.afficherInformation("TODO / voir ce qui arrive dans le topic de notification");
     }
     
     /**

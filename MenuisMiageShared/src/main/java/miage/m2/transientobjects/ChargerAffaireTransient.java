@@ -5,51 +5,74 @@
 package miage.m2.transientobjects;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Transient Object Charger Affaire
  * @author QuentinDouris
  */
 public class ChargerAffaireTransient implements Serializable {
+    private int id;
     private String nom;
     private String prenom;
-    private ArrayList<AffaireTransient> listeAffaire;
 
     /**
      * Constructeur
+     * @param id
      * @param nom
      * @param prenom
-     * @param listeAffaire 
      */
-    public ChargerAffaireTransient(String nom, String prenom, ArrayList<AffaireTransient> listeAffaire) {
+    public ChargerAffaireTransient(int id, String nom, String prenom) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        this.listeAffaire = listeAffaire;
     }
 
+    /**
+     * Retourne le nom du charger d'affaire
+     * @return 
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Défini le nom du charger d'affaire
+     * @param nom 
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    /**
+     * Retourne le prénom du charger d'affaire
+     * @return 
+     */
     public String getPrenom() {
         return prenom;
     }
 
+    /**
+     * Défini le nom du charger d'affaire
+     * @param prenom 
+     */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
-    public ArrayList<AffaireTransient> getListeAffaire() {
-        return listeAffaire;
+    /**
+     * Retourne l'id du charger d'affaire
+     * @return 
+     */
+    public int getId() {
+        return id;
     }
 
-    public void setListeAffaire(ArrayList<AffaireTransient> listeAffaire) {
-        this.listeAffaire = listeAffaire;
+    /**
+     * Défini l'id du charger d'affaire
+     * @param id 
+     */
+    public void setId(int id) {
+        this.id = id;
     }
     
 }
