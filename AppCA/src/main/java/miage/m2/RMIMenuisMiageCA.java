@@ -23,7 +23,7 @@ public class RMIMenuisMiageCA {
     private GestionAffaireRemote gestionAffaireRemote;
     
     /**
-     * Constructeur de RMISpaceLibUsager
+     * Constructeur de RMIMenuisMiageCA
      * @throws NamingException 
      */
     public RMIMenuisMiageCA() throws NamingException {
@@ -38,7 +38,7 @@ public class RMIMenuisMiageCA {
     }
     
     /**
-     * Retourne le ServiceUsagerRemote
+     * Retourne la GestionAffaireRemote
      * @return 
      */
     public GestionAffaireRemote getAdminServiceRemote() {
