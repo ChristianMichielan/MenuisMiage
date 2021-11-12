@@ -4,13 +4,14 @@
  */
 package miage.m2.transientobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Transient Object Charger Affaire
  * @author QuentinDouris
  */
-public class ChargerAffaireTransient {
+public class ChargerAffaireTransient implements Serializable {
     private String nom;
     private String prenom;
     private ArrayList<AffaireTransient> listeAffaire;

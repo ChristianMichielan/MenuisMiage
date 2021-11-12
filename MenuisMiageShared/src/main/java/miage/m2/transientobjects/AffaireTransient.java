@@ -4,11 +4,13 @@
  */
 package miage.m2.transientobjects;
 
+import java.io.Serializable;
+
 /**
  * Transient Object qui permet de retourner certaines informations d'une affaire
  * @author QuentinDouris
  */
-public class AffaireTransient {
+public class AffaireTransient implements Serializable {
     private int idAffaire;
     private String nomC;
     private String etat;

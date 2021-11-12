@@ -4,9 +4,6 @@
  */
 package miage.m2;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -14,9 +11,7 @@ import java.util.Scanner;
  * @author QuentinDouris
  */
 public class CLICA {
-    
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
-    
+
     /**
      * Premier menu avant connexion de l'utilisateur
      */
@@ -31,9 +26,10 @@ public class CLICA {
      */
     public static void afficherDeuxiemeMenu() {
         System.out.println("Menu de séléction");
-        System.out.println("\t1. Lister les affaires");
+        System.out.println("\t1. Consulter les affaires");
         System.out.println("\t2. Réaliser une opération sur une affaire");
-        System.out.println("\t3. Quitter");
+        System.out.println("\t3. Notification des affaires");
+        System.out.println("\t4. Quitter");
     }
     
     /**
@@ -178,4 +174,5 @@ public class CLICA {
             }
         } while (true);
     }
+
 }

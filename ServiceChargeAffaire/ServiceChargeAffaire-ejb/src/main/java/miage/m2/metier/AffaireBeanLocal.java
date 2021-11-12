@@ -10,7 +10,6 @@ import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.exceptions.AucuneAffaireException;
 import miage.m2.exceptions.CreerAffaireException;
 
 /**
@@ -20,7 +19,7 @@ import miage.m2.exceptions.CreerAffaireException;
 @Local
 public interface AffaireBeanLocal {
     
-    public ArrayList<Affaire> affairesPourUnChargerAffaire(int idChargerAffaire) throws AucuneAffaireException;
+    public ArrayList<Affaire> affairesPourUnChargerAffaire(int idChargerAffaire);
     
     public Affaire creerAffaire(String nomC, String prenomC, String adresseC, String mailC, int telC, String locC, ChargerAffaire chargerAffaire) throws CreerAffaireException;
     

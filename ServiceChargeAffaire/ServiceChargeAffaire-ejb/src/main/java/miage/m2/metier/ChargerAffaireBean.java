@@ -7,7 +7,6 @@ package miage.m2.metier;
 import java.util.HashMap;
 import javax.ejb.Singleton;
 import miage.m2.entities.ChargerAffaire;
-import miage.m2.exceptions.AucuneAffaireException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
 
 /**

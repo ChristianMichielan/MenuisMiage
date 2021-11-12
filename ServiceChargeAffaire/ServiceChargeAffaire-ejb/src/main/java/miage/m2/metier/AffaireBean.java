@@ -11,7 +11,6 @@ import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.exceptions.AucuneAffaireException;
 import miage.m2.exceptions.CreerAffaireException;
 
 /**
@@ -35,22 +34,16 @@ public class AffaireBean implements AffaireBeanLocal {
     /**
      * Retourne les affaire pour un chargé d'affaire
      * @param idChargerAffaire
-     * @return
-     * @throws AucuneAffaireException 
+     * @return 
      */
     @Override
-    public ArrayList<Affaire> affairesPourUnChargerAffaire(int idChargerAffaire) throws AucuneAffaireException {
+    public ArrayList<Affaire> affairesPourUnChargerAffaire(int idChargerAffaire) {
          // Recherche les affaire du CA selon son id
         ArrayList toReturn = new ArrayList();
         for(Affaire affaire : this.listeAffaire.values()) {
             if(affaire.getChargerAffaire().getIdChargerAffaire() == idChargerAffaire) {
                 toReturn.add(affaire);
             }
-        }
-        
-        // Vérifie que le CA a bien des affaires
-        if (toReturn.isEmpty()) {
-            throw new AucuneAffaireException();
         }
         
         return toReturn;        
@@ -70,13 +63,13 @@ public class AffaireBean implements AffaireBeanLocal {
      */
     @Override
     public Affaire creerAffaire(String nomC, String prenomC, String adresseC, String mailC, int telC, String locC, ChargerAffaire chargerAffaire) throws CreerAffaireException {
-        Affaire newAffaire = new Affaire(this.idAffaire, nomC, prenomC, adresseC, mailC, telC, locC, chargerAffaire);
-        this.listeAffaire.put(newAffaire.getIdAffaire(), newAffaire);
-        
         // Vérification que pour l'id de la nouvelle affaire auncune affaire existe déjà
-        if (this.listeAffaire.get(newAffaire.getIdAffaire()) == null) {
+        if (this.listeAffaire.get(this.idAffaire) == null) {
             throw new CreerAffaireException();
         }
+        
+        Affaire newAffaire = new Affaire(this.idAffaire, nomC, prenomC, adresseC, mailC, telC, locC, chargerAffaire);
+        this.listeAffaire.put(newAffaire.getIdAffaire(), newAffaire);
         
         this.idAffaire++;
         return newAffaire;

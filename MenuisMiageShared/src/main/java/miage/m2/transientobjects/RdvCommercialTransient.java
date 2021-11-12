@@ -4,11 +4,13 @@
  */
 package miage.m2.transientobjects;
 
+import java.io.Serializable;
+
 /**
  * Transient Object qui permet de retourner les informations conernant le rdv Commercial à un chargé d'affaire
  * @author QuentinDouris
  */
-public class RdvCommercialTransient {
+public class RdvCommercialTransient implements Serializable {
     private String date;
     private int idCommercial;
 

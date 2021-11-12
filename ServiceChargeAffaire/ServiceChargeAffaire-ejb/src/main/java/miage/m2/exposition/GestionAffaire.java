@@ -9,7 +9,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
-import miage.m2.exceptions.AucuneAffaireException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
@@ -46,13 +45,7 @@ public class GestionAffaire implements GestionAffaireRemote {
         ArrayList<Affaire> listAffaire = new ArrayList<>();
         
         // Recherche les affaires d'un CA
-        try {
-            listAffaire = affaireBean.affairesPourUnChargerAffaire(idCA);
-        } catch (AucuneAffaireException ex) {
-            System.out.println("***** " + ex.getMessage());
-        }
-        
-        System.out.println("**** coucou j'ai continué...");
+        listAffaire = affaireBean.affairesPourUnChargerAffaire(idCA);
         
         // Construction du transient object
         ArrayList<AffaireTransient> affairesTransient = new ArrayList<>();
@@ -65,8 +58,6 @@ public class GestionAffaire implements GestionAffaireRemote {
         
         // Objet transient à retourner
         ChargerAffaireTransient caTransient = new ChargerAffaireTransient(chargerAffaire.getNom(), chargerAffaire.getPrenom(), affairesTransient);
-        
-        System.out.println("**** le ca trouvé : " + caTransient.getNom());
         
         return caTransient;
     }
