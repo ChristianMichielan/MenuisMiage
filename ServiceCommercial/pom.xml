@@ -6,8 +6,17 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ServiceCommercial</name>
-<modules>  <module>ServiceCommercial-ear</module>
-    <module>ServiceCommercial-web</module>
-    <module>ServiceCommercial-ejb</module>
-  </modules>
+  
+    <modules>  <module>ServiceCommercial-ear</module>
+        <module>ServiceCommercial-web</module>
+        <module>ServiceCommercial-ejb</module>
+    </modules>
+  
+    <dependencies>
+        <dependency>
+          <groupId>miage.m2</groupId>
+          <artifactId>MenuisMiageShared</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
 </project>

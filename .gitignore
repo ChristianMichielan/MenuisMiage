@@ -8,3 +8,6 @@
 /appAchat/target/
 /AppAchat/target/
 /MenuisMiageShared/target/
+/ServiceCommercial/ServiceCommercial-ejb/target/
+/ServiceCommercial/ServiceCommercial-web/target/
+/ServiceCommercial/ServiceCommercial-ear/target/
