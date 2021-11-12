@@ -62,9 +62,9 @@ public class AffaireBean implements AffaireBeanLocal {
      * @throws CreerAffaireException 
      */
     @Override
-    public Affaire creerAffaire(String nomC, String prenomC, String adresseC, String mailC, int telC, String locC, ChargerAffaire chargerAffaire) throws CreerAffaireException {
+    public Affaire creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String telC, String locC, ChargerAffaire chargerAffaire) throws CreerAffaireException {
         // Vérification que pour l'id de la nouvelle affaire auncune affaire existe déjà
-        if (this.listeAffaire.get(this.idAffaire) == null) {
+        if (this.listeAffaire.get(this.idAffaire) != null) {
             throw new CreerAffaireException();
         }
         

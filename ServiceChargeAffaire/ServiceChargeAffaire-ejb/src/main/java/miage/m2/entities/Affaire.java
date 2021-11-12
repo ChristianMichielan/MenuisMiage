@@ -15,7 +15,7 @@ public class Affaire {
     private String prenomC;
     private String adresseC;
     private String mailC;
-    private int telC;
+    private String telC;
     private String locC;
     private EtatAffaire etat;
     private ChargerAffaire chargerAffaire;
@@ -31,7 +31,7 @@ public class Affaire {
      * @param locC
      * @param chargerAffaire
      */
-    public Affaire(int idAffaire, String nomC, String prenomC, String adresseC, String mailC, int telC, String locC, ChargerAffaire chargerAffaire) {
+    public Affaire(int idAffaire, String nomC, String prenomC, String adresseC, String mailC, String telC, String locC, ChargerAffaire chargerAffaire) {
         this.idAffaire = idAffaire;
         this.nomC = nomC;
         this.prenomC = prenomC;
@@ -127,7 +127,7 @@ public class Affaire {
      * Retourne le numéro de téléphone du client de l'affaire
      * @return 
      */
-    public int getTelC() {
+    public String getTelC() {
         return telC;
     }
 
@@ -135,7 +135,7 @@ public class Affaire {
      * Défini le numéro de téléphone du client de l'affaire
      * @param telC 
      */
-    public void setTelC(int telC) {
+    public void setTelC(String telC) {
         this.telC = telC;
     }
 

@@ -27,9 +27,11 @@ public class CLICA {
     public static void afficherDeuxiemeMenu() {
         System.out.println("Menu de séléction");
         System.out.println("\t1. Consulter les affaires");
-        System.out.println("\t2. Réaliser une opération sur une affaire");
-        System.out.println("\t3. Notification des affaires");
-        System.out.println("\t4. Quitter");
+        System.out.println("\t2. Créer une affaire");
+        System.out.println("\t3. Définir rendez-vous commercial");
+        System.out.println("\t4. Définir rendez-vous poseur ");
+        System.out.println("\t5. Consulter les notifications");
+        System.out.println("\t6. Quitter");
     }
     
     /**
