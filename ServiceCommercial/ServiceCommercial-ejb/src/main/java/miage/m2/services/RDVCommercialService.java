@@ -4,6 +4,7 @@
  */
 package miage.m2.services;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -29,6 +30,8 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
     @EJB
     private CommercialBeanLocal commercialBean;
     
+    private Gson gson;
+    
     /**
      * Obtenir un rendez-vous commercial selon la disponoibilité du client
      * @param dateDispoC
@@ -37,7 +40,7 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
      * @throws AucunCommercialException 
      */
     @Override
-    public RDVCommercialTransient obtenirRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException, AucunCommercialException {
+    public String obtenirRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException, AucunCommercialException {
         // Récupére tous les commerciaux présents dans le système
         ArrayList<Commercial> listeCommerciaux = this.commercialBean.obtenirLesCommerciaux();
         
@@ -63,7 +66,7 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
         
         // Le commercial a été trouvé
         RDVCommercialTransient rdvTransient = new RDVCommercialTransient(dateDispoC, commercialDisponible.getIdCommercial());
-        return rdvTransient;
+        return this.gson.toJson(rdvTransient);
     }
 
     /**
@@ -74,7 +77,7 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
      * @throws CommercialInconnuException 
      */
     @Override
-    public boolean valideRDVCommercial(RDVCommercialTransient rdv) throws CommercialConfirmRDVException, CommercialInconnuException {
+    public String valideRDVCommercial(RDVCommercialTransient rdv) throws CommercialConfirmRDVException, CommercialInconnuException {
         Commercial commercial = this.commercialBean.obtenirCommercial(rdv.getIdCommercial());
         boolean commercialDispo = this.rdvCommercialBean.commercialDisponible(rdv.getDate(), commercial);
         
@@ -90,7 +93,7 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
                 rdv.getLocalisation(), 
                 rdv.getIdAffaire());
         
-        return true;
+        return this.gson.toJson(rdv);
     }
 
 }

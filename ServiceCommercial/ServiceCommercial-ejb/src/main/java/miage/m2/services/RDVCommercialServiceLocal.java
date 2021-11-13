@@ -18,7 +18,7 @@ import miage.m2.transientobjects.RDVCommercialTransient;
 @Local
 public interface RDVCommercialServiceLocal {
     
-    public RDVCommercialTransient obtenirRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException, AucunCommercialException;
+    public String obtenirRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException, AucunCommercialException;
 
-    public boolean valideRDVCommercial(RDVCommercialTransient rdv) throws CommercialConfirmRDVException, CommercialInconnuException;
+    public String valideRDVCommercial(RDVCommercialTransient rdv) throws CommercialConfirmRDVException, CommercialInconnuException;
 }
