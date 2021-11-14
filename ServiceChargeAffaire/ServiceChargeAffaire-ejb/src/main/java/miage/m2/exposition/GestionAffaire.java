@@ -4,11 +4,21 @@
  */
 package miage.m2.exposition;
 
+import com.google.gson.Gson;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
+import miage.m2.exceptions.APIException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
@@ -17,6 +27,7 @@ import miage.m2.metier.AffaireBeanLocal;
 import miage.m2.metier.ChargerAffaireBeanLocal;
 import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
+import miage.m2.transientobjects.PropositionRDVCommercialTransient;
 import miage.m2.transientobjects.RDVCommercialTransient;
 
 /**
@@ -32,6 +43,8 @@ public class GestionAffaire implements GestionAffaireRemote {
     @EJB
     private AffaireBeanLocal affaireBean;
     
+    // URL de l'API du Service Commercial
+    private final String SERVICE_COMMERCIAL_ENDPOINT = "http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/";
     
      /**
      * Authentification du charger d'affaire
@@ -72,12 +85,51 @@ public class GestionAffaire implements GestionAffaireRemote {
      * @param dateDispoC
      * @return
      * @throws CommercialDemandeRDVException 
+     * @throws APIException 
      */
     @Override
-    public RDVCommercialTransient demandeDisponibiliteRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+    public PropositionRDVCommercialTransient demandeDisponibiliteRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException, APIException {
         // Appel l'API du service commercial pour OBTENIR une possibilité de RDV
+        try {
+            // Configure la connexion à l'API
+            URL url = new URL(SERVICE_COMMERCIAL_ENDPOINT + dateDispoC);
+            HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
+            connexion.setRequestMethod("GET");
+            int codeResponse = connexion.getResponseCode();
+            
+            // Aucune disponibilité
+            if (codeResponse ==  204) {
+                throw new CommercialDemandeRDVException();
+            }
+            
+            // Une erreur lors de l'exécution de la requête est survenu
+            if(codeResponse != 200) {
+                throw new APIException(codeResponse, SERVICE_COMMERCIAL_ENDPOINT);
+            }
+            
+            // Un rdv est disponible : lecture de la réponse de l'API
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
+            String inputLine;
+            StringBuilder reponseJson = new StringBuilder();
+            while ((inputLine = buffer.readLine()) != null) {
+                    reponseJson.append(inputLine);
+            }
+            buffer.close();
+            
+            // Ferme la connexion
+            connexion.disconnect();
+            
+            // Lecture du JSON
+            Gson gson = new Gson();
+            PropositionRDVCommercialTransient propositionRdv = gson.fromJson(reponseJson.toString(), PropositionRDVCommercialTransient.class);
+            return propositionRdv;
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GestionAffaire.class.getName()).log(Level.SEVERE, null, ex);
+            throw new APIException(500, SERVICE_COMMERCIAL_ENDPOINT);
+        } catch (IOException ex) {
+            Logger.getLogger(GestionAffaire.class.getName()).log(Level.SEVERE, null, ex);
+            throw new APIException(500, SERVICE_COMMERCIAL_ENDPOINT);
+        }
     }
 
     /**
