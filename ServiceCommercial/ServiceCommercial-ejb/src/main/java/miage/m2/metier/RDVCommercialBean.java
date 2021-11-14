@@ -36,9 +36,10 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
     public ArrayList<RDVCommercial> rdvPourUnCommercial(int idCommercial) {
         ArrayList<RDVCommercial> listeRdv = new ArrayList<>();
         
-        for(RDVCommercial rdv : this.listeRDVCommercial.values()) {
-            if(rdv.getCommecial().getIdCommercial() == idCommercial) {
-                listeRdv.add(rdv);
+        for(Integer id : this.listeRDVCommercial.keySet()) {
+            RDVCommercial currentRdv = this.listeRDVCommercial.get(id);
+            if(currentRdv.getCommecial().getIdCommercial() == idCommercial) {
+                listeRdv.add(currentRdv);
             }
         }
         
@@ -80,16 +81,31 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
         int cptRdv = 0;
         ArrayList<RDVCommercial> listeRdv = this.rdvPourUnCommercial(commercial.getIdCommercial());
         
+        // Le commercial n'a pas de rdv, il est donc disponible
+        if(listeRdv.isEmpty()) {
+            System.out.println(" **** le commercial pas de rdv donc il est disponible !");
+            return commercialDispo;
+        }
+        
+        System.out.println(" **** le commercial a : " + listeRdv.size() + " rdv");
+        
         // Parcours les rdv du commercial pour vérifier sa disponibilité
-        while(commercialDispo == true || cptRdv < listeRdv.size()) {
+        while(commercialDispo == true && cptRdv < listeRdv.size()) {
+            System.out.println("******** Parcours le rdv de rang : " + cptRdv);
+            
             // Récupere le rdv courant 
             RDVCommercial rdvCourrant = listeRdv.get(cptRdv);
-            if(rdvCourrant.getDateRdvCom() == date){
-                   commercialDispo = false;
+
+            if(rdvCourrant.getDateRdvCom().equals(date)){
+                System.out.println("******** Le commercial n'est pas disponible à cette date !");
+                commercialDispo = false;
             }
             // Passage au rdv suivant
             cptRdv++;
         }
+        
+        System.out.println(" ***** Satut du commercial parcouru : " + commercialDispo);
+        
         
         return commercialDispo;
     }

@@ -15,6 +15,7 @@ import miage.m2.exceptions.CommercialDemandeRDVException;
 import miage.m2.exceptions.CommercialInconnuException;
 import miage.m2.metier.CommercialBeanLocal;
 import miage.m2.metier.RDVCommercialBeanLocal;
+import miage.m2.transientobjects.PropositionRDVCommercialTransient;
 import miage.m2.transientobjects.RDVCommercialTransient;
 
 /**
@@ -30,7 +31,15 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
     @EJB
     private CommercialBeanLocal commercialBean;
     
+    // Convertisseur JSON
     private Gson gson;
+
+    /**
+     * Constructeur
+     */
+    public RDVCommercialService() {
+        this.gson = new Gson();
+    }    
     
     /**
      * Obtenir un rendez-vous commercial selon la disponoibilité du client
@@ -50,7 +59,7 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
         Commercial commercialDisponible = null;        
   
         // Tant que l'on a pas trouvé de commercial disponible on parcours la liste de commercial
-        while(commercialDispo == false || cptCommercial < listeCommerciaux.size()) {
+        while(commercialDispo == false && cptCommercial < listeCommerciaux.size()) {
             
             commercialDisponible = listeCommerciaux.get(cptCommercial);
             commercialDispo = this.rdvCommercialBean.commercialDisponible(dateDispoC, commercialDisponible);
@@ -65,7 +74,7 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
         }
         
         // Le commercial a été trouvé
-        RDVCommercialTransient rdvTransient = new RDVCommercialTransient(dateDispoC, commercialDisponible.getIdCommercial());
+        PropositionRDVCommercialTransient rdvTransient = new PropositionRDVCommercialTransient(commercialDisponible.getIdCommercial(), dateDispoC);
         return this.gson.toJson(rdvTransient);
     }
 

@@ -15,17 +15,21 @@ public class RDVCommercialTransient implements Serializable {
     private int idCommercial;
     private String localisation;
     private int idAffaire;
-
+    
     /**
      * Constructeur
      * @param date
-     * @param idCommercial 
+     * @param idCommercial
+     * @param localisation
+     * @param idAffaire 
      */
-    public RDVCommercialTransient(String date, int idCommercial) {
+    public RDVCommercialTransient(String date, int idCommercial, String localisation, int idAffaire) {
         this.date = date;
         this.idCommercial = idCommercial;
+        this.localisation = localisation;
+        this.idAffaire = idAffaire;
     }
-
+    
     /**
      * Retourne la date du rendez-vous commercial
      * @return 

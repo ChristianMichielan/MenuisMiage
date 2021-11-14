@@ -4,7 +4,6 @@
  */
 package miage.m2;
 
-import com.google.gson.Gson;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
@@ -13,11 +12,20 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.enterprise.context.RequestScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import miage.m2.exceptions.AucunCommercialException;
+import miage.m2.exceptions.CommercialConfirmRDVException;
+import miage.m2.exceptions.CommercialDemandeRDVException;
+import miage.m2.exceptions.CommercialInconnuException;
+import miage.m2.transientobjects.RDVCommercialTransient;
 
 /**
  * REST Web Service
@@ -28,13 +36,11 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 public class RdvcommercialResource {
 
-    miage.m2.services.RDVCommercialServiceLocal rDVCommercialService = lookupRDVCommercialServiceLocal();
+    // Lien avec notre service
+    miage.m2.services.RDVCommercialServiceLocal rdvCommercialService = lookupRDVCommercialServiceLocal();
 
     @Context
     private UriInfo context;
-    
-    private Gson gson;
-    
 
     /**
      * Creates a new instance of RdvcommercialResource
@@ -43,25 +49,55 @@ public class RdvcommercialResource {
     }
 
     /**
-     * Retrieves representation of an instance of miage.m2.RdvcommercialResource
-     * @return an instance of java.lang.String
+     * Obtenir un RDV pour un commercial disponible à une date définie selon la disponibilité du client
+     * url : http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/01-01-2022
+     * @param date
+     * @return 
      */
     @GET
+    @Path("{date}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+    public Response getJson(@PathParam("date") String date) {
+        try {
+            return Response.ok(this.rdvCommercialService.obtenirRdvCommercial(date)).build();
+        } catch (AucunCommercialException | CommercialDemandeRDVException ex) {
+            Logger.getLogger(RdvcommercialResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Status.NO_CONTENT).build();
+        }
     }
-
+    
     /**
-     * PUT method for updating or creating an instance of RdvcommercialResource
-     * @param content representation for the resource
+     * Ajoute un RDV pour un commercial
+     * * url : http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/
+     * @param daterdv
+     * @param idcommercial
+     * @param localisation
+     * @param idaffaire 
      */
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    public Response postJson(@QueryParam("daterdv") String daterdv, @QueryParam("idcommercial") String idcommercial, @QueryParam("localisation") String localisation, @QueryParam("idaffaire") String idaffaire) {
+        try {
+            // Cast les paramètres pour les mettre dans le bon type
+            int idCommercialParam = Integer.parseInt(idcommercial);
+            int idAffaireParam = Integer.parseInt(idaffaire);
+            
+            // Création de l'objet transient
+            RDVCommercialTransient rdv = new RDVCommercialTransient(daterdv, idCommercialParam, localisation, idAffaireParam);
+            
+            // Valide auprès du service
+            return Response.ok(this.rdvCommercialService.valideRDVCommercial(rdv)).build();
+        } catch (CommercialConfirmRDVException | CommercialInconnuException | NumberFormatException ex) {
+            Logger.getLogger(RdvcommercialResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Status.REQUESTED_RANGE_NOT_SATISFIABLE).build();
+        }
     }
-
+    
+    
+    /**
+     * Recherche le service configuré pour interragir avec le système
+     * @return 
+     */
     private miage.m2.services.RDVCommercialServiceLocal lookupRDVCommercialServiceLocal() {
         try {
             javax.naming.Context c = new InitialContext();

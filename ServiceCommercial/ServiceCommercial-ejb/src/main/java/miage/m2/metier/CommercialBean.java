@@ -54,7 +54,12 @@ public class CommercialBean implements CommercialBeanLocal {
      */
     @Override
     public ArrayList<Commercial> obtenirLesCommerciaux() throws AucunCommercialException {
-        ArrayList<Commercial> listeCommerciaux = (ArrayList<Commercial>) this.listeCommercial.values();
+        ArrayList<Commercial> listeCommerciaux = new ArrayList<>();
+        
+        // Parcours la map et rempli la liste des commerciaux
+        for(Integer id : this.listeCommercial.keySet()) {
+            listeCommerciaux.add(this.listeCommercial.get(id));
+        }
         
         return listeCommerciaux;
     }
@@ -68,9 +73,9 @@ public class CommercialBean implements CommercialBeanLocal {
         this.listeCommercial.put(com1.getIdCommercial(), com1);
         this.idCommercial++;
         
-        Commercial com2 = new Commercial(this.idCommercial, "Tata", "Jean");
-        this.listeCommercial.put(com2.getIdCommercial(), com2);
-        this.idCommercial++;
+//        Commercial com2 = new Commercial(this.idCommercial, "Tata", "Jean");
+//        this.listeCommercial.put(com2.getIdCommercial(), com2);
+//        this.idCommercial++;
     }
 
 }
