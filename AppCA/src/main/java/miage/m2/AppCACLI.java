@@ -4,14 +4,20 @@
  */
 package miage.m2;
 
+import com.sun.enterprise.admin.remote.reader.CliActionReport;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJBException;
+import miage.m2.exceptions.APIException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
+import miage.m2.exceptions.CommercialDemandeRDVException;
 import miage.m2.exceptions.CreerAffaireException;
 import miage.m2.exposition.GestionAffaireRemote;
 import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
+import miage.m2.transientobjects.PropositionRDVCommercialTransient;
 
 
 /**
@@ -24,9 +30,8 @@ public class AppCACLI {
     private final int MENU_CHOIX_DEUX = 2;
     private final int MENU_CHOIX_TROIS = 3;
     private final int MENU_CHOIX_QUATRE = 4;
-    private final int MENU_CHOIX_CINQ = 5;
     private final int MENU_CHOIX_QUITTER_PREMIER_MENU = 2;
-    private final int MENU_CHOIX_QUITTER_DEUXIEME_MENU = 6;
+    private final int MENU_CHOIX_QUITTER_DEUXIEME_MENU = 5;
     private final int PREMIER_MENU_CHOIX_MAX = 2;
     private final int DEUXIEME_MENU_CHOIX_MAX = 6;
     private final GestionAffaireRemote gestionAffaireRemote;
@@ -92,12 +97,9 @@ public class AppCACLI {
                         this.creerAffaire();
                         break;
                     case MENU_CHOIX_TROIS:
-                        this.definirRdvCommercialAffaire();
-                        break;
-                    case MENU_CHOIX_QUATRE:
                         this.definirRdvPoseAffaire();
                         break;
-                    case MENU_CHOIX_CINQ:
+                    case MENU_CHOIX_QUATRE:
                         this.voirNotificationAffaire();
                         break;
                     case MENU_CHOIX_QUITTER_DEUXIEME_MENU:
@@ -106,7 +108,7 @@ public class AppCACLI {
                     default:
                         CLICA.afficherMessageErreur("Vous avez fait une erreur dans votre choix");
                 }
-            } while (choixDeuxiemeMenu != 6);
+            } while (choixDeuxiemeMenu != 5);
         } while (!menuDeuxQuitte);
     }
     
@@ -136,11 +138,14 @@ public class AppCACLI {
     }
     
     /**
-     * Créer une affaire
+     * Créer une affaire dans le système avec la saisie du RDV commercial
      */
     private void creerAffaire() {
         try {
-            String nomC, prenomC, adresseC, mailC, telC, loC;
+            String nomC, prenomC, adresseC, mailC, telC, loC, dateDispoClient;
+            boolean deuxiemeTentative = false;
+            boolean confirmation;
+            PropositionRDVCommercialTransient proposition = null;
 
             // Message d'accueil
             CLICA.afficherTitreChoix("creer affaire");
@@ -157,8 +162,32 @@ public class AppCACLI {
             // Création de l'affaire dans le système
             int idAffaireCreee = this.gestionAffaireRemote.creerAffaire(nomC, prenomC, adresseC, mailC, telC, loC, this.chargerAffaire.getId());
             CLICA.afficherInformationFinEtape("Affaire n°" + idAffaireCreee + " créée avec succès !");
+            
+            // Définir le RDV commercial pour l'affaire
+            CLICA.afficherInformation("Définir le rendez-vous commercial");
+            dateDispoClient = CLICA.saisirChaine(scanner, "Saisir la date de disponibilité du client (dd-mm-yyyy) : ");
+            
+            // Vérification de la disponibilité du commercial
+            do {
+                if(deuxiemeTentative) {
+                    CLICA.afficherInformation("Aucun commercial disponible à cette date");
+                }
+                proposition = this.gestionAffaireRemote.demandeDisponibiliteRdvCommercial(dateDispoClient);
+                deuxiemeTentative = true;
+            } while (proposition == null);
+            
+            // Confirmer la proposition du rendez-vous commercial 
+            confirmation = CLICA.yesNoQuestion(scanner, "Confirmer le rendez-vous du " + proposition.getDate() + " ? (y/n) ");
+            if(confirmation) {
+                
+                // API
+                
+                CLICA.afficherInformationFinEtape("Rendez-vous commercial pour l'affaire n° " + idAffaireCreee + " CONFIRME pour le " + proposition.getDate());
+            } else {
+                CLICA.afficherInformationFinEtape("Rendez-vous commercial impossible.");
+            }
         } 
-        catch (ChargerAffaireInconnuException | CreerAffaireException ex) {
+        catch (ChargerAffaireInconnuException | CreerAffaireException | CommercialDemandeRDVException | APIException ex) {
             CLICA.afficherMessageErreur(ex.getMessage());
         }
     }
@@ -190,14 +219,6 @@ public class AppCACLI {
         } catch (ChargerAffaireInconnuException ex) {
             CLICA.afficherMessageErreur(ex.getMessage());
         }
-    }
-    
-    /**
-     * Définir un rendez-vous commercial pour une affaire
-     */
-    private void definirRdvCommercialAffaire() {
-        // TODO Etape 0 et 1
-        CLICA.afficherInformation("TODO / définir rdv commercial");
     }
     
     /**

@@ -4,6 +4,7 @@
  */
 package miage.m2.exposition;
 
+
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -66,6 +67,7 @@ public class GestionAffaire implements GestionAffaireRemote {
      * @param prenomC
      * @param adresseC
      * @param mailC
+     * @param telC
      * @param locC
      * @param idChargerAffaire
      * @return 
@@ -99,7 +101,7 @@ public class GestionAffaire implements GestionAffaireRemote {
             
             // Aucune disponibilité
             if (codeResponse ==  204) {
-                throw new CommercialDemandeRDVException();
+                return null;
             }
             
             // Une erreur lors de l'exécution de la requête est survenu
@@ -109,12 +111,14 @@ public class GestionAffaire implements GestionAffaireRemote {
             
             // Un rdv est disponible : lecture de la réponse de l'API
             BufferedReader buffer = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
-            String inputLine;
+            String inputline;
             StringBuilder reponseJson = new StringBuilder();
-            while ((inputLine = buffer.readLine()) != null) {
-                    reponseJson.append(inputLine);
+            while ((inputline = buffer.readLine()) != null) {
+                    reponseJson.append(inputline);
             }
             buffer.close();
+            
+            System.out.println("résultat JSON : \n" + reponseJson.toString());
             
             // Ferme la connexion
             connexion.disconnect();
@@ -122,6 +126,7 @@ public class GestionAffaire implements GestionAffaireRemote {
             // Lecture du JSON
             Gson gson = new Gson();
             PropositionRDVCommercialTransient propositionRdv = gson.fromJson(reponseJson.toString(), PropositionRDVCommercialTransient.class);
+            System.out.println("résultat Objet : " + propositionRdv.getDate());
             return propositionRdv;
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestionAffaire.class.getName()).log(Level.SEVERE, null, ex);
