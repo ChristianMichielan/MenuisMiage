@@ -1,0 +1,13 @@
+/ServiceAchat/ServiceAchat-ejb/target/
+/ServiceAchat/ServiceAchat-web/target/
+/ServiceAchat/ServiceAchat-ear/target/
+/ServiceChargeAffaire/ServiceChargeAffaire-ejb/target/
+/ServiceChargeAffaire/ServiceChargeAffaire-web/target/
+/ServiceChargeAffaire/ServiceChargeAffaire-ear/target/
+/AppCA/target/
+/appAchat/target/
+/AppAchat/target/
+/MenuisMiageShared/target/
+/ServiceCommercial/ServiceCommercial-ejb/target/
+/ServiceCommercial/ServiceCommercial-web/target/
+/ServiceCommercial/ServiceCommercial-ear/target/
