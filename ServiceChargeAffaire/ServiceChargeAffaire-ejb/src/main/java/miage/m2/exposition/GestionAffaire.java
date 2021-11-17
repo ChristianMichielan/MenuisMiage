@@ -12,14 +12,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
+import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.APIException;
+import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
@@ -104,7 +110,7 @@ public class GestionAffaire implements GestionAffaireRemote {
                 return null;
             }
             
-            // Une erreur lors de l'exécution de la requête est survenu
+            // Une erreur lors de l'exécution de la requête est survenue
             if(codeResponse != 200) {
                 throw new APIException(codeResponse, SERVICE_COMMERCIAL_ENDPOINT);
             }
@@ -118,15 +124,12 @@ public class GestionAffaire implements GestionAffaireRemote {
             }
             buffer.close();
             
-            System.out.println("résultat JSON : \n" + reponseJson.toString());
-            
             // Ferme la connexion
             connexion.disconnect();
             
             // Lecture du JSON
             Gson gson = new Gson();
             PropositionRDVCommercialTransient propositionRdv = gson.fromJson(reponseJson.toString(), PropositionRDVCommercialTransient.class);
-            System.out.println("résultat Objet : " + propositionRdv.getDate());
             return propositionRdv;
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestionAffaire.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,36 +143,116 @@ public class GestionAffaire implements GestionAffaireRemote {
     /**
      * Valide un rendez-vous commercial auprès du service Commercial
      * @param rdvCommercial
-     * @param localisation
-     * @param idAffaire
      * @return
      * @throws CommercialConfirmRDVException 
      */
     @Override
-    public boolean validerRdvCommercial(RDVCommercialTransient rdvCommercial, String localisation, int idAffaire) throws CommercialConfirmRDVException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+    public boolean validerRdvCommercial(RDVCommercialTransient rdvCommercial) throws CommercialConfirmRDVException, APIException {
         // Appel l'API du service commercial pour VALIDER le rdv
+        try {
+            // Définition des paramètres de la requête
+            Map<String, Object> parametres = new LinkedHashMap<>();
+            parametres.put("daterdv", rdvCommercial.getDate());
+            parametres.put("idcommercial", String.valueOf(rdvCommercial.getIdCommercial()));
+            parametres.put("localisation", rdvCommercial.getLocalisation());
+            parametres.put("idaffaire", String.valueOf(rdvCommercial.getIdAffaire()));
+
+            // Construction de la chaine qui va contenir les paramètres
+            StringBuilder postDonnees = new StringBuilder();
+            for(Map.Entry param : parametres.entrySet()) {
+                if(postDonnees.length() != 0) {
+                    postDonnees.append("&");
+                }
+                postDonnees.append(URLEncoder.encode(String.valueOf(param.getKey()), StandardCharsets.UTF_8.toString()));
+                postDonnees.append('=');
+                postDonnees.append(URLEncoder.encode((String) param.getValue()));
+            }
+
+            // Configure la connexion à l'API
+            System.out.println("*** req API : " + SERVICE_COMMERCIAL_ENDPOINT + "?" + postDonnees.toString());
+            URL url = new URL(SERVICE_COMMERCIAL_ENDPOINT + "?" + postDonnees.toString());
+            HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
+            connexion.setRequestMethod("POST");
+
+            int codeResponse = connexion.getResponseCode();
+
+            // Une erreur lors de l'exécution de la requête est survenue
+            if(codeResponse != 200) {
+                System.out.println("ERREUR API");
+            }
+
+            // Le rdv est confirmé : lecture de la réponse de l'API
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
+            String inputline;
+            StringBuilder reponseJson = new StringBuilder();
+            while ((inputline = buffer.readLine()) != null) {
+                reponseJson.append(inputline);
+            }
+            buffer.close();
+
+            // Ferme la connexion
+            connexion.disconnect();
+
+            // Lecture du JSON
+            Gson gson = new Gson();
+            RDVCommercialTransient validationRdv = gson.fromJson(reponseJson.toString(), RDVCommercialTransient.class);
+                        
+            return validationRdv != null;
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GestionAffaire.class.getName()).log(Level.SEVERE, null, ex);
+            throw new APIException(500, SERVICE_COMMERCIAL_ENDPOINT);
+        } catch (IOException ex) {
+            Logger.getLogger(GestionAffaire.class.getName()).log(Level.SEVERE, null, ex);
+            throw new APIException(500, SERVICE_COMMERCIAL_ENDPOINT);
+        }
     }
 
     /**
      * Retourne les affaires d'un CA
      * @param idCA
      * @return
-     * @throws ChargerAffaireInconnuException 
      */
     @Override
-    public ArrayList<AffaireTransient> affairesDuChargerAffaire(int idCA) throws ChargerAffaireInconnuException {
+    public ArrayList<AffaireTransient> affairesDuChargerAffaire(int idCA) {
         // Recherche les affaires d'un CA
         ArrayList<Affaire> listAffaireCA = affaireBean.affairesPourUnChargerAffaire(idCA);
         ArrayList<AffaireTransient> listAffaireCATransient = new ArrayList<>();
         
         // Construit un transient object
         for(Affaire affaire : listAffaireCA) {
-            listAffaireCATransient.add(new AffaireTransient(affaire.getIdAffaire(), affaire.getNomC(), affaire.getEtat().name()));
+            listAffaireCATransient.add(new AffaireTransient(affaire.getIdAffaire(), affaire.getNomC(), affaire.getEtat().name(), affaire.getLocC()));
         }
         
         return listAffaireCATransient;
+    }
+
+    /**
+     * Retourne les affaires d'un CA qui sont attente d'un RDV Commercial
+     * @param idCA
+     * @return
+     */
+    @Override
+    public ArrayList<AffaireTransient> affairesPourUnChargerAffaireRdvCommercialNonSaisi(int idCA) {
+        // Recherche les affaires d'un CA
+        ArrayList<Affaire> listAffaireCA = affaireBean.affairesPourUnChargerAffaireRdvCommercialNonSaisi(idCA);
+        ArrayList<AffaireTransient> listAffaireCATransient = new ArrayList<>();
+        
+        // Construit un transient object
+        for(Affaire affaire : listAffaireCA) {
+            listAffaireCATransient.add(new AffaireTransient(affaire.getIdAffaire(), affaire.getNomC(), affaire.getEtat().name(), affaire.getLocC()));
+        }
+        
+        return listAffaireCATransient;
+    }
+
+    /**
+     * Met à jour l'état de l'affaire après que le rdv commercial ait été saisi (mais pas encore réalisé)
+     * @param idAffaire
+     * @throws AffaireInconnueException 
+     */
+    @Override
+    public void modifierEtatAffaireAttenteRdvCommercial(int idAffaire) throws AffaireInconnueException {
+        this.affaireBean.modifierEtatAffaire(idAffaire, EtatAffaire.ATTENTE_RDV_COMMERCIAL);
     }
     
 }

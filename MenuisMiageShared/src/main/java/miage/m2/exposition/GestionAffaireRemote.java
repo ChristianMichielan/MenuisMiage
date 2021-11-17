@@ -7,6 +7,7 @@ package miage.m2.exposition;
 import java.util.ArrayList;
 import javax.ejb.Remote;
 import miage.m2.exceptions.APIException;
+import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
@@ -15,6 +16,7 @@ import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
 import miage.m2.transientobjects.PropositionRDVCommercialTransient;
 import miage.m2.transientobjects.RDVCommercialTransient;
+
 
 /**
  * Interface Remote GestionAffaireRemote, elle représente les différentes signatures des opérations possibles par un Chargé d'Affaire depuis son poste client lourd.
@@ -29,7 +31,11 @@ public interface GestionAffaireRemote {
     
     public PropositionRDVCommercialTransient demandeDisponibiliteRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException, APIException;
     
-    public boolean validerRdvCommercial(RDVCommercialTransient rdvCommercial, String localisation, int idAffaire) throws CommercialConfirmRDVException;
+    public boolean validerRdvCommercial(RDVCommercialTransient rdv) throws CommercialConfirmRDVException, APIException;
     
-    public ArrayList<AffaireTransient> affairesDuChargerAffaire(int idCA) throws ChargerAffaireInconnuException;
+    public ArrayList<AffaireTransient> affairesDuChargerAffaire(int idCA);
+    
+    public ArrayList<AffaireTransient> affairesPourUnChargerAffaireRdvCommercialNonSaisi(int idCA);
+    
+    public void modifierEtatAffaireAttenteRdvCommercial(int idAffaire) throws AffaireInconnueException;
 }

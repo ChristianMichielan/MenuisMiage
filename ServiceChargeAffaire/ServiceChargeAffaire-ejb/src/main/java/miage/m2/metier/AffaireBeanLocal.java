@@ -21,6 +21,8 @@ public interface AffaireBeanLocal {
     
     public ArrayList<Affaire> affairesPourUnChargerAffaire(int idChargerAffaire);
     
+    public ArrayList<Affaire> affairesPourUnChargerAffaireRdvCommercialNonSaisi(int idChargerAffaire);
+    
     public Affaire creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String telC, String locC, ChargerAffaire chargerAffaire) throws CreerAffaireException;
     
     public void modifierEtatAffaire(int idAffaire, EtatAffaire etat) throws AffaireInconnueException;

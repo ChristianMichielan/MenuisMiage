@@ -9,11 +9,12 @@ package miage.m2.entities;
  * @author QuentinDouris
  */
 public enum EtatAffaire {
+    RDV_COMMERCIAL_NON_SAISIE,
     ATTENTE_RDV_COMMERCIAL,
     COMMANDE_SAISIE,
     COMMANDE_ENVOYEE_FOURNISSEUR,
-    ATTENTE_RDV_POSSEUR,
-    ATTENTE_POSE,
+    RDV_POSEUR_NON_SAISIE,
+    ATTENTE_RDV_POSEUR,
     POSE_VALIDEE,
     CLOTUREE
 }

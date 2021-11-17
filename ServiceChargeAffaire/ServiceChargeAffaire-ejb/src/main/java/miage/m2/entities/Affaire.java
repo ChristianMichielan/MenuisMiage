@@ -39,7 +39,7 @@ public class Affaire {
         this.mailC = mailC;
         this.telC = telC;
         this.locC = locC;
-        this.etat = EtatAffaire.ATTENTE_RDV_COMMERCIAL;
+        this.etat = EtatAffaire.RDV_COMMERCIAL_NON_SAISIE;
         this.chargerAffaire = chargerAffaire;
     }   
 

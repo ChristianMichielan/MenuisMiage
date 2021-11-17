@@ -38,7 +38,7 @@ public class AffaireBean implements AffaireBeanLocal {
      */
     @Override
     public ArrayList<Affaire> affairesPourUnChargerAffaire(int idChargerAffaire) {
-         // Recherche les affaire du CA selon son id
+        // Recherche les affaire du CA selon son id
         ArrayList toReturn = new ArrayList();
         for(Affaire affaire : this.listeAffaire.values()) {
             if(affaire.getChargerAffaire().getIdChargerAffaire() == idChargerAffaire) {
@@ -89,6 +89,24 @@ public class AffaireBean implements AffaireBeanLocal {
         }
         
         this.listeAffaire.get(idAffaire).setEtat(etat);        
+    }
+
+    /**
+     * Retourne les affaire pour un CA qui sont en attente d'un RDV Commercial
+     * @param idChargerAffaire
+     * @return 
+     */
+    @Override
+    public ArrayList<Affaire> affairesPourUnChargerAffaireRdvCommercialNonSaisi(int idChargerAffaire) {
+        // Recherche les affaire du CA selon son id et leur état
+        ArrayList toReturn = new ArrayList();
+        for(Affaire affaire : this.listeAffaire.values()) {
+            if(affaire.getChargerAffaire().getIdChargerAffaire() == idChargerAffaire && affaire.getEtat() == EtatAffaire.RDV_COMMERCIAL_NON_SAISIE) {
+                toReturn.add(affaire);
+            }
+        }
+        
+        return toReturn;  
     }
     
 }

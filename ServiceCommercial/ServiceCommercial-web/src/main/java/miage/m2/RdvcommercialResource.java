@@ -68,7 +68,7 @@ public class RdvcommercialResource {
     
     /**
      * Ajoute un RDV pour un commercial
-     * * url : http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/
+     * url : http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/
      * @param daterdv
      * @param idcommercial
      * @param localisation
