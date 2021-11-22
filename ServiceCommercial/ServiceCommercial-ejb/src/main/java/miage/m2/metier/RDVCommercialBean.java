@@ -25,6 +25,7 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
      */
     public RDVCommercialBean() {
         this.listeRDVCommercial = new HashMap<>();
+        //this.initialiserDonnees();
     }
 
     /**
@@ -108,6 +109,20 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
         
         
         return commercialDispo;
+    }
+    
+    /**
+     * Permet d'initialiser des données de test
+     */
+    private void initialiserDonnees() {
+        Commercial com = new Commercial(200, "Hoauzi", "Simon");
+        Commercial com2 = new Commercial(300, "Titi", "Toto");
+        RDVCommercial rdvC = new RDVCommercial("12-01-01",1,com,"Toulouse");
+        RDVCommercial rdvC2 = new RDVCommercial("10-02-02",2,com2,"Paris");
+        RDVCommercial rdvC3 = new RDVCommercial("10-02-03",3,com,"Paris");
+        this.listeRDVCommercial.put(1,rdvC);
+        this.listeRDVCommercial.put(2,rdvC2);
+        this.listeRDVCommercial.put(3,rdvC3);
     }
     
 }

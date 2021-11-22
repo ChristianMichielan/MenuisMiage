@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import miage.m2.entities.Commercial;
+import miage.m2.entities.RDVCommercial;
 import miage.m2.exceptions.AucunCommercialException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
@@ -103,6 +104,17 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
                 rdv.getIdAffaire());
         
         return this.gson.toJson(rdv);
+    }
+    
+    /**
+     * Obtenir les RDV pour un commercial
+     * @param idCommercial
+     * @return le planning d'un commercial
+     */
+    @Override
+    public String obtenirPlanning(int idCommercial) {
+        ArrayList<RDVCommercial> listeRDV = this.rdvCommercialBean.rdvPourUnCommercial(idCommercial);
+        return this.gson.toJson(listeRDV);
     }
 
 }
