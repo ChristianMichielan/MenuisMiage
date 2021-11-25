@@ -17,6 +17,11 @@
             <artifactId>MenuisMiageShared</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>miage.m2</groupId>
+            <artifactId>MenuisMiageSharedAchat</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
   
 </project>

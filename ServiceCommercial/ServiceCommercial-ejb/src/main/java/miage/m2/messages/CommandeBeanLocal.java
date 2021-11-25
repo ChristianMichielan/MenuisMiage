@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package messages;
+package miage.m2.messages;
 
 import javax.ejb.Local;
 import javax.jms.JMSException;
