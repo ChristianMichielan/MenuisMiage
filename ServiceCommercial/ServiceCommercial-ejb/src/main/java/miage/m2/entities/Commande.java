@@ -10,7 +10,7 @@ package miage.m2.entities;
  */
 public class Commande {
     private String refCatCmd;
-    private double coteLangeurCmd;
+    private double coteLargeurCmd;
     private double coteLongueurCmd;
     private double montantNegoCmd;
     private int idAffaire;
@@ -19,15 +19,15 @@ public class Commande {
     /**
      * Constructeur
      * @param refCatCmd
-     * @param coteLangeurCmd
+     * @param coteLargeurCmd
      * @param coteLongueurCmd
      * @param montantNegoCmd
      * @param idAffaire
      * @param commercial 
      */
-    public Commande(String refCatCmd, double coteLangeurCmd, double coteLongueurCmd, double montantNegoCmd, int idAffaire, Commercial commercial) {
+    public Commande(String refCatCmd, double coteLargeurCmd, double coteLongueurCmd, double montantNegoCmd, int idAffaire, Commercial commercial) {
         this.refCatCmd = refCatCmd;
-        this.coteLangeurCmd = coteLangeurCmd;
+        this.coteLargeurCmd = coteLargeurCmd;
         this.coteLongueurCmd = coteLongueurCmd;
         this.montantNegoCmd = montantNegoCmd;
         this.idAffaire = idAffaire;
@@ -54,16 +54,16 @@ public class Commande {
      * Retourne la mesure de la cote (largeur) de la commande
      * @return 
      */
-    public double getCoteLangeurCmd() {
-        return coteLangeurCmd;
+    public double getCoteLargeurCmd() {
+        return coteLargeurCmd;
     }
 
     /**
      * Défini la mesure de la cote (largeur) de la commande
      * @param coteLangeurCmd 
      */
-    public void setCoteLangeurCmd(double coteLangeurCmd) {
-        this.coteLangeurCmd = coteLangeurCmd;
+    public void setCoteLargeurCmd(double coteLangeurCmd) {
+        this.coteLargeurCmd = coteLangeurCmd;
     }
 
     /**
