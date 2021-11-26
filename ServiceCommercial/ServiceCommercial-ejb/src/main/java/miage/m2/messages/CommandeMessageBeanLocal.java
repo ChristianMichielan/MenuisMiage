@@ -5,9 +5,9 @@
 package miage.m2.messages;
 
 import javax.ejb.Local;
-import javax.jms.JMSException;
-import miage.m2.entities.Commercial;
+import miage.m2.exceptions.CommercialInconnuException;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
+import miage.m2.transientobjects.CommandeTransient;
 
 /**
  * Interface de l'EJB qui notifi les différents services de la saisie de la commande
@@ -15,5 +15,5 @@ import miage.m2.sharedachat.exceptions.SaisirCommandeException;
  */
 @Local
 public interface CommandeMessageBeanLocal {
-    public void saisirCommande(String refCatCmd, double coteLargeurCmd, double coteLongueurCmd, double montantNegoCmd, int idAffaire, Commercial commercial) throws JMSException, SaisirCommandeException;
+    public CommandeTransient saisirCommande(String refCatCmd, double coteLargeurCmd, double coteLongueurCmd, double montantNegoCmd, int idAffaire, int idCommercial) throws SaisirCommandeException, CommercialInconnuException;
 }

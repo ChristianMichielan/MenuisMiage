@@ -18,7 +18,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import miage.m2.exceptions.CommercialInconnuException;
 import miage.m2.messages.CommandeMessageBeanLocal;
+import miage.m2.sharedachat.exceptions.SaisirCommandeException;
 
 /**
  * REST Web Service
@@ -43,20 +45,31 @@ public class GestioncommandeResource {
     /**
      * Ajoute une commande
      * url : http://localhost:8080/ServiceCommercial-web/webresources/commande/
-     * @param : refCatCmd
-     * @param : coteLargeurCmd
-     * @param : coteLongueurCmd
-     * @param : double montantNegoCmd
-     * @param : idAffaire
-     * @param : commercial
-     * @return  
+     * @param refCatCmd
+     * @param coteLargeurCmd
+     * @param coteLongueurCmd
+     * @param montantNegoCmd
+     * @param idAffaire
+     * @param idCommercial
+     * @return 
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postJson(@QueryParam("daterdv") String daterdv, @QueryParam("idcommercial") String idcommercial, @QueryParam("localisation") String localisation, @QueryParam("idaffaire") String idaffaire) {
-        // To do faire la insérer la commande dans le système et envoyer le message par l'intermédiaire du bean
-        
-        return null;
+    public Response postJson(@QueryParam("refcatcmd") String refCatCmd, @QueryParam("cotelargeurcmd") String coteLargeurCmd, @QueryParam("cotelongueurcmd") String coteLongueurCmd, @QueryParam("montantnegocmd") String montantNegoCmd, @QueryParam("idaffaire") String idAffaire, @QueryParam("idcommercial") String idCommercial) {
+        try {
+            // Conversion des paramètres
+            double coteLargeurCmdParam = Double.parseDouble(coteLargeurCmd);
+            double coteLongueurCmdParam = Double.parseDouble(coteLongueurCmd);
+            double montantNegoCmdParam = Double.parseDouble(montantNegoCmd);
+            int idAffaireParam = Integer.parseInt(idAffaire);
+            int idCommercialParam = Integer.parseInt(idCommercial);
+            
+            // Enregistrement de la commande dans le système
+            return Response.ok(this.commandeMessageBean.saisirCommande(refCatCmd, coteLargeurCmdParam, coteLongueurCmdParam, montantNegoCmdParam, idAffaireParam, idCommercialParam)).build();
+        } catch (SaisirCommandeException | CommercialInconnuException ex) {
+            Logger.getLogger(RdvcommercialResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.REQUESTED_RANGE_NOT_SATISFIABLE).build();
+        }
     }
 
     /**

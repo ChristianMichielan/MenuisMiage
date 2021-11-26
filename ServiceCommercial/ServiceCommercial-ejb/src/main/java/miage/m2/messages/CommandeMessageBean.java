@@ -19,7 +19,9 @@ import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.Topic;
 import miage.m2.entities.Commercial;
+import miage.m2.exceptions.CommercialInconnuException;
 import miage.m2.metier.CommandeBeanLocal;
+import miage.m2.metier.CommercialBeanLocal;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
 import miage.m2.transientobjects.CommandeTransient;
 
@@ -29,6 +31,9 @@ import miage.m2.transientobjects.CommandeTransient;
  */
 @Stateless
 public class CommandeMessageBean implements CommandeMessageBeanLocal {
+
+    @EJB
+    private CommercialBeanLocal commercialBean;
 
     @EJB
     private CommandeBeanLocal commandeBean;
@@ -87,19 +92,32 @@ public class CommandeMessageBean implements CommandeMessageBeanLocal {
      * @param coteLongueurCmd
      * @param montantNegoCmd
      * @param idAffaire
-     * @param commercial
+     * @param idCommercial
+     * @return 
      * @throws JMSException
      * @throws SaisirCommandeException 
+     * @throws miage.m2.exceptions.CommercialInconnuException 
      */
     @Override
-    public void saisirCommande(String refCatCmd, double coteLargeurCmd, double coteLongueurCmd, double montantNegoCmd, int idAffaire, Commercial commercial) throws JMSException, SaisirCommandeException {
-        // Création de la commande dans le sytème
-        this.commandeBean.creerCommande(refCatCmd, coteLargeurCmd, coteLongueurCmd, montantNegoCmd, idAffaire, commercial);
+    public CommandeTransient saisirCommande(String refCatCmd, double coteLargeurCmd, double coteLongueurCmd, double montantNegoCmd, int idAffaire, int idCommercial) throws SaisirCommandeException, CommercialInconnuException {
+        try {
+            // Création de la commande dans le sytème
+            Commercial commercial = this.commercialBean.obtenirCommercial(idCommercial);
+            this.commandeBean.creerCommande(refCatCmd, coteLargeurCmd, coteLongueurCmd, montantNegoCmd, idAffaire, commercial);
+            
+            // Notifi les Services abonnés à la file
+            CommandeTransient commandeJms = new CommandeTransient(idAffaire);
+            System.out.println(" **** CommandeMessageBean : JE VAIS envoyer le message dans le topic");
+            this.sendJMSMessageToCommandeSaisie(commandeJms);
+            System.out.println(" **** CommandeMessageBean : J'AI envoyé le message dans le topic");
+            
+            // Retourne l'objet envoyé dans le JMS
+            return commandeJms;
+        } catch (JMSException ex) {
+            Logger.getLogger(CommandeMessageBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        // Notifi les Services abonnés à la file
-        CommandeTransient commandeJms = new CommandeTransient(idAffaire);
-        System.out.println(" **** CommandeMessageBean : JE VAIS envoyer le message dans le topic");
-        this.sendJMSMessageToCommandeSaisie(commandeJms);
-        System.out.println(" **** CommandeMessageBean : J'AI envoyé le message dans le topic");
+        // La commande n'a pas pu être saisi correctement
+        throw new SaisirCommandeException();
     }
 }
