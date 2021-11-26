@@ -23,7 +23,7 @@ import miage.m2.exceptions.CommercialInconnuException;
 import miage.m2.metier.CommandeBeanLocal;
 import miage.m2.metier.CommercialBeanLocal;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
-import miage.m2.transientobjects.CommandeTransient;
+import miage.m2.sharedachat.transientobjects.CommandeTransient;
 
 /**
  * EJB qui notifi les différents services de la saisie de la commande

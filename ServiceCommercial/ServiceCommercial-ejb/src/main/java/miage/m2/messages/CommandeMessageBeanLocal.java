@@ -7,7 +7,7 @@ package miage.m2.messages;
 import javax.ejb.Local;
 import miage.m2.exceptions.CommercialInconnuException;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
-import miage.m2.transientobjects.CommandeTransient;
+import miage.m2.sharedachat.transientobjects.CommandeTransient;
 
 /**
  * Interface de l'EJB qui notifi les différents services de la saisie de la commande
