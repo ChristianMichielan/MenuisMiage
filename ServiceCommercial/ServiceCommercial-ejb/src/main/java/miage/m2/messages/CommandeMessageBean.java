@@ -107,7 +107,7 @@ public class CommandeMessageBean implements CommandeMessageBeanLocal {
             // Notifi les Services abonnés à la file
             CommandeTransient commandeJms = new CommandeTransient(idAffaire, refCatCmd, coteLargeurCmd, coteLongueurCmd);
             this.sendJMSMessageToCommandeSaisie(commandeJms);
-            System.out.println(" **** Service Commercial - CommandeMessageBean : message déposé dans le topic CommandeSaisie");
+            System.out.println(" *** Service Commercial - CommandeMessageBean : message déposé dans le topic CommandeSaisie");
             
             // Retourne l'objet envoyé dans le JMS
             return commandeJms;

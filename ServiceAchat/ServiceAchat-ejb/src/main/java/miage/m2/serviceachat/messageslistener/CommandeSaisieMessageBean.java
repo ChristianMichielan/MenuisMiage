@@ -7,11 +7,13 @@ package miage.m2.serviceachat.messageslistener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import miage.m2.serviceachat.messagesproducer.CommandeTransmiseFournBeanLocal;
 import miage.m2.sharedachat.transientobjects.CommandeTransient;
 
 /**
@@ -28,6 +30,9 @@ import miage.m2.sharedachat.transientobjects.CommandeTransient;
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
 public class CommandeSaisieMessageBean implements MessageListener {
+
+    @EJB
+    private CommandeTransmiseFournBeanLocal commandeTransmiseFournBean;
     
     /**
      * Constructeur
@@ -51,9 +56,10 @@ public class CommandeSaisieMessageBean implements MessageListener {
                 System.out.println("\t\t refCatCmd : " + object.getRefCatCmd());
                 System.out.println("\t\t CoteLargeurCmd : " + object.getCoteLargeurCmd());
                 System.out.println("\t\t CoteLongueurCmd : " + object.getCoteLongueurCmd());
+                System.out.println();
                 
                 // Notifi le ServiceChargerAffaire et ServiceComptable que la commande a été passé auprès du fournisseur
-                
+                this.commandeTransmiseFournBean.commandePasseeFournisseur(object.getIdAffaire());
             } catch (JMSException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(CommandeSaisieMessageBean.class.getName()).log(Level.SEVERE, null, ex);

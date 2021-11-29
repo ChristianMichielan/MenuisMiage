@@ -19,8 +19,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import miage.m2.exceptions.CommercialInconnuException;
-import miage.m2.messages.CommandeMessageBeanLocal;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
+import miage.m2.messages.CommandeMessageBeanLocal;
 
 /**
  * REST Web Service
