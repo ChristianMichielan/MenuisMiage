@@ -12,26 +12,25 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
+import javax.jms.TextMessage;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.metier.AffaireBeanLocal;
-import miage.m2.sharedachat.transientobjects.CommandeTransient;
 
 /**
- * EJB qui écoute les messages déposés dans le topic CommandeSaisie
+ * EJB qui écoute les messages déposés dans le topic CommandeTransmiseFourn
  * @author QuentinDouris
  */
-@MessageDriven(mappedName = "CommandeSaisie", activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "CommandeSaisie")
+@MessageDriven(mappedName = "CommandeTransmiseFourn", activationConfig = {
+    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "CommandeTransmiseFourn")
     ,
         @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
     ,
-        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "CommandeSaisie")
+        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "CommandeTransmiseFourn")
     ,
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
-public class CommandeSaisieMessageBean implements MessageListener {
+public class CommandeTransmiseFournMessageBean implements MessageListener {
 
     @EJB
     private AffaireBeanLocal affaireBean;
@@ -39,7 +38,7 @@ public class CommandeSaisieMessageBean implements MessageListener {
     /**
      * Constructeur
      */
-    public CommandeSaisieMessageBean() {
+    public CommandeTransmiseFournMessageBean() {
     }
     
     /**
@@ -48,15 +47,15 @@ public class CommandeSaisieMessageBean implements MessageListener {
      */
     @Override
     public void onMessage(Message message) {
-        if (message instanceof ObjectMessage) {
+        if (message instanceof TextMessage) {
             try {
                 // Lire le message reçu
-                CommandeTransient object = (CommandeTransient) ((ObjectMessage) message).getObject();
-                System.out.println(" *** Message recu dans ServiceAchat (CommandeSaisi) : " + object.getIdAffaire());
-                this.affaireBean.modifierEtatAffaire(object.getIdAffaire(), EtatAffaire.COMMANDE_SAISIE);
+                int idAffaireMessage = Integer.parseInt(((TextMessage) message).getText());
+                this.affaireBean.modifierEtatAffaire(idAffaireMessage, EtatAffaire.COMMANDE_ENVOYEE_FOURNISSEUR);
+                System.out.println(" *** Message recu dans ServiceChargerAffaire (CommandeTransmiseFournisseur) :  : " + idAffaireMessage);
             } catch (JMSException | AffaireInconnueException ex) {
                 System.out.println(ex.getMessage());
-                Logger.getLogger(CommandeSaisieMessageBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CommandeTransmiseFournMessageBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

@@ -10,4 +10,12 @@
     <module>ServiceComptable-web</module>
     <module>ServiceComptable-ejb</module>
   </modules>
+  
+  <dependencies>
+      <dependency>
+        <groupId>miage.m2</groupId>
+        <artifactId>MenuisMiageSharedComptable</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        </dependency>
+  </dependencies>
 </project>
