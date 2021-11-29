@@ -93,8 +93,7 @@ public class CommandeMessageBean implements CommandeMessageBeanLocal {
      * @param montantNegoCmd
      * @param idAffaire
      * @param idCommercial
-     * @return 
-     * @throws JMSException
+     * @return
      * @throws SaisirCommandeException 
      * @throws miage.m2.exceptions.CommercialInconnuException 
      */
@@ -106,10 +105,9 @@ public class CommandeMessageBean implements CommandeMessageBeanLocal {
             this.commandeBean.creerCommande(refCatCmd, coteLargeurCmd, coteLongueurCmd, montantNegoCmd, idAffaire, commercial);
             
             // Notifi les Services abonnés à la file
-            CommandeTransient commandeJms = new CommandeTransient(idAffaire);
-            System.out.println(" **** CommandeMessageBean : JE VAIS envoyer le message dans le topic");
+            CommandeTransient commandeJms = new CommandeTransient(idAffaire, refCatCmd, coteLargeurCmd, coteLongueurCmd);
             this.sendJMSMessageToCommandeSaisie(commandeJms);
-            System.out.println(" **** CommandeMessageBean : J'AI envoyé le message dans le topic");
+            System.out.println(" **** Service Commercial - CommandeMessageBean : message déposé dans le topic CommandeSaisie");
             
             // Retourne l'objet envoyé dans le JMS
             return commandeJms;

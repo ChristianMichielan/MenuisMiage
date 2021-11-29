@@ -2,20 +2,16 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.messages;
+package miage.m2.serviceachat.messageslistener;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
-import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import miage.m2.entities.EtatAffaire;
-import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.metier.AffaireBeanLocal;
 import miage.m2.sharedachat.transientobjects.CommandeTransient;
 
 /**
@@ -23,7 +19,7 @@ import miage.m2.sharedachat.transientobjects.CommandeTransient;
  * @author QuentinDouris
  */
 @MessageDriven(mappedName = "CommandeSaisie", activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "CommandeSaisie")
+    @ActivationConfigProperty(propertyName = "clientIdServiceAchat", propertyValue = "CommandeSaisie")
     ,
         @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
     ,
@@ -32,15 +28,16 @@ import miage.m2.sharedachat.transientobjects.CommandeTransient;
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
 public class CommandeSaisieMessageBean implements MessageListener {
-
-    @EJB
-    private AffaireBeanLocal affaireBean;
     
+    /**
+     * Constructeur
+     */
     public CommandeSaisieMessageBean() {
     }
     
     /**
-     * Réceptionne les messages recus dans le topic
+     * Réceptionne les messages reçus dans le topic
+     * On passe automatique la commande auprès du fournisseur (appel API simulé)
      * @param message 
      */
     @Override
@@ -49,9 +46,15 @@ public class CommandeSaisieMessageBean implements MessageListener {
             try {
                 // Lire le message reçu
                 CommandeTransient object = (CommandeTransient) ((ObjectMessage) message).getObject();
-                System.out.println("Message recu dans ServiceChargerAffaire (CommandeSaisi) : " + object.getIdAffaire());
-                this.affaireBean.modifierEtatAffaire(object.getIdAffaire(), EtatAffaire.COMMANDE_SAISIE);
-            } catch (JMSException | AffaireInconnueException ex) {
+                System.out.println(" *** Message recu dans ServiceAchat (CommandeSaisi) : " + object.getIdAffaire());
+                System.out.println(" *** [Simulation appel API Fournisseur] La commande a été passé auprès du fournisseur avec ces informations :");
+                System.out.println("\t\t refCatCmd : " + object.getRefCatCmd());
+                System.out.println("\t\t CoteLargeurCmd : " + object.getCoteLargeurCmd());
+                System.out.println("\t\t CoteLongueurCmd : " + object.getCoteLongueurCmd());
+                
+                // Notifi le ServiceChargerAffaire et ServiceComptable que la commande a été passé auprès du fournisseur
+                
+            } catch (JMSException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(CommandeSaisieMessageBean.class.getName()).log(Level.SEVERE, null, ex);
             }
