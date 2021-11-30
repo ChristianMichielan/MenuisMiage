@@ -48,6 +48,7 @@ public class EncaissementBean implements EncaissementBeanLocal {
         
         // Enregistrement de l'encaissement dans la collection
         this.listeEncaissement.put(newEncaissement.getIdAffaire(), newEncaissement);
+        System.out.println("\t\t *** log : Encaissement du PREMIER chèque : " + newEncaissement.getDateEncaissement1());
     }
 
     /**
@@ -67,6 +68,7 @@ public class EncaissementBean implements EncaissementBeanLocal {
         
         // Enregistre l'encaissement du deuxième chèque
         this.listeEncaissement.get(idAffaire).setDateEncaissement2(dateJour);
+        System.out.println("\t\t *** log : Encaissement du DEUXIEME chèque : " + this.listeEncaissement.get(idAffaire).getDateEncaissement1());
     }
     
     /**

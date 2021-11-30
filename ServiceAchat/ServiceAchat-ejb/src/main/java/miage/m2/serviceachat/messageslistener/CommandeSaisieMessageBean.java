@@ -14,6 +14,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import miage.m2.serviceachat.messagesproducer.CommandeTransmiseFournBeanLocal;
+import miage.m2.serviceachat.metier.CommandeFournisseurBeanLocal;
+import miage.m2.sharedachat.exceptions.CreerCommandeFournisseurException;
 import miage.m2.sharedachat.transientobjects.CommandeTransient;
 
 /**
@@ -30,6 +32,9 @@ import miage.m2.sharedachat.transientobjects.CommandeTransient;
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
 public class CommandeSaisieMessageBean implements MessageListener {
+
+    @EJB
+    private CommandeFournisseurBeanLocal commandeFournisseurBean;
 
     @EJB
     private CommandeTransmiseFournBeanLocal commandeTransmiseFournBean;
@@ -56,11 +61,13 @@ public class CommandeSaisieMessageBean implements MessageListener {
                 System.out.println("\t\t refCatCmd : " + object.getRefCatCmd());
                 System.out.println("\t\t CoteLargeurCmd : " + object.getCoteLargeurCmd());
                 System.out.println("\t\t CoteLongueurCmd : " + object.getCoteLongueurCmd());
-                System.out.println();
+
+                // Passe la commande auprès du fournisseur et l'enregsitre
+                this.commandeFournisseurBean.creerCommandeFournisseur(object.getIdAffaire());
                 
                 // Notifi le ServiceChargerAffaire et ServiceComptable que la commande a été passé auprès du fournisseur
                 this.commandeTransmiseFournBean.commandePasseeFournisseur(object.getIdAffaire());
-            } catch (JMSException ex) {
+            } catch (JMSException | CreerCommandeFournisseurException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(CommandeSaisieMessageBean.class.getName()).log(Level.SEVERE, null, ex);
             }

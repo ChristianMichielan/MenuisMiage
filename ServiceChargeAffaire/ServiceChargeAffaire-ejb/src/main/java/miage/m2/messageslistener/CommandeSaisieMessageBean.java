@@ -52,7 +52,7 @@ public class CommandeSaisieMessageBean implements MessageListener {
             try {
                 // Lire le message reçu
                 CommandeTransient object = (CommandeTransient) ((ObjectMessage) message).getObject();
-                System.out.println(" *** Message recu dans ServiceAchat (CommandeSaisi) : " + object.getIdAffaire());
+                System.out.println(" *** Message recu dans ServiceChargerAffaire (CommandeSaisi) : " + object.getIdAffaire());
                 this.affaireBean.modifierEtatAffaire(object.getIdAffaire(), EtatAffaire.COMMANDE_SAISIE);
             } catch (JMSException | AffaireInconnueException ex) {
                 System.out.println(ex.getMessage());
