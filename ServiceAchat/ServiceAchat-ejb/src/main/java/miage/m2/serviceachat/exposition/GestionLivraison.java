@@ -6,6 +6,7 @@ package miage.m2.serviceachat.exposition;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import miage.m2.serviceachat.messagesproducer.EnregistreLivraisonBeanLocal;
 import miage.m2.serviceachat.metier.CommandeFournisseurBeanLocal;
 import miage.m2.sharedachat.exceptions.ReceptionCommandeInconnuException;
 import miage.m2.sharedachat.transientobjects.ReceptionCommandeTransient;
@@ -18,16 +19,21 @@ import miage.m2.sharedachat.transientobjects.ReceptionCommandeTransient;
 public class GestionLivraison implements GestionLivraisonRemote {
 
     @EJB
+    private EnregistreLivraisonBeanLocal enregistreLivraisonBean;
+
+    @EJB
     private CommandeFournisseurBeanLocal commandeFournisseurBean;
     
+    
     /**
-     * Enregistre la livraison réceptionné dans le système
+     * Enregistre la livraison réceptionné dans le système et notifi la réception avec un JMS
      * @param receptionCommande
      * @throws ReceptionCommandeInconnuException 
      */
     @Override
     public void enregistrerLivraison(ReceptionCommandeTransient receptionCommande) throws ReceptionCommandeInconnuException {
-        this.commandeFournisseurBean.enregistrerReceptionCommande(receptionCommande.getIdLivraisonReceptionnee());
+        int idAffaireCommande = this.commandeFournisseurBean.enregistrerReceptionCommande(receptionCommande.getIdLivraisonReceptionnee());
+        this.enregistreLivraisonBean.commandeFournisseurReceptionnee(idAffaireCommande);
     }
 
 }

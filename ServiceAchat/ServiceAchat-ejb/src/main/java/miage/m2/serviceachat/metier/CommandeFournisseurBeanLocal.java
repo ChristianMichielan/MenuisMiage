@@ -17,6 +17,6 @@ public interface CommandeFournisseurBeanLocal {
     
     public void creerCommandeFournisseur(int idAffaire) throws CreerCommandeFournisseurException;
     
-    public void enregistrerReceptionCommande(int idLivraison) throws ReceptionCommandeInconnuException;
+    public int enregistrerReceptionCommande(int idLivraison) throws ReceptionCommandeInconnuException;
     
 }

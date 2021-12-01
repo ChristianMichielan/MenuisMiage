@@ -13,5 +13,16 @@
         <jndi-name>CommandeTransmiseFourn</jndi-name>
       </message-destination-ref>
     </ejb>
+    <ejb>
+      <ejb-name>EnregistreLivraisonBean</ejb-name>
+      <resource-ref>
+        <res-ref-name>CommandeSaisieFactory</res-ref-name>
+        <jndi-name>CommandeSaisieFactory</jndi-name>
+      </resource-ref>
+      <message-destination-ref>
+        <message-destination-ref-name>EnregistreLivraison</message-destination-ref-name>
+        <jndi-name>EnregistreLivraison</jndi-name>
+      </message-destination-ref>
+    </ejb>
   </enterprise-beans>
 </glassfish-ejb-jar>

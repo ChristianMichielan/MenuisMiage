@@ -19,7 +19,7 @@ import miage.m2.exceptions.CreerAffaireException;
  */
 @Singleton
 public class AffaireBean implements AffaireBeanLocal {
-
+    // La clé correspond à l'id de l'affaire
     private HashMap<Integer, Affaire> listeAffaire;
     private int idAffaire;
     
@@ -29,6 +29,8 @@ public class AffaireBean implements AffaireBeanLocal {
     public AffaireBean() {
         this.listeAffaire = new HashMap<>();
         this.idAffaire = 1;
+        
+        this.initialiserDonnees();
     }
 
     /**
@@ -107,6 +109,16 @@ public class AffaireBean implements AffaireBeanLocal {
         }
         
         return toReturn;  
+    }
+    
+    /**
+     * Initialise les données pour tester
+     */
+    private void initialiserDonnees() {
+        ChargerAffaire ca = new ChargerAffaire(1, "toto", "atata");
+        Affaire newAffaire = new Affaire(this.idAffaire, "toto", "tata", "toulouse", "toto.tata@gmail.fr", "0000000", "Toulouse", ca);
+        this.listeAffaire.put(newAffaire.getIdAffaire(), newAffaire);
+        this.idAffaire++;
     }
     
 }
