@@ -17,7 +17,7 @@ public class RMIMenuisMiageCA {
     private final static String GLASSFISH_ORB_HOST = "localhost";
     // A modifier selon la config (GlassFish admin console / Configurations / server-config / ORB / IIOP Listener / orb-listener
     private final static String GLASSFISH_ORB_PORT = "3700";
-    private final static String GESTION_AFFAIRE_EJB_URI = "java:global/ServiceChargeAffaire-ear/ServiceChargeAffaire-ejb-1.0-SNAPSHOT/GestionAffaire!miage.m2.exposition.GestionAffaireRemote";
+    private final static String GESTION_AFFAIRE_EJB_URI = "java:global/ServiceChargeAffaire-ear/ServiceChargeAffaire-ejb-1.0-SNAPSHOT/GestionAffaire";
 
     private InitialContext namingContext;
     private GestionAffaireRemote gestionAffaireRemote;

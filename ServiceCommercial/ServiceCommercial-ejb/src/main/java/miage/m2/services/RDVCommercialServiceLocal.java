@@ -6,6 +6,7 @@ package miage.m2.services;
 
 import javax.ejb.Local;
 import miage.m2.exceptions.AucunCommercialException;
+import miage.m2.exceptions.AucunPlanningCommercialException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
 import miage.m2.exceptions.CommercialInconnuException;
@@ -21,4 +22,6 @@ public interface RDVCommercialServiceLocal {
     public String obtenirRdvCommercial(String dateDispoC) throws CommercialDemandeRDVException, AucunCommercialException;
 
     public String valideRDVCommercial(RDVCommercialTransient rdv) throws CommercialConfirmRDVException, CommercialInconnuException;
+    
+    public String obtenirPlanning(int idCommercial) throws AucunPlanningCommercialException;
 }

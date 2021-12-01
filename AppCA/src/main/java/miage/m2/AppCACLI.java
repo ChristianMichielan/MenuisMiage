@@ -226,7 +226,7 @@ public class AppCACLI {
         do {
             idAffaireSelectionnee = CLICA.saisirEntier(scanner, "Saisir id de l'affaire : ", affaires.size());
             affaireSelectionnee = listeSelectionAffaire.get(idAffaireSelectionnee);
-        } while (idAffaireSelectionnee > affaires.size());
+        } while (affaireSelectionnee == null);
         
         // Définir le RDV commercial pour l'affaire
         CLICA.afficherInformation("Définir le rendez-vous commercial de l'affaire n° " + affaireSelectionnee.getIdAffaire());

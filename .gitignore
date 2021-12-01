@@ -11,3 +11,11 @@
 /ServiceCommercial/ServiceCommercial-ejb/target/
 /ServiceCommercial/ServiceCommercial-web/target/
 /ServiceCommercial/ServiceCommercial-ear/target/
+/ServiceComptable/ServiceComptable-ejb/target/
+/ServiceComptable/ServiceComptable-ear/target/
+/ServiceComptable/ServiceComptable-web/target/
+/ServicePoseur/ServicePoseur-ejb/target/
+/ServicePoseur/ServicePoseur-web/target/
+/ServicePoseur/ServicePoseur-ear/target/
+/MenuisMiageSharedAchat/target/
+/MenuisMiageSharedComptable/target/
