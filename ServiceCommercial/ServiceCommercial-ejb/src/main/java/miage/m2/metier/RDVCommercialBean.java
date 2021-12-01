@@ -84,45 +84,22 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
         
         // Le commercial n'a pas de rdv, il est donc disponible
         if(listeRdv.isEmpty()) {
-            System.out.println(" **** le commercial pas de rdv donc il est disponible !");
             return commercialDispo;
         }
-        
-        System.out.println(" **** le commercial a : " + listeRdv.size() + " rdv");
-        
+       
         // Parcours les rdv du commercial pour vérifier sa disponibilité
         while(commercialDispo == true && cptRdv < listeRdv.size()) {
-            System.out.println("******** Parcours le rdv de rang : " + cptRdv);
-            
             // Récupere le rdv courant 
             RDVCommercial rdvCourrant = listeRdv.get(cptRdv);
 
             if(rdvCourrant.getDateRdvCom().equals(date)){
-                System.out.println("******** Le commercial n'est pas disponible à cette date !");
                 commercialDispo = false;
             }
             // Passage au rdv suivant
             cptRdv++;
         }
         
-        System.out.println(" ***** Satut du commercial parcouru : " + commercialDispo);
-        
-        
         return commercialDispo;
-    }
-    
-    /**
-     * Permet d'initialiser des données de test
-     */
-    private void initialiserDonnees() {
-        Commercial com = new Commercial(200, "Hoauzi", "Simon");
-        Commercial com2 = new Commercial(300, "Titi", "Toto");
-        RDVCommercial rdvC = new RDVCommercial("12-01-01",1,com,"Toulouse");
-        RDVCommercial rdvC2 = new RDVCommercial("10-02-02",2,com2,"Paris");
-        RDVCommercial rdvC3 = new RDVCommercial("10-02-03",3,com,"Paris");
-        this.listeRDVCommercial.put(1,rdvC);
-        this.listeRDVCommercial.put(2,rdvC2);
-        this.listeRDVCommercial.put(3,rdvC3);
     }
     
 }

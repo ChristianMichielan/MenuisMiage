@@ -71,7 +71,6 @@ public class CommercialBean implements CommercialBeanLocal {
     private void initialiserDonneesCommercial() {
         Commercial com1 = new Commercial(this.idCommercial, "Hoauzi", "Simon");
         this.listeCommercial.put(com1.getIdCommercial(), com1);
-        System.out.println("id commercial créé : " + this.idCommercial);
         this.idCommercial++;
 
 //        Commercial com2 = new Commercial(this.idCommercial, "Tata", "Jean");

@@ -169,7 +169,7 @@ public class GestionAffaire implements GestionAffaireRemote {
             }
 
             // Configure la connexion à l'API
-            System.out.println("*** req API : " + SERVICE_COMMERCIAL_ENDPOINT + "?" + postDonnees.toString());
+            System.out.println("*** ServiceChargerAffaire - GestionAffaire - req API : " + SERVICE_COMMERCIAL_ENDPOINT + "?" + postDonnees.toString());
             URL url = new URL(SERVICE_COMMERCIAL_ENDPOINT + "?" + postDonnees.toString());
             HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
             connexion.setRequestMethod("POST");

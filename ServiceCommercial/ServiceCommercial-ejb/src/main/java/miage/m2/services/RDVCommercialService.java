@@ -61,7 +61,6 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
   
         // Tant que l'on a pas trouvé de commercial disponible on parcours la liste de commercial
         while(commercialDispo == false && cptCommercial < listeCommerciaux.size()) {
-            
             commercialDisponible = listeCommerciaux.get(cptCommercial);
             commercialDispo = this.rdvCommercialBean.commercialDisponible(dateDispoC, commercialDisponible);
             
