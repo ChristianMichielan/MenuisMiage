@@ -16,6 +16,7 @@ import javax.jms.TextMessage;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.metier.AffaireBeanLocal;
+import miage.m2.servicechargeraffaire.messagesproducer.NotificationAffaireBeanLocal;
 
 /**
  * EJB qui écoute les messages déposés dans la queue EnregistreLivraison
@@ -25,6 +26,9 @@ import miage.m2.metier.AffaireBeanLocal;
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class EnregistreLivraisonMessageBean implements MessageListener {
+
+    @EJB
+    private NotificationAffaireBeanLocal notificationAffaireBean;
 
     @EJB
     private AffaireBeanLocal affaireBean;
@@ -47,6 +51,9 @@ public class EnregistreLivraisonMessageBean implements MessageListener {
                 int idAffaireMessage = Integer.parseInt(((TextMessage) message).getText());
                 this.affaireBean.modifierEtatAffaire(idAffaireMessage, EtatAffaire.ATTENTE_RDV_POSEUR);
                 System.out.println(" *** Message recu dans ServiceChargerAffaire (EnregistreLivraison) : " + idAffaireMessage);
+                
+                // Notifi le charger d'affaire en charge de l'affaire du changement d'état
+                this.notificationAffaireBean.notifierChargerAffaire(idAffaireMessage);
             } catch (JMSException | AffaireInconnueException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(CommandeTransmiseFournMessageBean.class.getName()).log(Level.SEVERE, null, ex);

@@ -112,6 +112,25 @@ public class AffaireBean implements AffaireBeanLocal {
     }
     
     /**
+     * Retourne une affaire enregistrée dans le système selon son identifiant
+     * @param idAffaire
+     * @return
+     * @throws AffaireInconnueException 
+     */
+    @Override
+    public Affaire obtenirAffaire(int idAffaire) throws AffaireInconnueException {
+         // Vérification de l'existance de l'affaire
+        if(this.listeAffaire.get(idAffaire) == null) {
+            throw new AffaireInconnueException();
+        }
+        
+        return this.listeAffaire.get(idAffaire);
+    }
+    
+    
+    
+    
+    /**
      * Initialise les données pour tester
      */
     private void initialiserDonnees() {
