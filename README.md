@@ -26,6 +26,14 @@ son fonctionnement, nous avons mis en place différents clients.
 `ServicePoseur`  
 `MenuisMiageSharedPoseur`  
 
+## Architecture JMS
+
+//insérer l'architecture JMS 
+
 # Documentation des APIs
 
 Lien Swagger vers la documentation des APIs [MenuisMiage Swagger](https://app.swaggerhub.com/apis-docs/christian.michielan/MenuisMiage/1.0.0#/).
+
+# Configuration GlassFish
+
+Décrire la configuration requise pour glassFish (todo : Quentin)
