@@ -42,7 +42,7 @@ public class CommandeMessageBean implements CommandeMessageBeanLocal {
     private Topic commandeSaisie;
 
     @Resource(mappedName = "TPEAIConnectionFactory")
-    private ConnectionFactory commandeSaisieFactory;
+    private ConnectionFactory TPEAIConnectionFactory;
 
 
     /**
@@ -67,7 +67,7 @@ public class CommandeMessageBean implements CommandeMessageBeanLocal {
         Connection connection = null;
         Session session = null;
         try {
-            connection = commandeSaisieFactory.createConnection();
+            connection = TPEAIConnectionFactory.createConnection();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             MessageProducer messageProducer = session.createProducer(commandeSaisie);
             messageProducer.send(createJMSMessageForcommandeSaisie(session, messageData));

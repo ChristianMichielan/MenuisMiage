@@ -7,7 +7,9 @@ package miage.m2.serviceachat.metier;
 import java.util.HashMap;
 import javax.ejb.Singleton;
 import miage.m2.serviceachat.entities.CommandeFournisseur;
+import miage.m2.serviceachat.entities.EtatCommandeFournisseur;
 import miage.m2.sharedachat.exceptions.CreerCommandeFournisseurException;
+import miage.m2.sharedachat.exceptions.ReceptionCommandeInconnuException;
 
 /**
  * EJB qui stocke les informations des commandes passées auprès du fournisseur
@@ -48,7 +50,42 @@ public class CommandeFournisseurBean implements CommandeFournisseurBeanLocal {
     }
     
     /**
-     * Méthode qui simule l'appel à l'API du fournisseur
+     * Enregistre la réception de la commande fournisseur dans le système
+     * @param idLivraison
+     * @return 
+     * @throws ReceptionCommandeInconnuException 
+     */
+    @Override
+    public int enregistrerReceptionCommande(int idLivraison) throws ReceptionCommandeInconnuException {
+        boolean trouver = false;
+        int cpt = 0;
+        int idAffaireCommande = 0;
+        
+        // Vérifie l'existance de la commande saisie dans le système
+        while (trouver == false && cpt < this.listeCommandeFournisseur.size()) {
+            for(Integer idAffaire : this.listeCommandeFournisseur.keySet()) {
+                // Si la commande en cours de parcours correspond à la commande receptionnée
+                if(this.listeCommandeFournisseur.get(idAffaire).getRefCommandeFournisseur() == idLivraison) {
+                    idAffaireCommande = idAffaire;
+                    trouver = true;
+                }
+                cpt++;
+            }
+        }
+
+        // La commande est inconnu dans le système
+        if (trouver == false) {
+            throw new ReceptionCommandeInconnuException();
+        }
+     
+        // Enregistre la réception de la commande dans le système
+        this.listeCommandeFournisseur.get(idAffaireCommande).setEtatCommande(EtatCommandeFournisseur.RECEPTIONNEE);
+        
+        return idAffaireCommande;
+    }
+    
+    /**
+     * Simule l'appel à l'API du fournisseur
      * Le code d'appel à cette API devrait être écrit à l'intérieur
      * @return 
      */
@@ -57,6 +94,7 @@ public class CommandeFournisseurBean implements CommandeFournisseurBeanLocal {
         this.refCommandeFournisseur++;
         
         System.out.println("\t\t [Simulation retour API] Référence commande fournisseur générée : " + reponse);
+        
         return reponse;
     }
 

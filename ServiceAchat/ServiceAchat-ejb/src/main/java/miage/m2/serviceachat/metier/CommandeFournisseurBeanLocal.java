@@ -6,6 +6,7 @@ package miage.m2.serviceachat.metier;
 
 import javax.ejb.Local;
 import miage.m2.sharedachat.exceptions.CreerCommandeFournisseurException;
+import miage.m2.sharedachat.exceptions.ReceptionCommandeInconnuException;
 
 /**
  * Interface de l'EJB qui stocke les informations des commandes passées auprès du fournisseur
@@ -15,5 +16,7 @@ import miage.m2.sharedachat.exceptions.CreerCommandeFournisseurException;
 public interface CommandeFournisseurBeanLocal {
     
     public void creerCommandeFournisseur(int idAffaire) throws CreerCommandeFournisseurException;
+    
+    public int enregistrerReceptionCommande(int idLivraison) throws ReceptionCommandeInconnuException;
     
 }

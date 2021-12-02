@@ -2,36 +2,23 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2;
+package miage.m2.appachat;
 
 import java.util.Scanner;
 
 /**
- * Classe CLICA qui représente les interractions du CA avec la console.
+ * Classe CLIAchat qui représente les interractions du magasinier avec la console.
  * @author QuentinDouris
  */
-public class CLICA {
-
+public class CLIAchat {
+    
     /**
      * Premier menu avant connexion de l'utilisateur
      */
     public static void afficherPremierMenu() {
         System.out.println("Menu de séléction");
-        System.out.println("\t1. Authentification");
+        System.out.println("\t1. Enregistrer livraison");
         System.out.println("\t2. Quitter");
-    }
-
-    /**
-     * Deuxième menu l'utilisateur authentifier peut naviguer sur l'application
-     */
-    public static void afficherDeuxiemeMenu() {
-        System.out.println("Menu de séléction");
-        System.out.println("\t1. Consulter les affaires");
-        System.out.println("\t2. Créer une affaire");
-        System.out.println("\t3. Définir rendez-vous commercial");
-        System.out.println("\t4. Définir rendez-vous poseur ");
-        System.out.println("\t5. Consulter les notifications");
-        System.out.println("\t6. Quitter");
     }
     
     /**
@@ -39,13 +26,13 @@ public class CLICA {
      */
     public static void afficheDemarage() {
         System.out.println();
-        System.out.println("***** Application client lourd des Chargés d'Affaire *****"); 
+        System.out.println("***** Application client lourd du Service Achat *****"); 
         System.out.println();
-        System.out.println("**********************************************************"); 
-        System.out.println("********************** MenuisMIAGE ***********************"); 
-        System.out.println("**********************************************************"); 
+        System.out.println("******************************************************************"); 
+        System.out.println("********************** MenuisMIAGE - Achat ***********************"); 
+        System.out.println("******************************************************************"); 
         System.out.println();
-        System.out.println("********************** Bienvenue ! ***********************"); 
+        System.out.println("************************** Bienvenue ! ***************************"); 
         System.out.println();
     }
     
@@ -148,7 +135,7 @@ public class CLICA {
      */
     public static boolean yesNoQuestion(Scanner sc, String label){
         do {
-            String reponse = CLICA.saisirChaine(sc, label).toLowerCase();
+            String reponse = CLIAchat.saisirChaine(sc, label).toLowerCase();
             switch (reponse) {
                 case "y":
                     return true;
@@ -168,7 +155,7 @@ public class CLICA {
      */
     public static boolean yesQuestion(Scanner sc, String label){
         do {
-            String reponse = CLICA.saisirChaine(sc, label).toLowerCase();
+            String reponse = CLIAchat.saisirChaine(sc, label).toLowerCase();
             if (reponse.equals("y")) {
                 return true;
             } else {
@@ -176,5 +163,4 @@ public class CLICA {
             }
         } while (true);
     }
-
 }

@@ -16,33 +16,31 @@ import javax.jms.TextMessage;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.metier.AffaireBeanLocal;
+import miage.m2.servicechargeraffaire.messagesproducer.NotificationAffaireBeanLocal;
 
 /**
- * EJB qui écoute les messages déposés dans le topic CommandeTransmiseFourn
+ * EJB qui écoute les messages déposés dans la queue EnregistreLivraison
  * @author QuentinDouris
  */
-@MessageDriven(mappedName = "CommandeTransmiseFourn", activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "CommandeTransmiseFourn")
-    ,
-        @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
-    ,
-        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "CommandeTransmiseFourn")
-    ,
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
+@MessageDriven(mappedName = "EnregistreLivraison", activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
-public class CommandeTransmiseFournMessageBean implements MessageListener {
+public class EnregistreLivraisonMessageBean implements MessageListener {
+
+    @EJB
+    private NotificationAffaireBeanLocal notificationAffaireBean;
 
     @EJB
     private AffaireBeanLocal affaireBean;
     
     /**
      * Constructeur
-     */
-    public CommandeTransmiseFournMessageBean() {
+     */    
+    public EnregistreLivraisonMessageBean() {
     }
     
     /**
-     * Réceptionne les messages reçus dans le topic
+     * Receptionne les messages déposés dans la queue
      * @param message 
      */
     @Override
@@ -51,8 +49,11 @@ public class CommandeTransmiseFournMessageBean implements MessageListener {
             try {
                 // Lire le message reçu
                 int idAffaireMessage = Integer.parseInt(((TextMessage) message).getText());
-                this.affaireBean.modifierEtatAffaire(idAffaireMessage, EtatAffaire.COMMANDE_ENVOYEE_FOURNISSEUR);
-                System.out.println(" *** Message recu dans ServiceChargerAffaire (CommandeTransmiseFournisseur) : " + idAffaireMessage);
+                this.affaireBean.modifierEtatAffaire(idAffaireMessage, EtatAffaire.ATTENTE_RDV_POSEUR);
+                System.out.println(" *** Message recu dans ServiceChargerAffaire (EnregistreLivraison) : " + idAffaireMessage);
+                
+                // Notifi le charger d'affaire en charge de l'affaire du changement d'état
+                this.notificationAffaireBean.notifierChargerAffaire(idAffaireMessage);
             } catch (JMSException | AffaireInconnueException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(CommandeTransmiseFournMessageBean.class.getName()).log(Level.SEVERE, null, ex);

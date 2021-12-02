@@ -11,6 +11,7 @@ package miage.m2.serviceachat.entities;
 public class CommandeFournisseur {
     private int idAffaire;
     private int refCommandeFournisseur;
+    private EtatCommandeFournisseur etatCommande;
 
     /**
      * Constructeur
@@ -20,6 +21,7 @@ public class CommandeFournisseur {
     public CommandeFournisseur(int idAffaire, int refCommandeFournisseur) {
         this.idAffaire = idAffaire;
         this.refCommandeFournisseur = refCommandeFournisseur;
+        this.etatCommande = EtatCommandeFournisseur.ATTENTE_LIVRAISON;
     }
 
     /**
@@ -52,6 +54,22 @@ public class CommandeFournisseur {
      */
     public void setRefCommandeFournisseur(int refCommandeFournisseur) {
         this.refCommandeFournisseur = refCommandeFournisseur;
+    }
+
+    /**
+     * Retourne l'état de la commande fournisseur
+     * @return 
+     */
+    public EtatCommandeFournisseur getEtatCommande() {
+        return etatCommande;
+    }
+
+    /**
+     * Défini l'état de la commande fournisseur
+     * @param etatCommande 
+     */
+    public void setEtatCommande(EtatCommandeFournisseur etatCommande) {
+        this.etatCommande = etatCommande;
     }
     
 }

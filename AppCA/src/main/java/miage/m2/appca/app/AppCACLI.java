@@ -2,15 +2,24 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2;
+package miage.m2.appca.app;
 
-import com.sun.enterprise.admin.remote.reader.CliActionReport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import javax.ejb.EJBException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJBException;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.MessageConsumer;
+import javax.jms.Session;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import miage.m2.appca.messageslistener.NotificationAffaireListener;
 import miage.m2.exceptions.APIException;
 import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
@@ -41,7 +50,11 @@ public class AppCACLI {
     private final int DEUXIEME_MENU_CHOIX_MAX = 6;
     private final GestionAffaireRemote gestionAffaireRemote;
     private final Scanner scanner = new Scanner(System.in);
+    private final String FACTORY_NAME = "TPEAIConnectionFactory";
+    private final String DEST_NAME = "NotificationAffaire";
+    
     private ChargerAffaireTransient chargerAffaire = null;
+    private NotificationAffaireListener notificationAffaireListener;
     private boolean menuUnQuitte = false;
     private boolean menuDeuxQuitte = false;
     
@@ -139,6 +152,9 @@ public class AppCACLI {
                 CLICA.afficherInformation("Connexion réussie !");
                 CLICA.afficherInformation("Bonjour " + this.chargerAffaire.getPrenom());
                 CLICA.afficherInformation("");
+                
+                // Intialisation du listener pour recevoir les notifications
+                this.lireNotificationAffaire();
             } catch (ChargerAffaireInconnuException ex) {
                 CLICA.afficherMessageErreur(ex.getMessage());
             } 
@@ -278,8 +294,72 @@ public class AppCACLI {
      * Permet de consulter les notifications reçus pour une affaire 
      */
     private void voirNotificationAffaire() {
-        // Ecouter le topic de notification des chargés d'affaire
-        CLICA.afficherInformation("TODO / voir ce qui arrive dans le topic de notification");
+        boolean reponseRetourMenu = false;
+        while(reponseRetourMenu==false){
+            // Affiche les notifications
+            CLICA.afficherInformation("Liste des notifications : ");
+            
+            ArrayList<AffaireTransient> affaires = this.notificationAffaireListener.getListeAffaireNotification();
+            
+            if(affaires.isEmpty()) {
+                CLICA.afficherInformation("\tAucune notification");
+            } else {
+                for(AffaireTransient item : affaires) {
+                    CLICA.afficherInformation("\t" + item.toString());
+                }
+            }
+            
+            // Demande la suppression des notifications
+            boolean reponseSupp = CLICA.yesNoQuestion(scanner, "Supprimer notifications (y/n)");
+            if(reponseSupp) {
+                this.notificationAffaireListener.effacerNotifications();
+            }
+            
+            // Saisie des informations
+            reponseRetourMenu = CLICA.yesQuestion(scanner, "Revenir au menu (y)");
+        }
+        CLICA.afficherInformation("");
+    }
+    
+    /**
+     * Initialise la lecture des notifications que peut recevoir le Charger d'affaire authentifié
+     */
+    private void lireNotificationAffaire() {                 
+        try {
+            // Création du listener
+            this.notificationAffaireListener = new NotificationAffaireListener();
+            
+            // Creation du context JNDI
+            Context context = new InitialContext();
+
+            // Récupère la Connection Factory
+            ConnectionFactory factory = (ConnectionFactory) context.lookup(FACTORY_NAME);
+            
+            // Récupère la destination
+            Destination dest = (Destination) context.lookup(DEST_NAME);
+
+            // Création de la connexion
+            Connection connection = factory.createConnection();
+
+            // Création de la session
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+            // Génération de la chaine qui permet de filtrer les message selon leur JMSType (affaire suivi par le charger d'affaire authentifier)
+            String jmsType = "JMSType IN ('" + this.chargerAffaire.getId() + "')";
+            
+            // Création du consomateur et du type des messages qu'il souhaite recevoir
+            MessageConsumer consumer = session.createConsumer(dest, jmsType);
+            
+            // Enregistre un "listener" pour écouter et lire les messages
+            consumer.setMessageListener(this.notificationAffaireListener);
+            
+            // Débute la connexion pour recevoir les messages
+            connection.start();        
+        } catch (NamingException | JMSException ex) {
+            System.out.println("coucou erreur");
+            CLICA.afficherMessageErreur(ex.getMessage());
+            Logger.getLogger(AppCACLI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
