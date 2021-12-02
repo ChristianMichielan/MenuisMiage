@@ -29,8 +29,6 @@ public class AffaireBean implements AffaireBeanLocal {
     public AffaireBean() {
         this.listeAffaire = new HashMap<>();
         this.idAffaire = 1;
-        
-        this.initialiserDonnees();
     }
 
     /**
@@ -125,19 +123,6 @@ public class AffaireBean implements AffaireBeanLocal {
         }
         
         return this.listeAffaire.get(idAffaire);
-    }
-    
-    
-    
-    
-    /**
-     * Initialise les données pour tester
-     */
-    private void initialiserDonnees() {
-        ChargerAffaire ca = new ChargerAffaire(1, "toto", "atata");
-        Affaire newAffaire = new Affaire(this.idAffaire, "toto", "tata", "toulouse", "toto.tata@gmail.fr", "0000000", "Toulouse", ca);
-        this.listeAffaire.put(newAffaire.getIdAffaire(), newAffaire);
-        this.idAffaire++;
     }
     
 }

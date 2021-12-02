@@ -27,7 +27,6 @@ public class CommandeFournisseurBean implements CommandeFournisseurBeanLocal {
     public CommandeFournisseurBean() {
         this.listeCommandeFournisseur = new HashMap<>();
         this.refCommandeFournisseur = 1;
-        this.initialiserDonnees();
     }
     
     /**
@@ -97,17 +96,6 @@ public class CommandeFournisseurBean implements CommandeFournisseurBeanLocal {
         System.out.println("\t\t [Simulation retour API] Référence commande fournisseur générée : " + reponse);
         
         return reponse;
-    }
-    
-    
-    
-    /**
-     * Initialise les données pour tester
-     */
-    private void initialiserDonnees() {
-        CommandeFournisseur cmd = new CommandeFournisseur(1, this.refCommandeFournisseur);
-        this.listeCommandeFournisseur.put(cmd.getIdAffaire(), cmd);
-        this.refCommandeFournisseur++;
     }
 
 }
