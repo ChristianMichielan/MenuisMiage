@@ -10,6 +10,7 @@ import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
+import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CreerAffaireException;
 
 /**
@@ -26,4 +27,7 @@ public interface AffaireBeanLocal {
     public Affaire creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String telC, String locC, ChargerAffaire chargerAffaire) throws CreerAffaireException;
     
     public void modifierEtatAffaire(int idAffaire, EtatAffaire etat) throws AffaireInconnueException;
+
+    public Affaire obtenirAffaire(int idAffaire) throws AffaireInconnueException;
+
 }

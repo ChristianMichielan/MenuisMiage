@@ -25,6 +25,7 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
      */
     public RDVCommercialBean() {
         this.listeRDVCommercial = new HashMap<>();
+        //this.initialiserDonnees();
     }
 
     /**
@@ -83,29 +84,20 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
         
         // Le commercial n'a pas de rdv, il est donc disponible
         if(listeRdv.isEmpty()) {
-            System.out.println(" **** le commercial pas de rdv donc il est disponible !");
             return commercialDispo;
         }
-        
-        System.out.println(" **** le commercial a : " + listeRdv.size() + " rdv");
-        
+       
         // Parcours les rdv du commercial pour vérifier sa disponibilité
         while(commercialDispo == true && cptRdv < listeRdv.size()) {
-            System.out.println("******** Parcours le rdv de rang : " + cptRdv);
-            
             // Récupere le rdv courant 
             RDVCommercial rdvCourrant = listeRdv.get(cptRdv);
 
             if(rdvCourrant.getDateRdvCom().equals(date)){
-                System.out.println("******** Le commercial n'est pas disponible à cette date !");
                 commercialDispo = false;
             }
             // Passage au rdv suivant
             cptRdv++;
         }
-        
-        System.out.println(" ***** Satut du commercial parcouru : " + commercialDispo);
-        
         
         return commercialDispo;
     }

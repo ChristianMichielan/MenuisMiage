@@ -73,6 +73,7 @@ public class RdvcommercialResource {
      * @param idcommercial
      * @param localisation
      * @param idaffaire 
+     * @return  
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

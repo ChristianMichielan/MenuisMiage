@@ -19,7 +19,7 @@ import miage.m2.exceptions.CreerAffaireException;
  */
 @Singleton
 public class AffaireBean implements AffaireBeanLocal {
-
+    // La clé correspond à l'id de l'affaire
     private HashMap<Integer, Affaire> listeAffaire;
     private int idAffaire;
     
@@ -107,6 +107,22 @@ public class AffaireBean implements AffaireBeanLocal {
         }
         
         return toReturn;  
+    }
+    
+    /**
+     * Retourne une affaire enregistrée dans le système selon son identifiant
+     * @param idAffaire
+     * @return
+     * @throws AffaireInconnueException 
+     */
+    @Override
+    public Affaire obtenirAffaire(int idAffaire) throws AffaireInconnueException {
+         // Vérification de l'existance de l'affaire
+        if(this.listeAffaire.get(idAffaire) == null) {
+            throw new AffaireInconnueException();
+        }
+        
+        return this.listeAffaire.get(idAffaire);
     }
     
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-ejb-jar PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 EJB 3.1//EN" "http://glassfish.org/dtds/glassfish-ejb-jar_3_1-1.dtd">
+<glassfish-ejb-jar>
+  <enterprise-beans>
+    <ejb>
+      <ejb-name>CommandeTransmiseFournBean</ejb-name>
+      <resource-ref>
+        <res-ref-name>TPEAIConnectionFactory</res-ref-name>
+        <jndi-name>TPEAIConnectionFactory</jndi-name>
+      </resource-ref>
+      <message-destination-ref>
+        <message-destination-ref-name>CommandeTransmiseFourn</message-destination-ref-name>
+        <jndi-name>CommandeTransmiseFourn</jndi-name>
+      </message-destination-ref>
+    </ejb>
+    <ejb>
+      <ejb-name>EnregistreLivraisonBean</ejb-name>
+      <resource-ref>
+        <res-ref-name>CommandeSaisieFactory</res-ref-name>
+        <jndi-name>CommandeSaisieFactory</jndi-name>
+      </resource-ref>
+      <message-destination-ref>
+        <message-destination-ref-name>EnregistreLivraison</message-destination-ref-name>
+        <jndi-name>EnregistreLivraison</jndi-name>
+      </message-destination-ref>
+    </ejb>
+  </enterprise-beans>
+</glassfish-ejb-jar>
