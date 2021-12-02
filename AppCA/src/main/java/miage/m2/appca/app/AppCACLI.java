@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.appca;
+package miage.m2.appca.app;
 
 import com.sun.enterprise.admin.remote.reader.CliActionReport;
 import java.util.ArrayList;
