@@ -49,7 +49,7 @@ public class EnregistreLivraisonMessageBean implements MessageListener {
             try {
                 // Lire le message reçu
                 int idAffaireMessage = Integer.parseInt(((TextMessage) message).getText());
-                this.affaireBean.modifierEtatAffaire(idAffaireMessage, EtatAffaire.ATTENTE_RDV_POSEUR);
+                this.affaireBean.modifierEtatAffaire(idAffaireMessage, EtatAffaire.RDV_POSEUR_NON_SAISIE);
                 System.out.println(" *** Message recu dans ServiceChargerAffaire (EnregistreLivraison) : " + idAffaireMessage);
                 
                 // Notifi le charger d'affaire en charge de l'affaire du changement d'état

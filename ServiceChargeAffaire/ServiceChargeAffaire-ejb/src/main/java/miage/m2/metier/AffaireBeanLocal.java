@@ -29,5 +29,7 @@ public interface AffaireBeanLocal {
     public void modifierEtatAffaire(int idAffaire, EtatAffaire etat) throws AffaireInconnueException;
 
     public Affaire obtenirAffaire(int idAffaire) throws AffaireInconnueException;
+    
+    public ArrayList<Affaire> affairesPourUnChargerAffaireRdvPoseurNonSaisi(int idChargerAffaire);
 
 }

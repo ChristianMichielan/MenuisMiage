@@ -26,11 +26,15 @@ import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
 import miage.m2.exceptions.CreerAffaireException;
+import miage.m2.exceptions.PoseurConfirmRDVException;
+import miage.m2.exceptions.PoseurDemandeRDVException;
 import miage.m2.exposition.GestionAffaireRemote;
 import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
 import miage.m2.transientobjects.PropositionRDVCommercialTransient;
+import miage.m2.transientobjects.PropositionRDVPoseurTransient;
 import miage.m2.transientobjects.RDVCommercialTransient;
+import miage.m2.transientobjects.RDVPoseurTransient;
 
 
 /**
@@ -286,8 +290,68 @@ public class AppCACLI {
      * Définir un rendez-vous de pose pour une affaire
      */
     private void definirRdvPoseAffaire() {  
-        // TODO Etape 5
-        CLICA.afficherInformation("TODO / définir rdv pose");
+        String dateDispoClient;
+        boolean confirmerRdv = false;
+        boolean rdvEnregistre = false;
+        int idAffaireSelectionnee = 0;
+        PropositionRDVPoseurTransient proposition = null;
+        HashMap<Integer, AffaireTransient> listeSelectionAffaire = new HashMap<>();
+        AffaireTransient affaireSelectionnee = null;
+
+        // Affiche les affaire
+        CLICA.afficherInformation("Sélectionner une affaire avec son id : ");
+        ArrayList<AffaireTransient> affaires = this.gestionAffaireRemote.affairesPourUnChargerAffaireRdvPoseurNonSaisi(this.chargerAffaire.getId());
+        if(affaires.isEmpty()) {
+            CLICA.afficherInformation("\tAucune affaire enregistrée");
+        } else {
+            for(AffaireTransient item : affaires) {
+                listeSelectionAffaire.put(item.getIdAffaire(), item);
+                CLICA.afficherInformation("\t" + item.getIdAffaire() + " - " + item.getNomC());
+            }
+        }
+                
+        // Sélectionner une affaire de la liste
+        do {
+            idAffaireSelectionnee = CLICA.saisirEntier(scanner, "Saisir id de l'affaire : ", affaires.size());
+            affaireSelectionnee = listeSelectionAffaire.get(idAffaireSelectionnee);
+        } while (affaireSelectionnee == null);
+        
+        // Définir le RDV poseur pour l'affaire
+        CLICA.afficherInformation("Définir le rendez-vous poseur de l'affaire n° " + affaireSelectionnee.getIdAffaire());
+        dateDispoClient = CLICA.saisirChaine(scanner, "Saisir la date de disponibilité du client (dd-mm-yyyy) : ");
+        
+        // Vérification de la disponibilité de l'équipe poseur
+        do {
+            try {
+                proposition = this.gestionAffaireRemote.demandeDisponibiliteRdvPoseur(dateDispoClient);
+            } catch (PoseurDemandeRDVException | APIException ex) {
+                CLICA.afficherMessageErreur(ex.getMessage());
+                Logger.getLogger(AppCACLI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } while (proposition == null);
+        
+        // Confirmer la proposition du rendez-vous poseur
+        confirmerRdv = CLICA.yesNoQuestion(scanner, "Confirmer le rendez-vous du " + proposition.getDate() + " ? (y/n) ");
+        if(confirmerRdv) {
+            try {
+                RDVPoseurTransient rdvAConfimer = new RDVPoseurTransient(proposition.getDate(), proposition.getIdEquipePoseur(), affaireSelectionnee.getLocC(), affaireSelectionnee.getIdAffaire());
+                rdvEnregistre = this.gestionAffaireRemote.validerRdvPoseur(rdvAConfimer);
+
+                // Informe l'utilisateur et maj l'état de l'affaire auprès du Service CA
+                if(rdvEnregistre) {
+                    CLICA.afficherInformationFinEtape("Rendez-vous poseur pour l'affaire n° " + idAffaireSelectionnee + " CONFIRME pour le " + proposition.getDate());
+                    this.gestionAffaireRemote.modifierEtatAffaireAttenteRdvPoseur(idAffaireSelectionnee);
+                } else {
+                    CLICA.afficherInformationFinEtape("Le rendez-vous poseur n'est plus disponible.");
+                }
+            } catch (PoseurConfirmRDVException | AffaireInconnueException | APIException ex) {
+                CLICA.afficherMessageErreur(ex.getMessage());
+                Logger.getLogger(AppCACLI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            CLICA.afficherInformationFinEtape("Rendez-vous non confirmé.");
+        }
     }
     
     /**
