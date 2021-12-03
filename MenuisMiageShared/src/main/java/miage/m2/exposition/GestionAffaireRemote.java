@@ -12,10 +12,14 @@ import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
 import miage.m2.exceptions.CreerAffaireException;
+import miage.m2.exceptions.PoseurConfirmRDVException;
+import miage.m2.exceptions.PoseurDemandeRDVException;
 import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
 import miage.m2.transientobjects.PropositionRDVCommercialTransient;
+import miage.m2.transientobjects.PropositionRDVPoseurTransient;
 import miage.m2.transientobjects.RDVCommercialTransient;
+import miage.m2.transientobjects.RDVPoseurTransient;
 
 
 /**
@@ -38,4 +42,12 @@ public interface GestionAffaireRemote {
     public ArrayList<AffaireTransient> affairesPourUnChargerAffaireRdvCommercialNonSaisi(int idCA);
     
     public void modifierEtatAffaireAttenteRdvCommercial(int idAffaire) throws AffaireInconnueException;
+    
+    public ArrayList<AffaireTransient> affairesPourUnChargerAffaireRdvPoseurNonSaisi(int idCA);
+    
+    public PropositionRDVPoseurTransient demandeDisponibiliteRdvPoseur(String dateDispoC) throws PoseurDemandeRDVException, APIException;
+    
+    public boolean validerRdvPoseur(RDVPoseurTransient rdvPoseur) throws PoseurConfirmRDVException, APIException;
+    
+    public void modifierEtatAffaireAttenteRdvPoseur(int idAffaire) throws AffaireInconnueException;
 }
