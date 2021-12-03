@@ -6,7 +6,7 @@ package miage.m2.serviceposeur.metier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import miage.m2.exceptions.PoseurConfirmRDVException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
 import miage.m2.serviceposeur.entities.RDVPoseur;
@@ -15,7 +15,7 @@ import miage.m2.serviceposeur.entities.RDVPoseur;
  * EJB qui stocke les informations pour les RDV des equipes Poseur
  * @author QuentinDouris
  */
-@Stateless
+@Singleton
 public class RDVPoseurBean implements RDVPoseurBeanLocal {
     // clé de HashMap correspond a l'id de l'equipePoseur
     private HashMap<Integer, RDVPoseur> listeRdvPoseur;
