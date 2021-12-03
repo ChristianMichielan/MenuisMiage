@@ -124,5 +124,23 @@ public class AffaireBean implements AffaireBeanLocal {
         
         return this.listeAffaire.get(idAffaire);
     }
+
+    /**
+     * Retourne les affaire pour un CA qui sont en attente d'un RDV Poseur
+     * @param idChargerAffaire
+     * @return 
+     */
+    @Override
+    public ArrayList<Affaire> affairesPourUnChargerAffaireRdvPoseurNonSaisi(int idChargerAffaire) {
+        // Recherche les affaire du CA selon son id et leur état
+        ArrayList toReturn = new ArrayList();
+        for(Affaire affaire : this.listeAffaire.values()) {
+            if(affaire.getChargerAffaire().getIdChargerAffaire() == idChargerAffaire && affaire.getEtat() == EtatAffaire.RDV_POSEUR_NON_SAISIE) {
+                toReturn.add(affaire);
+            }
+        }
+        
+        return toReturn; 
+    }
     
 }
