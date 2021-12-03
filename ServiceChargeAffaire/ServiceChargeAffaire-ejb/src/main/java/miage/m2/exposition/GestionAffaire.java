@@ -335,7 +335,7 @@ public class GestionAffaire implements GestionAffaireRemote {
      * Valide un rendez-vous poseur auprès du service Poseur
      * @param rdvPoseur
      * @return
-     * @throws PoseurDemandeRDVException
+     * @throws miage.m2.exceptions.PoseurConfirmRDVException
      * @throws APIException 
      */
     @Override

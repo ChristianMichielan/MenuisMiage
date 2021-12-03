@@ -4,11 +4,13 @@
  */
 package miage.m2.transientobjects;
 
+import java.io.Serializable;
+
 /**
  * Transient Object qui permet de retourner les informations conernant une proposition de rdv Poseur à un chargé d'affaire
  * @author QuentinDouris
  */
-public class PropositionRDVPoseurTransient {
+public class PropositionRDVPoseurTransient implements Serializable {
     private int idEquipePoseur;
     private String date;
 
