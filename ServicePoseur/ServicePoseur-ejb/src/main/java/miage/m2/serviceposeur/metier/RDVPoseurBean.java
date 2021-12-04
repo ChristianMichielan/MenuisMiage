@@ -7,6 +7,7 @@ package miage.m2.serviceposeur.metier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.ejb.Singleton;
+import miage.m2.exceptions.AucunRDVPoseur;
 import miage.m2.exceptions.PoseurConfirmRDVException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
 import miage.m2.serviceposeur.entities.RDVPoseur;
@@ -101,6 +102,28 @@ public class RDVPoseurBean implements RDVPoseurBeanLocal {
         }
         
         return equipePoseurDispo;
+    }
+
+    /**
+     * Valide la pose pour le rendez-vous poseur d'une affaire ET notifi le système que la pose a été validé par l'équipe poseur
+     * @param idAffaire
+     * @throws AucunRDVPoseur 
+     */
+    @Override
+    public void validerPose(int idAffaire) throws AucunRDVPoseur {
+        // Vérifie l'existance du rdv dans le système
+        if(this.listeRdvPoseur.get(idAffaire) == null) {
+            throw new AucunRDVPoseur();
+        }
+        
+        System.out.println("Pose AVANT mise à jour : " + this.listeRdvPoseur.get(idAffaire).isPoseValidee());
+        // Met à jour le statut de la pose
+        this.listeRdvPoseur.get(idAffaire).setPoseValidee(true);
+        System.out.println("Pose mise à jour : " + this.listeRdvPoseur.get(idAffaire).isPoseValidee());
+        // Notifie le système que la pose a été validée
+        // call EJBMessage
+        System.out.println("Envoiie message JMS");
+        
     }
 
 }

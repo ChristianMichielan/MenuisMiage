@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import miage.m2.exceptions.AucunRDVPoseur;
 import miage.m2.exceptions.AucuneEquipePoseurException;
 import miage.m2.exceptions.EquipePoseurInconnuException;
 import miage.m2.exceptions.PoseurConfirmRDVException;
@@ -115,6 +116,13 @@ public class RDVPoseurService implements RDVPoseurServiceLocal {
     public String obtenirPlanning(int idEquipePoseur) {
         ArrayList<RDVPoseur> listeRDV = this.rdvPoseurBean.rdvPourUneEquipePoseur(idEquipePoseur);
         return this.gson.toJson(listeRDV);
+    }
+
+    @Override
+    public String validerPose(int idAffaire) throws AucunRDVPoseur {
+        this.rdvPoseurBean.validerPose(idAffaire);
+        
+        return null;
     }
     
 }

@@ -5,6 +5,7 @@
 package miage.m2.serviceposeur.services;
 
 import javax.ejb.Local;
+import miage.m2.exceptions.AucunRDVPoseur;
 import miage.m2.exceptions.AucuneEquipePoseurException;
 import miage.m2.exceptions.EquipePoseurInconnuException;
 import miage.m2.exceptions.PoseurConfirmRDVException;
@@ -23,4 +24,6 @@ public interface RDVPoseurServiceLocal {
     public String valideRDVPoseur(RDVPoseurTransient rdv) throws PoseurConfirmRDVException, EquipePoseurInconnuException;
 
     public String obtenirPlanning(int idEquipePoseur);
+    
+    public String validerPose(int idAffaire) throws AucunRDVPoseur;
 }

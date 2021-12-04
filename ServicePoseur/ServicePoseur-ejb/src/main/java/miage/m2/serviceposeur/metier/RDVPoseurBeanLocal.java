@@ -6,6 +6,7 @@ package miage.m2.serviceposeur.metier;
 
 import java.util.ArrayList;
 import javax.ejb.Local;
+import miage.m2.exceptions.AucunRDVPoseur;
 import miage.m2.exceptions.PoseurConfirmRDVException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
 import miage.m2.serviceposeur.entities.RDVPoseur;
@@ -23,4 +24,6 @@ public interface RDVPoseurBeanLocal {
 
     public boolean equipePoseurDisponible(String date, EquipePoseurs equipePoseur);
 
+    public void validerPose(int idAffaire) throws AucunRDVPoseur;
+    
 }
