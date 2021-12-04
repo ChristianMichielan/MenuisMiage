@@ -7,24 +7,24 @@ Pour développer et mettre en place le système d’information de Menuis’Miag
 son fonctionnement, nous avons mis en place différents clients.
 
 ## Service Charger Affaire
-`ServiceChargerAffaire`  
-`MenuisMiageShared`  
-`AppCA` 
+`ServiceChargerAffaire` : Projet Maven Java EE (EAR, EJB, Web).  
+`MenuisMiageShared` : Projet Maven Java qui permet le partage de certaines ressources (Exceptions, TransientObject, Exposition).  
+`AppCA` : Client lourd destiné aux Charger d'Affaire pour gérer les affaires.  
 
 ## Service Commercial
-`ServiceCommercial`  
+`ServiceCommercial` : Projet Maven JEE (EAR, EJB, Web).    
 
 ## Service Achat
-`ServiceAchat`  
-`MenuisMiageSharedAchat`  
+`ServiceAchat` : Projet Maven JEE (EAR, EJB, Web).  
+`MenuisMiageSharedAchat` : Projet Maven Java qui permet le partage de certaines ressources (Exceptions, TransientObject, Exposition).  
+`AppAchat` : Client lourd destiné au personnel du Service Achat. Dans le cadre de ce projet, les fonctionnalités reservés aux Magasinier sont les seules a être implémentées.  
 
 ## Service Comptable
-`ServiceComptable`  
-`MenuisMiageSharedComptable`
+`ServiceComptable` : Projet Maven JEE (EAR, EJB, Web).  
+`MenuisMiageSharedComptable` : Projet Maven Java qui permet le partage de certaines ressources (Exceptions).  
 
 ## Service Poseur
-`ServicePoseur`  
-`MenuisMiageSharedPoseur`  
+`ServicePoseur` : Projet Maven JEE (EAR, EJB, Web).  
 
 ## Architecture JMS
 
@@ -32,10 +32,31 @@ Voici l'architecture JMS mise en place dans le projet.
 
 ![Architecture JMS](https://user-images.githubusercontent.com/48246043/144722684-9f530616-d95f-48cb-a079-b01ed2b8967c.png)
  
-# Documentation des APIs
-
-Lien Swagger vers la documentation des APIs [MenuisMiage Swagger](https://app.swaggerhub.com/apis-docs/christian.michielan/MenuisMiage/1.0.0#/).
-
 # Configuration GlassFish
 
-Décrire la configuration requise pour glassFish (todo : Quentin)
+Pour exécuter le projet correctement le projet sur votre PC, il vous faudra installer et configurer [Glassfish 5.0](https://javaee.github.io/glassfish/download)  
+Ensuite, il faudra lancer le serveur Glassfish et vous rendre dans la console d'adminstration pour configurer JMS.
+
+## Connection Factory
+
+Créer une connection factrory : `TPEAIConnectionFactory`
+
+## TOPICS
+
+Créer les topics suivants :
+- `CommandeSaisie`
+- `CommandeTransmiseFroun`
+- `NotificationAffaire`
+
+## QUEUES
+
+Créer les queues suivantes :
+- `EnregistreLivraison`
+- `Encaissement`
+- `PoseValidee`
+
+# Documentation des APIs
+
+Lien Swagger vers la documentation des APIs [MenuisMiage Swagger](https://app.swaggerhub.com/apis-docs/christian.michielan/MenuisMiage/1.0.0#/).  
+
+*Nb : l'API du service Fournisseur est hors du périmètre de ce projet, son appel est simulé.*
