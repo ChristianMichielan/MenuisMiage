@@ -28,8 +28,10 @@ son fonctionnement, nous avons mis en place différents clients.
 
 ## Architecture JMS
 
-//insérer l'architecture JMS 
+Voici l'architecture JMS mise en place dans le projet.
 
+![Architecture JMS](https://user-images.githubusercontent.com/48246043/144722684-9f530616-d95f-48cb-a079-b01ed2b8967c.png)
+ 
 # Documentation des APIs
 
 Lien Swagger vers la documentation des APIs [MenuisMiage Swagger](https://app.swaggerhub.com/apis-docs/christian.michielan/MenuisMiage/1.0.0#/).
