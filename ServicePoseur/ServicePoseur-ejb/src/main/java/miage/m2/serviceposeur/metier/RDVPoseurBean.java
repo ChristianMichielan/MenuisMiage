@@ -115,15 +115,9 @@ public class RDVPoseurBean implements RDVPoseurBeanLocal {
         if(this.listeRdvPoseur.get(idAffaire) == null) {
             throw new AucunRDVPoseur();
         }
-        
-        System.out.println("Pose AVANT mise à jour : " + this.listeRdvPoseur.get(idAffaire).isPoseValidee());
+
         // Met à jour le statut de la pose
-        this.listeRdvPoseur.get(idAffaire).setPoseValidee(true);
-        System.out.println("Pose mise à jour : " + this.listeRdvPoseur.get(idAffaire).isPoseValidee());
-        // Notifie le système que la pose a été validée
-        // call EJBMessage
-        System.out.println("Envoiie message JMS");
-        
+        this.listeRdvPoseur.get(idAffaire).setPoseValidee(true);        
     }
 
 }

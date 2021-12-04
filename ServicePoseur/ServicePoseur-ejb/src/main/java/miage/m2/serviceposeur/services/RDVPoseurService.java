@@ -8,20 +8,18 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import miage.m2.exceptions.AucunRDVPoseur;
 import miage.m2.exceptions.AucuneEquipePoseurException;
 import miage.m2.exceptions.EquipePoseurInconnuException;
 import miage.m2.exceptions.PoseurConfirmRDVException;
 import miage.m2.exceptions.PoseurDemandeRDVException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
-import miage.m2.serviceposeur.entities.RDVPoseur;
 import miage.m2.serviceposeur.metier.EquipePoseursBeanLocal;
 import miage.m2.serviceposeur.metier.RDVPoseurBeanLocal;
 import miage.m2.transientobjects.PropositionRDVPoseurTransient;
 import miage.m2.transientobjects.RDVPoseurTransient;
 
 /**
- * EJB qui gère l'encapsulation JSON
+ * EJB qui gère l'encapsulation JSON pour les rendez-vous des poseurs
  * @author QuentinDouris
  */
 @Stateless
@@ -105,24 +103,6 @@ public class RDVPoseurService implements RDVPoseurServiceLocal {
                 rdv.getLocalisation());
         
         return this.gson.toJson(rdv);
-    }
-
-    /**
-     * Retourne le planning d'une équipe
-     * @param idEquipePoseur
-     * @return 
-     */
-    @Override
-    public String obtenirPlanning(int idEquipePoseur) {
-        ArrayList<RDVPoseur> listeRDV = this.rdvPoseurBean.rdvPourUneEquipePoseur(idEquipePoseur);
-        return this.gson.toJson(listeRDV);
-    }
-
-    @Override
-    public String validerPose(int idAffaire) throws AucunRDVPoseur {
-        this.rdvPoseurBean.validerPose(idAffaire);
-        
-        return null;
     }
     
 }

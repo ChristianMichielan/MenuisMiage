@@ -19,11 +19,22 @@ import miage.m2.transientobjects.RDVPoseurTransient;
 @Local
 public interface RDVPoseurServiceLocal {
     
+    /**
+     * Obtenir un rendez-vous poseur selon la disponoibilité du client
+     * @param dateDispoC
+     * @return
+     * @throws PoseurDemandeRDVException
+     * @throws AucuneEquipePoseurException 
+     */
     public String obtenirRdvPoseur(String dateDispoC) throws PoseurDemandeRDVException, AucuneEquipePoseurException;
 
+    /**
+     * Confirmation d'un rendez-vous poseur obtenu
+     * @param rdv
+     * @return
+     * @throws PoseurConfirmRDVException
+     * @throws EquipePoseurInconnuException 
+     */
     public String valideRDVPoseur(RDVPoseurTransient rdv) throws PoseurConfirmRDVException, EquipePoseurInconnuException;
-
-    public String obtenirPlanning(int idEquipePoseur);
     
-    public String validerPose(int idAffaire) throws AucunRDVPoseur;
 }

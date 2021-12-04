@@ -17,7 +17,7 @@ import javax.naming.NamingException;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import miage.m2.serviceposeur.services.RDVPoseurServiceLocal;
+import miage.m2.serviceposeur.services.PlanningServiceLocal;
 
 /**
  * REST Web Service
@@ -28,7 +28,7 @@ import miage.m2.serviceposeur.services.RDVPoseurServiceLocal;
 @RequestScoped
 public class PlanningposeurResource {
 
-    RDVPoseurServiceLocal rdvPoseurService = lookupRDVPoseurServiceLocal();
+    PlanningServiceLocal planningService = lookupPlanningServiceLocal();
 
     @Context
     private UriInfo context;
@@ -50,7 +50,7 @@ public class PlanningposeurResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJson(@PathParam("idEquipePoseur") String idEquipePoseur) {
         try {
-            return Response.ok(this.rdvPoseurService.obtenirPlanning(Integer.parseInt(idEquipePoseur))).build();
+            return Response.ok(this.planningService.obtenirPlanning(Integer.parseInt(idEquipePoseur))).build();
         } catch (NumberFormatException ex) {
             Logger.getLogger(RdvposeurResource.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Response.Status.NO_CONTENT).build();
@@ -61,10 +61,10 @@ public class PlanningposeurResource {
      * Recherche le service configuré pour interragir avec le système
      * @return 
      */
-    private RDVPoseurServiceLocal lookupRDVPoseurServiceLocal() {
+    private PlanningServiceLocal lookupPlanningServiceLocal() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (RDVPoseurServiceLocal) c.lookup("java:global/ServicePoseur-ear/ServicePoseur-ejb-1.0-SNAPSHOT/RDVPoseurService");
+            return (PlanningServiceLocal) c.lookup("java:global/ServicePoseur-ear/ServicePoseur-ejb-1.0-SNAPSHOT/PlanningService");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

@@ -18,7 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import miage.m2.exceptions.AucunRDVPoseur;
-import miage.m2.serviceposeur.services.RDVPoseurServiceLocal;
+import miage.m2.serviceposeur.services.GestionPoseServiceLocal;
 
 /**
  * REST Web Service
@@ -29,8 +29,8 @@ import miage.m2.serviceposeur.services.RDVPoseurServiceLocal;
 @RequestScoped
 public class GestionposeResource {
 
-    RDVPoseurServiceLocal rdvPoseurService = lookupRDVPoseurServiceLocal();
-
+    GestionPoseServiceLocal gestionPoseService = lookupGestionPoseServiceLocal();
+    
     @Context
     private UriInfo context;
 
@@ -51,7 +51,7 @@ public class GestionposeResource {
     public Response postJson(@QueryParam("idaffaire") String idAffaire) {
         try {
             int idAffaireParam = Integer.parseInt(idAffaire);
-            return Response.ok(this.rdvPoseurService.validerPose(idAffaireParam)).build();
+            return Response.ok(this.gestionPoseService.validerPose(idAffaireParam)).build();
         } catch (AucunRDVPoseur ex) {
             Logger.getLogger(GestionposeResource.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Response.Status.NO_CONTENT).build();
@@ -59,13 +59,13 @@ public class GestionposeResource {
     }
 
     /**
-     * Recherche le service configuré pour interragir avec le système - RDVPoseurService
+     * Recherche le service configuré pour interragir avec le système - GestionPoseService
      * @return 
      */
-    private RDVPoseurServiceLocal lookupRDVPoseurServiceLocal() {
+    private GestionPoseServiceLocal lookupGestionPoseServiceLocal() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (RDVPoseurServiceLocal) c.lookup("java:global/ServicePoseur-ear/ServicePoseur-ejb-1.0-SNAPSHOT/RDVPoseurService");
+            return (GestionPoseServiceLocal) c.lookup("java:global/ServicePoseur-ear/ServicePoseur-ejb-1.0-SNAPSHOT/GestionPoseService!miage.m2.serviceposeur.services.GestionPoseServiceLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
