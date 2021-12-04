@@ -4,7 +4,7 @@
  */
 package miage.m2.appca.app;
 
-import miage.m2.exposition.GestionAffaireRemote;
+import miage.m2.sharedmenuis.exposition.GestionAffaireRemote;
 import java.util.Properties;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

@@ -7,7 +7,7 @@ package miage.m2.servicechargeraffaire.metier;
 import java.util.HashMap;
 import javax.ejb.Singleton;
 import miage.m2.servicechargeraffaire.entities.ChargerAffaire;
-import miage.m2.exceptions.ChargerAffaireInconnuException;
+import miage.m2.sharedmenuis.exceptions.ChargerAffaireInconnuException;
 
 /**
  * Bean Singleton qui stock les informations des charger d'affaires

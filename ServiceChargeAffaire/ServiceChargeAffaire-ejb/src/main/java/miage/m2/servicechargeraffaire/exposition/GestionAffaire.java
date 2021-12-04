@@ -24,24 +24,24 @@ import javax.ejb.Stateless;
 import miage.m2.servicechargeraffaire.entities.Affaire;
 import miage.m2.servicechargeraffaire.entities.ChargerAffaire;
 import miage.m2.servicechargeraffaire.entities.EtatAffaire;
-import miage.m2.exceptions.APIException;
-import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.exceptions.ChargerAffaireInconnuException;
-import miage.m2.exceptions.CommercialConfirmRDVException;
-import miage.m2.exceptions.CommercialDemandeRDVException;
-import miage.m2.exceptions.CreerAffaireException;
-import miage.m2.exceptions.PoseurConfirmRDVException;
-import miage.m2.exceptions.PoseurDemandeRDVException;
-import miage.m2.exposition.GestionAffaireRemote;
+import miage.m2.sharedmenuis.exceptions.APIException;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
+import miage.m2.sharedmenuis.exceptions.ChargerAffaireInconnuException;
+import miage.m2.sharedmenuis.exceptions.CommercialConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.CommercialDemandeRDVException;
+import miage.m2.sharedmenuis.exceptions.CreerAffaireException;
+import miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.PoseurDemandeRDVException;
+import miage.m2.sharedmenuis.exposition.GestionAffaireRemote;
 import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
 import miage.m2.servicechargeraffaire.metier.ChargerAffaireBeanLocal;
 import miage.m2.servicechargeraffaire.messagesproducer.EncaissementMessageBeanLocal;
-import miage.m2.transientobjects.AffaireTransient;
-import miage.m2.transientobjects.ChargerAffaireTransient;
-import miage.m2.transientobjects.PropositionRDVCommercialTransient;
-import miage.m2.transientobjects.PropositionRDVPoseurTransient;
-import miage.m2.transientobjects.RDVCommercialTransient;
-import miage.m2.transientobjects.RDVPoseurTransient;
+import miage.m2.sharedmenuis.transientobjects.AffaireTransient;
+import miage.m2.sharedmenuis.transientobjects.ChargerAffaireTransient;
+import miage.m2.sharedmenuis.transientobjects.PropositionRDVCommercialTransient;
+import miage.m2.sharedmenuis.transientobjects.PropositionRDVPoseurTransient;
+import miage.m2.sharedmenuis.transientobjects.RDVCommercialTransient;
+import miage.m2.sharedmenuis.transientobjects.RDVPoseurTransient;
 
 /**
  * Classe Stateless GestionAffaire qui représente les différentes opérations possibles par un Charger Affaire depuis son poste client lourd
@@ -87,8 +87,8 @@ public class GestionAffaire implements GestionAffaireRemote {
      * @param locC
      * @param idChargerAffaire
      * @return 
-     * @throws miage.m2.exceptions.ChargerAffaireInconnuException 
-     * @throws miage.m2.exceptions.CreerAffaireException 
+     * @throws miage.m2.sharedmenuis.exceptions.ChargerAffaireInconnuException 
+     * @throws miage.m2.sharedmenuis.exceptions.CreerAffaireException 
      */
     @Override
     public int creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String telC, String locC, int idChargerAffaire) throws ChargerAffaireInconnuException, CreerAffaireException {
@@ -155,7 +155,7 @@ public class GestionAffaire implements GestionAffaireRemote {
      * @param rdvCommercial
      * @return
      * @throws CommercialConfirmRDVException 
-     * @throws miage.m2.exceptions.APIException 
+     * @throws miage.m2.sharedmenuis.exceptions.APIException 
      */
     @Override
     public boolean validerRdvCommercial(RDVCommercialTransient rdvCommercial) throws CommercialConfirmRDVException, APIException {
@@ -341,7 +341,7 @@ public class GestionAffaire implements GestionAffaireRemote {
      * Valide un rendez-vous poseur auprès du service Poseur
      * @param rdvPoseur
      * @return
-     * @throws miage.m2.exceptions.PoseurConfirmRDVException
+     * @throws miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException
      * @throws APIException 
      */
     @Override

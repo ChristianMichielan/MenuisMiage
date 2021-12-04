@@ -9,8 +9,8 @@ import javax.ejb.Local;
 import miage.m2.servicechargeraffaire.entities.Affaire;
 import miage.m2.servicechargeraffaire.entities.ChargerAffaire;
 import miage.m2.servicechargeraffaire.entities.EtatAffaire;
-import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.exceptions.CreerAffaireException;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
+import miage.m2.sharedmenuis.exceptions.CreerAffaireException;
 
 /**
  * Interface de l'EJB qui stocke les informations des affaires

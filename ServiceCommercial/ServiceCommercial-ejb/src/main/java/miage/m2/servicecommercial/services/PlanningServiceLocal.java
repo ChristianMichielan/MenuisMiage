@@ -5,7 +5,7 @@
 package miage.m2.servicecommercial.services;
 
 import javax.ejb.Local;
-import miage.m2.exceptions.AucunPlanningCommercialException;
+import miage.m2.sharedmenuis.exceptions.AucunPlanningCommercialException;
 
 /**
  * Interface de l'EJB qui gère l'encapsulation JSON pour le planning des commerciaux
@@ -18,7 +18,7 @@ public interface PlanningServiceLocal {
      * Obtenir les RDV pour un commercial
      * @param idCommercial
      * @return le planning d'un commercial
-     * @throws miage.m2.exceptions.AucunPlanningCommercialException
+     * @throws miage.m2.sharedmenuis.exceptions.AucunPlanningCommercialException
      */
     public String obtenirPlanning(int idCommercial) throws AucunPlanningCommercialException;
     

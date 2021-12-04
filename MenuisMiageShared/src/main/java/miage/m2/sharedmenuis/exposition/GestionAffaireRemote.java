@@ -2,24 +2,24 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.exposition;
+package miage.m2.sharedmenuis.exposition;
 
 import java.util.ArrayList;
 import javax.ejb.Remote;
-import miage.m2.exceptions.APIException;
-import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.exceptions.ChargerAffaireInconnuException;
-import miage.m2.exceptions.CommercialConfirmRDVException;
-import miage.m2.exceptions.CommercialDemandeRDVException;
-import miage.m2.exceptions.CreerAffaireException;
-import miage.m2.exceptions.PoseurConfirmRDVException;
-import miage.m2.exceptions.PoseurDemandeRDVException;
-import miage.m2.transientobjects.AffaireTransient;
-import miage.m2.transientobjects.ChargerAffaireTransient;
-import miage.m2.transientobjects.PropositionRDVCommercialTransient;
-import miage.m2.transientobjects.PropositionRDVPoseurTransient;
-import miage.m2.transientobjects.RDVCommercialTransient;
-import miage.m2.transientobjects.RDVPoseurTransient;
+import miage.m2.sharedmenuis.exceptions.APIException;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
+import miage.m2.sharedmenuis.exceptions.ChargerAffaireInconnuException;
+import miage.m2.sharedmenuis.exceptions.CommercialConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.CommercialDemandeRDVException;
+import miage.m2.sharedmenuis.exceptions.CreerAffaireException;
+import miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.PoseurDemandeRDVException;
+import miage.m2.sharedmenuis.transientobjects.AffaireTransient;
+import miage.m2.sharedmenuis.transientobjects.ChargerAffaireTransient;
+import miage.m2.sharedmenuis.transientobjects.PropositionRDVCommercialTransient;
+import miage.m2.sharedmenuis.transientobjects.PropositionRDVPoseurTransient;
+import miage.m2.sharedmenuis.transientobjects.RDVCommercialTransient;
+import miage.m2.sharedmenuis.transientobjects.RDVPoseurTransient;
 
 
 /**
@@ -47,8 +47,8 @@ public interface GestionAffaireRemote {
      * @param locC
      * @param idChargerAffaire
      * @return 
-     * @throws miage.m2.exceptions.ChargerAffaireInconnuException 
-     * @throws miage.m2.exceptions.CreerAffaireException 
+     * @throws miage.m2.sharedmenuis.exceptions.ChargerAffaireInconnuException 
+     * @throws miage.m2.sharedmenuis.exceptions.CreerAffaireException 
      */
     public int creerAffaire(String nomC, String prenomC, String adresseC, String mailC, String telC, String locC, int idChargerAffaire) throws ChargerAffaireInconnuException, CreerAffaireException;
     
@@ -66,7 +66,7 @@ public interface GestionAffaireRemote {
      * @param rdvCommercial
      * @return
      * @throws CommercialConfirmRDVException 
-     * @throws miage.m2.exceptions.APIException 
+     * @throws miage.m2.sharedmenuis.exceptions.APIException 
      */
     public boolean validerRdvCommercial(RDVCommercialTransient rdvCommercial) throws CommercialConfirmRDVException, APIException;
     
@@ -111,7 +111,7 @@ public interface GestionAffaireRemote {
      * Valide un rendez-vous poseur auprès du service Poseur
      * @param rdvPoseur
      * @return
-     * @throws miage.m2.exceptions.PoseurConfirmRDVException
+     * @throws miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException
      * @throws APIException 
      */
     public boolean validerRdvPoseur(RDVPoseurTransient rdvPoseur) throws PoseurConfirmRDVException, APIException;

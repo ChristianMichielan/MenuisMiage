@@ -8,15 +8,15 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import miage.m2.exceptions.AucuneEquipePoseurException;
-import miage.m2.exceptions.EquipePoseurInconnuException;
-import miage.m2.exceptions.PoseurConfirmRDVException;
-import miage.m2.exceptions.PoseurDemandeRDVException;
+import miage.m2.sharedmenuis.exceptions.AucuneEquipePoseurException;
+import miage.m2.sharedmenuis.exceptions.EquipePoseurInconnuException;
+import miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.PoseurDemandeRDVException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
 import miage.m2.serviceposeur.metier.EquipePoseursBeanLocal;
 import miage.m2.serviceposeur.metier.RDVPoseurBeanLocal;
-import miage.m2.transientobjects.PropositionRDVPoseurTransient;
-import miage.m2.transientobjects.RDVPoseurTransient;
+import miage.m2.sharedmenuis.transientobjects.PropositionRDVPoseurTransient;
+import miage.m2.sharedmenuis.transientobjects.RDVPoseurTransient;
 
 /**
  * EJB qui gère l'encapsulation JSON pour les rendez-vous des poseurs

@@ -21,11 +21,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import miage.m2.exceptions.AucunCommercialException;
-import miage.m2.exceptions.CommercialConfirmRDVException;
-import miage.m2.exceptions.CommercialDemandeRDVException;
-import miage.m2.exceptions.CommercialInconnuException;
-import miage.m2.transientobjects.RDVCommercialTransient;
+import miage.m2.sharedmenuis.exceptions.AucunCommercialException;
+import miage.m2.sharedmenuis.exceptions.CommercialConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.CommercialDemandeRDVException;
+import miage.m2.sharedmenuis.exceptions.CommercialInconnuException;
+import miage.m2.sharedmenuis.transientobjects.RDVCommercialTransient;
 
 /**
  * REST Web Service - Service Commercial - rdvcommercial

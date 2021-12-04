@@ -5,7 +5,7 @@
 package miage.m2.servicecommercial.services;
 
 import javax.ejb.Local;
-import miage.m2.exceptions.CommercialInconnuException;
+import miage.m2.sharedmenuis.exceptions.CommercialInconnuException;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
 import miage.m2.sharedachat.transientobjects.CommandeTransient;
 

@@ -5,7 +5,7 @@
 package miage.m2.servicechargeraffaire.messagesproducer;
 
 import javax.ejb.Local;
-import miage.m2.exceptions.AffaireInconnueException;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
 
 /**
  * Interface de l'EJB qui notifi la cloture d'une affaire dans la queue Encaissement

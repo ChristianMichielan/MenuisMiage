@@ -6,7 +6,7 @@ package miage.m2.servicechargeraffaire.metier;
 
 import javax.ejb.Local;
 import miage.m2.servicechargeraffaire.entities.ChargerAffaire;
-import miage.m2.exceptions.ChargerAffaireInconnuException;
+import miage.m2.sharedmenuis.exceptions.ChargerAffaireInconnuException;
 
 /**
  * Interface de l'EJB qui stocke les informations des charger d'affaire

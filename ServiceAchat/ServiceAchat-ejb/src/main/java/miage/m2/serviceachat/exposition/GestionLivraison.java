@@ -4,6 +4,7 @@
  */
 package miage.m2.serviceachat.exposition;
 
+import miage.m2.sharedachat.exposition.GestionLivraisonRemote;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import miage.m2.serviceachat.messagesproducer.EnregistreLivraisonBeanLocal;

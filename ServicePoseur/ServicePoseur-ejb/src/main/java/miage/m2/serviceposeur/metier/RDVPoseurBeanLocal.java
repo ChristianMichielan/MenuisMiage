@@ -6,8 +6,8 @@ package miage.m2.serviceposeur.metier;
 
 import java.util.ArrayList;
 import javax.ejb.Local;
-import miage.m2.exceptions.AucunRDVPoseur;
-import miage.m2.exceptions.PoseurConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.AucunRDVPoseur;
+import miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
 import miage.m2.serviceposeur.entities.RDVPoseur;
 

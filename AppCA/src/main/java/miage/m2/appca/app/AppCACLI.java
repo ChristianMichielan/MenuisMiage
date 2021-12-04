@@ -20,21 +20,21 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import miage.m2.appca.messageslistener.NotificationAffaireListener;
-import miage.m2.exceptions.APIException;
-import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.exceptions.ChargerAffaireInconnuException;
-import miage.m2.exceptions.CommercialConfirmRDVException;
-import miage.m2.exceptions.CommercialDemandeRDVException;
-import miage.m2.exceptions.CreerAffaireException;
-import miage.m2.exceptions.PoseurConfirmRDVException;
-import miage.m2.exceptions.PoseurDemandeRDVException;
-import miage.m2.exposition.GestionAffaireRemote;
-import miage.m2.transientobjects.AffaireTransient;
-import miage.m2.transientobjects.ChargerAffaireTransient;
-import miage.m2.transientobjects.PropositionRDVCommercialTransient;
-import miage.m2.transientobjects.PropositionRDVPoseurTransient;
-import miage.m2.transientobjects.RDVCommercialTransient;
-import miage.m2.transientobjects.RDVPoseurTransient;
+import miage.m2.sharedmenuis.exceptions.APIException;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
+import miage.m2.sharedmenuis.exceptions.ChargerAffaireInconnuException;
+import miage.m2.sharedmenuis.exceptions.CommercialConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.CommercialDemandeRDVException;
+import miage.m2.sharedmenuis.exceptions.CreerAffaireException;
+import miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.PoseurDemandeRDVException;
+import miage.m2.sharedmenuis.exposition.GestionAffaireRemote;
+import miage.m2.sharedmenuis.transientobjects.AffaireTransient;
+import miage.m2.sharedmenuis.transientobjects.ChargerAffaireTransient;
+import miage.m2.sharedmenuis.transientobjects.PropositionRDVCommercialTransient;
+import miage.m2.sharedmenuis.transientobjects.PropositionRDVPoseurTransient;
+import miage.m2.sharedmenuis.transientobjects.RDVCommercialTransient;
+import miage.m2.sharedmenuis.transientobjects.RDVPoseurTransient;
 
 
 /**

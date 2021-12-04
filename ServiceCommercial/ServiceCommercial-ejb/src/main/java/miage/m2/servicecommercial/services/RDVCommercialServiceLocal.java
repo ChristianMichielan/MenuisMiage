@@ -5,11 +5,11 @@
 package miage.m2.servicecommercial.services;
 
 import javax.ejb.Local;
-import miage.m2.exceptions.AucunCommercialException;
-import miage.m2.exceptions.CommercialConfirmRDVException;
-import miage.m2.exceptions.CommercialDemandeRDVException;
-import miage.m2.exceptions.CommercialInconnuException;
-import miage.m2.transientobjects.RDVCommercialTransient;
+import miage.m2.sharedmenuis.exceptions.AucunCommercialException;
+import miage.m2.sharedmenuis.exceptions.CommercialConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.CommercialDemandeRDVException;
+import miage.m2.sharedmenuis.exceptions.CommercialInconnuException;
+import miage.m2.sharedmenuis.transientobjects.RDVCommercialTransient;
 
 /**
  * Interface de l'EJB qui gère l'encapsulation JSON pour les rendez-vous commerciaux

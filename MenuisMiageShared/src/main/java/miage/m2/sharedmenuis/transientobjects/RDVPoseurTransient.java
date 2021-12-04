@@ -2,36 +2,36 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.transientobjects;
+package miage.m2.sharedmenuis.transientobjects;
 
 import java.io.Serializable;
 
 /**
- * Transient Object qui permet de retourner les informations conernant le rdv Commercial à un chargé d'affaire
+ * Transient Object qui permet de retourner les informations conernant le rdv Poseur à un chargé d'affaire
  * @author QuentinDouris
  */
-public class RDVCommercialTransient implements Serializable {
+public class RDVPoseurTransient implements Serializable {
     private String date;
-    private int idCommercial;
+    private int idEquipePoseur;
     private String localisation;
     private int idAffaire;
-    
+
     /**
      * Constructeur
      * @param date
-     * @param idCommercial
+     * @param idEquipePoseur
      * @param localisation
      * @param idAffaire 
      */
-    public RDVCommercialTransient(String date, int idCommercial, String localisation, int idAffaire) {
+    public RDVPoseurTransient(String date, int idEquipePoseur, String localisation, int idAffaire) {
         this.date = date;
-        this.idCommercial = idCommercial;
+        this.idEquipePoseur = idEquipePoseur;
         this.localisation = localisation;
         this.idAffaire = idAffaire;
     }
-    
+
     /**
-     * Retourne la date du rendez-vous commercial
+     * Retourne la date du rdv poseur
      * @return 
      */
     public String getDate() {
@@ -39,7 +39,7 @@ public class RDVCommercialTransient implements Serializable {
     }
 
     /**
-     * Défini la date du rendez-vous commercial
+     * Défini la date du rdv poseur
      * @param date 
      */
     public void setDate(String date) {
@@ -47,23 +47,23 @@ public class RDVCommercialTransient implements Serializable {
     }
 
     /**
-     * Retourne l'identifiant du commercial qui va réaliser le rendez-vous
+     * Retourne l'identifiant de l'équipe poseur
      * @return 
      */
-    public int getIdCommercial() {
-        return idCommercial;
+    public int getIdEquipePoseur() {
+        return idEquipePoseur;
     }
 
     /**
-     * Défini l'identifiant du commercial qui va réaliser le rendez-vous
-     * @param idCommercial 
+     * Défini l'identifiant de l'équipe poseur
+     * @param idEquipePoseur 
      */
-    public void setIdCommercial(int idCommercial) {
-        this.idCommercial = idCommercial;
+    public void setIdEquipePoseur(int idEquipePoseur) {
+        this.idEquipePoseur = idEquipePoseur;
     }
 
     /**
-     * Retourne la localisation d'un rendez-vous
+     * Retourne la localisation du rdv poseur
      * @return 
      */
     public String getLocalisation() {
@@ -71,23 +71,23 @@ public class RDVCommercialTransient implements Serializable {
     }
 
     /**
-     * Défini la localisation d'un rendez-vous
+     * Défini la localisation du rdv poseur
      * @param localisation 
      */
     public void setLocalisation(String localisation) {
         this.localisation = localisation;
     }
-
+    
     /**
-     * Retourne l'identifiant de l'affaire
+     * Retourne l'identifiant de l'affaire concernée par le rdv poseur
      * @return 
      */
     public int getIdAffaire() {
         return idAffaire;
     }
-    
+
     /**
-     * Défini l'identifiant de l'affaire
+     * Défini l'identifiant de l'affaire concernée par le rdv poseur
      * @param idAffaire 
      */
     public void setIdAffaire(int idAffaire) {

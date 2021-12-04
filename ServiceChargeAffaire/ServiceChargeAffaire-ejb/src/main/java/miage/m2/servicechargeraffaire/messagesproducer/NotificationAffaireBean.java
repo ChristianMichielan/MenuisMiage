@@ -19,9 +19,9 @@ import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.Topic;
 import miage.m2.servicechargeraffaire.entities.Affaire;
-import miage.m2.exceptions.AffaireInconnueException;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
 import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
-import miage.m2.transientobjects.AffaireTransient;
+import miage.m2.sharedmenuis.transientobjects.AffaireTransient;
 
 /**
  * EJB qui notifi les chargés d'affaire de l'avancement de l'état de leur affaire

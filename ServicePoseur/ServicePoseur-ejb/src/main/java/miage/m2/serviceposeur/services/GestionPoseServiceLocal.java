@@ -5,7 +5,7 @@
 package miage.m2.serviceposeur.services;
 
 import javax.ejb.Local;
-import miage.m2.exceptions.AucunRDVPoseur;
+import miage.m2.sharedmenuis.exceptions.AucunRDVPoseur;
 
 /**
  * Interface de l'EJB qui gère l'encapsulation JSON pour la gestion des poses

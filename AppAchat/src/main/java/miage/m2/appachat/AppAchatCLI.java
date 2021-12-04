@@ -7,7 +7,7 @@ package miage.m2.appachat;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import miage.m2.serviceachat.exposition.GestionLivraisonRemote;
+import miage.m2.sharedachat.exposition.GestionLivraisonRemote;
 import miage.m2.sharedachat.exceptions.ReceptionCommandeInconnuException;
 import miage.m2.sharedachat.transientobjects.ReceptionCommandeTransient;
 

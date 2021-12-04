@@ -19,7 +19,7 @@ import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.Topic;
 import miage.m2.servicecommercial.entities.Commercial;
-import miage.m2.exceptions.CommercialInconnuException;
+import miage.m2.sharedmenuis.exceptions.CommercialInconnuException;
 import miage.m2.servicecommercial.metier.CommandeBeanLocal;
 import miage.m2.servicecommercial.metier.CommercialBeanLocal;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
@@ -95,7 +95,7 @@ public class CommandeMessageBean implements CommandeMessageBeanLocal {
      * @param idCommercial
      * @return
      * @throws SaisirCommandeException 
-     * @throws miage.m2.exceptions.CommercialInconnuException 
+     * @throws miage.m2.sharedmenuis.exceptions.CommercialInconnuException 
      */
     @Override
     public CommandeTransient saisirCommande(String refCatCmd, double coteLargeurCmd, double coteLongueurCmd, double montantNegoCmd, int idAffaire, int idCommercial) throws SaisirCommandeException, CommercialInconnuException {

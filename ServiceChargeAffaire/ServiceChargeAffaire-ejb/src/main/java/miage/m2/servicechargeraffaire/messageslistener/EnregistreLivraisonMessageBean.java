@@ -14,7 +14,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import miage.m2.servicechargeraffaire.entities.EtatAffaire;
-import miage.m2.exceptions.AffaireInconnueException;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
 import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
 import miage.m2.servicechargeraffaire.messagesproducer.NotificationAffaireBeanLocal;
 

@@ -7,7 +7,7 @@ package miage.m2.servicecommercial.services;
 import com.google.gson.Gson;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import miage.m2.exceptions.CommercialInconnuException;
+import miage.m2.sharedmenuis.exceptions.CommercialInconnuException;
 import miage.m2.servicecommercial.messages.CommandeMessageBeanLocal;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
 import miage.m2.sharedachat.transientobjects.CommandeTransient;

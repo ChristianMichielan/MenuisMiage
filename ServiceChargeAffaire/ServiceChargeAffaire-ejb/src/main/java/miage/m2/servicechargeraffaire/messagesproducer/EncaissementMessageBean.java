@@ -18,7 +18,7 @@ import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import miage.m2.servicechargeraffaire.entities.EtatAffaire;
-import miage.m2.exceptions.AffaireInconnueException;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
 import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
 
 /**

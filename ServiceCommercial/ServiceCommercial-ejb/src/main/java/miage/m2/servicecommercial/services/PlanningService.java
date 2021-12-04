@@ -7,7 +7,7 @@ package miage.m2.servicecommercial.services;
 import com.google.gson.Gson;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import miage.m2.exceptions.AucunPlanningCommercialException;
+import miage.m2.sharedmenuis.exceptions.AucunPlanningCommercialException;
 import miage.m2.servicecommercial.metier.RDVCommercialBeanLocal;
 
 /**
@@ -34,7 +34,7 @@ public class PlanningService implements PlanningServiceLocal {
      * Obtenir les RDV pour un commercial
      * @param idCommercial
      * @return le planning d'un commercial
-     * @throws miage.m2.exceptions.AucunPlanningCommercialException
+     * @throws miage.m2.sharedmenuis.exceptions.AucunPlanningCommercialException
      */
     @Override
     public String obtenirPlanning(int idCommercial) throws AucunPlanningCommercialException {

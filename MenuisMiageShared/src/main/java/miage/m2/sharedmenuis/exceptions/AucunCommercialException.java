@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.exceptions;
+package miage.m2.sharedmenuis.exceptions;
 
 /**
  * Exception auncun commercial enregistré dans le système

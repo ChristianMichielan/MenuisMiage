@@ -17,7 +17,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import miage.m2.exceptions.CommercialInconnuException;
+import miage.m2.sharedmenuis.exceptions.CommercialInconnuException;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
 import miage.m2.servicecommercial.services.GestionCommandeServiceLocal;
 

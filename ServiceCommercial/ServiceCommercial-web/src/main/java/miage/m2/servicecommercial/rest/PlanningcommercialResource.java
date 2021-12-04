@@ -17,7 +17,7 @@ import javax.naming.NamingException;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import miage.m2.exceptions.AucunPlanningCommercialException;
+import miage.m2.sharedmenuis.exceptions.AucunPlanningCommercialException;
 import miage.m2.servicecommercial.services.PlanningServiceLocal;
 
 /**

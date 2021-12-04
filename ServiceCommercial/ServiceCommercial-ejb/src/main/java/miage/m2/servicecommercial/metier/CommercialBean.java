@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.ejb.Singleton;
 import miage.m2.servicecommercial.entities.Commercial;
-import miage.m2.exceptions.AucunCommercialException;
-import miage.m2.exceptions.CommercialInconnuException;
+import miage.m2.sharedmenuis.exceptions.AucunCommercialException;
+import miage.m2.sharedmenuis.exceptions.CommercialInconnuException;
 
 /**
  * EJB qui stocke les informations des commerciaux

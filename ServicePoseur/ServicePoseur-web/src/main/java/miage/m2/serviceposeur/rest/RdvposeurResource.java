@@ -21,11 +21,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import miage.m2.exceptions.AucuneEquipePoseurException;
-import miage.m2.exceptions.EquipePoseurInconnuException;
-import miage.m2.exceptions.PoseurConfirmRDVException;
-import miage.m2.exceptions.PoseurDemandeRDVException;
-import miage.m2.transientobjects.RDVPoseurTransient;
+import miage.m2.sharedmenuis.exceptions.AucuneEquipePoseurException;
+import miage.m2.sharedmenuis.exceptions.EquipePoseurInconnuException;
+import miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.PoseurDemandeRDVException;
+import miage.m2.sharedmenuis.transientobjects.RDVPoseurTransient;
 
 /**
  * REST Web Service - Service Poseur - rdvposeur

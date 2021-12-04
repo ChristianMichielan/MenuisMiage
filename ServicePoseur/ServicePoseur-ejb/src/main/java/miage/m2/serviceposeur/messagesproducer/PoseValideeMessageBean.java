@@ -21,9 +21,9 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.Session;
-import miage.m2.exceptions.AucunRDVPoseur;
+import miage.m2.sharedmenuis.exceptions.AucunRDVPoseur;
 import miage.m2.serviceposeur.metier.RDVPoseurBeanLocal;
-import miage.m2.transientobjects.PoseTransient;
+import miage.m2.sharedmenuis.transientobjects.PoseTransient;
 
 /**
  * EJB qui notifi les différents services de la validation de la pose pour une affaire à la suite d'un rendez-vous poseur
@@ -45,7 +45,7 @@ public class PoseValideeMessageBean implements PoseValideeMessageBeanLocal {
      * Enregistre la validation de la pose dans le système et notifi les services de cette validation
      * @param idAffaire
      * @return 
-     * @throws miage.m2.exceptions.AucunRDVPoseur 
+     * @throws miage.m2.sharedmenuis.exceptions.AucunRDVPoseur 
      */
     @Override
     public PoseTransient poseValidee(int idAffaire) throws AucunRDVPoseur {

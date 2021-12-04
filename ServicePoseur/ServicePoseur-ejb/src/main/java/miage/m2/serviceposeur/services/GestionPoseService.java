@@ -7,9 +7,9 @@ package miage.m2.serviceposeur.services;
 import com.google.gson.Gson;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import miage.m2.exceptions.AucunRDVPoseur;
+import miage.m2.sharedmenuis.exceptions.AucunRDVPoseur;
 import miage.m2.serviceposeur.messagesproducer.PoseValideeMessageBeanLocal;
-import miage.m2.transientobjects.PoseTransient;
+import miage.m2.sharedmenuis.transientobjects.PoseTransient;
 
 /**
  * EJB qui gère l'encapsulation JSON pour la gestion des poses

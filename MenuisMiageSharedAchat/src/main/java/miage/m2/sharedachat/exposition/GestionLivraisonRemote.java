@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.serviceachat.exposition;
+package miage.m2.sharedachat.exposition;
 
 import javax.ejb.Remote;
 import miage.m2.sharedachat.exceptions.ReceptionCommandeInconnuException;
