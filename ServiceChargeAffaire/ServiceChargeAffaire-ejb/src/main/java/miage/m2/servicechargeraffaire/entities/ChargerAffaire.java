@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.entities;
+package miage.m2.servicechargeraffaire.entities;
 
 /**
  * Classe qui représente un objet Charger Affaire

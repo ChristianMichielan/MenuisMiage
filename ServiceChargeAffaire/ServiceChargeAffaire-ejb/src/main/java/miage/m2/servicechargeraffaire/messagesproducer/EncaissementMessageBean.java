@@ -17,9 +17,9 @@ import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import miage.m2.entities.EtatAffaire;
+import miage.m2.servicechargeraffaire.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.metier.AffaireBeanLocal;
+import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
 
 /**
  * EJB qui notifi la cloture d'une affaire dans la queue Encaissement

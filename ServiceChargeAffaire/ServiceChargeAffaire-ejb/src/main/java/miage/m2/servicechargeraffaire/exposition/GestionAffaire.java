@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.exposition;
+package miage.m2.servicechargeraffaire.exposition;
 
 
 import com.google.gson.Gson;
@@ -21,9 +21,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import miage.m2.entities.Affaire;
-import miage.m2.entities.ChargerAffaire;
-import miage.m2.entities.EtatAffaire;
+import miage.m2.servicechargeraffaire.entities.Affaire;
+import miage.m2.servicechargeraffaire.entities.ChargerAffaire;
+import miage.m2.servicechargeraffaire.entities.EtatAffaire;
 import miage.m2.exceptions.APIException;
 import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.exceptions.ChargerAffaireInconnuException;
@@ -32,8 +32,9 @@ import miage.m2.exceptions.CommercialDemandeRDVException;
 import miage.m2.exceptions.CreerAffaireException;
 import miage.m2.exceptions.PoseurConfirmRDVException;
 import miage.m2.exceptions.PoseurDemandeRDVException;
-import miage.m2.metier.AffaireBeanLocal;
-import miage.m2.metier.ChargerAffaireBeanLocal;
+import miage.m2.exposition.GestionAffaireRemote;
+import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
+import miage.m2.servicechargeraffaire.metier.ChargerAffaireBeanLocal;
 import miage.m2.servicechargeraffaire.messagesproducer.EncaissementMessageBeanLocal;
 import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;

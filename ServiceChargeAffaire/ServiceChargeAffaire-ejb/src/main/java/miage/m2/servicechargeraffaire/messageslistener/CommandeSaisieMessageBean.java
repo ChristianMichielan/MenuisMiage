@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.messageslistener;
+package miage.m2.servicechargeraffaire.messageslistener;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,9 +13,9 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import miage.m2.entities.EtatAffaire;
+import miage.m2.servicechargeraffaire.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.metier.AffaireBeanLocal;
+import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
 import miage.m2.sharedachat.transientobjects.CommandeTransient;
 
 /**

@@ -2,13 +2,13 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.metier;
+package miage.m2.servicechargeraffaire.metier;
 
 import java.util.ArrayList;
 import javax.ejb.Local;
-import miage.m2.entities.Affaire;
-import miage.m2.entities.ChargerAffaire;
-import miage.m2.entities.EtatAffaire;
+import miage.m2.servicechargeraffaire.entities.Affaire;
+import miage.m2.servicechargeraffaire.entities.ChargerAffaire;
+import miage.m2.servicechargeraffaire.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
 import miage.m2.exceptions.CreerAffaireException;
 

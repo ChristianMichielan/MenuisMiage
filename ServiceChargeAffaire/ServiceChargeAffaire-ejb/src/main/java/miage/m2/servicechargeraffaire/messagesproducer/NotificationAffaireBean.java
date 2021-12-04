@@ -18,9 +18,9 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.Topic;
-import miage.m2.entities.Affaire;
+import miage.m2.servicechargeraffaire.entities.Affaire;
 import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.metier.AffaireBeanLocal;
+import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
 import miage.m2.transientobjects.AffaireTransient;
 
 /**
