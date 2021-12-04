@@ -110,6 +110,7 @@ public class GestionAffaire implements GestionAffaireRemote {
         // Appel l'API du service commercial pour OBTENIR une possibilité de RDV
         try {
             // Configure la connexion à l'API
+            System.out.println("*** ServiceChargerAffaire - GestionAffaire - req API [proposition rdv commercial] : " + SERVICE_COMMERCIAL_ENDPOINT + dateDispoC);
             URL url = new URL(SERVICE_COMMERCIAL_ENDPOINT + dateDispoC);
             HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
             connexion.setRequestMethod("GET");
@@ -180,7 +181,7 @@ public class GestionAffaire implements GestionAffaireRemote {
             }
 
             // Configure la connexion à l'API
-            System.out.println("*** ServiceChargerAffaire - GestionAffaire - req API : " + SERVICE_COMMERCIAL_ENDPOINT + "?" + postDonnees.toString());
+            System.out.println("*** ServiceChargerAffaire - GestionAffaire - req API [confirme rdv commercial] : " + SERVICE_COMMERCIAL_ENDPOINT + "?" + postDonnees.toString());
             URL url = new URL(SERVICE_COMMERCIAL_ENDPOINT + "?" + postDonnees.toString());
             HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
             connexion.setRequestMethod("POST");
@@ -297,6 +298,7 @@ public class GestionAffaire implements GestionAffaireRemote {
         // Appel l'API du service poseur pour OBTENIR une possibilité de RDV
         try {
             // Configure la connexion à l'API
+            System.out.println("*** ServiceChargerAffaire - GestionAffaire - req API [propositoin rdv poseur] : " + SERVICE_POSEUR_ENDPOINT + dateDispoC);
             URL url = new URL(SERVICE_POSEUR_ENDPOINT + dateDispoC);
             HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
             connexion.setRequestMethod("GET");
@@ -367,7 +369,7 @@ public class GestionAffaire implements GestionAffaireRemote {
             }
 
             // Configure la connexion à l'API
-            System.out.println("*** ServiceChargerAffaire - GestionAffaire - req API : " + SERVICE_POSEUR_ENDPOINT + "?" + postDonnees.toString());
+            System.out.println("*** ServiceChargerAffaire - GestionAffaire - req API [confirme rdv poseur] : " + SERVICE_POSEUR_ENDPOINT + "?" + postDonnees.toString());
             URL url = new URL(SERVICE_POSEUR_ENDPOINT + "?" + postDonnees.toString());
             HttpURLConnection connexion = (HttpURLConnection) url.openConnection();
             connexion.setRequestMethod("POST");
