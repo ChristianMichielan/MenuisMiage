@@ -34,6 +34,7 @@ import miage.m2.exceptions.PoseurConfirmRDVException;
 import miage.m2.exceptions.PoseurDemandeRDVException;
 import miage.m2.metier.AffaireBeanLocal;
 import miage.m2.metier.ChargerAffaireBeanLocal;
+import miage.m2.servicechargeraffaire.messagesproducer.EncaissementMessageBeanLocal;
 import miage.m2.transientobjects.AffaireTransient;
 import miage.m2.transientobjects.ChargerAffaireTransient;
 import miage.m2.transientobjects.PropositionRDVCommercialTransient;
@@ -47,6 +48,9 @@ import miage.m2.transientobjects.RDVPoseurTransient;
  */
 @Stateless
 public class GestionAffaire implements GestionAffaireRemote {
+
+    @EJB
+    private EncaissementMessageBeanLocal encaissementMessageBean;
 
     @EJB
     private ChargerAffaireBeanLocal chargerAffaireBean;
@@ -150,6 +154,7 @@ public class GestionAffaire implements GestionAffaireRemote {
      * @param rdvCommercial
      * @return
      * @throws CommercialConfirmRDVException 
+     * @throws miage.m2.exceptions.APIException 
      */
     @Override
     public boolean validerRdvCommercial(RDVCommercialTransient rdvCommercial) throws CommercialConfirmRDVException, APIException {
@@ -407,6 +412,35 @@ public class GestionAffaire implements GestionAffaireRemote {
     @Override
     public void modifierEtatAffaireAttenteRdvPoseur(int idAffaire) throws AffaireInconnueException {
         this.affaireBean.modifierEtatAffaire(idAffaire, EtatAffaire.ATTENTE_RDV_POSEUR);
+    }
+
+    /**
+     * Retourne toutes les affaire dont la pose a été effectuée (qui sont en attentes d'être cloturées)
+     * @param idCA
+     * @return 
+     */
+    @Override
+    public ArrayList<AffaireTransient> affairesPourUnChargerAffaireACloturer(int idCA) {
+        ArrayList<Affaire> listeAffaireACloturer = this.affaireBean.affairesPourUnChargerAffaireACloturer(idCA);
+        ArrayList<AffaireTransient> listeAffaireACloturerTransient = new ArrayList<>();
+        
+        // Contruction de la liste des affaires à cloturer transient
+        for(Affaire item : listeAffaireACloturer) {
+            AffaireTransient aff = new AffaireTransient(item.getChargerAffaire().getIdChargerAffaire(), item.getNomC(), item.getEtat().name(), item.getLocC());
+            listeAffaireACloturerTransient.add(aff);
+        }
+        
+        return listeAffaireACloturerTransient;
+    }
+
+    /**
+     * Enregistre la cloture d'une affaire dans le système
+     * @param idAffaire
+     * @throws AffaireInconnueException 
+     */
+    @Override
+    public void cloturerAffaire(int idAffaire) throws AffaireInconnueException {
+        this.encaissementMessageBean.cloturerAffairePourEncaissement(idAffaire);
     }
     
 }

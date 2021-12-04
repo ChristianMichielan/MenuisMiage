@@ -55,9 +55,7 @@ public class NotificationAffaireBean implements NotificationAffaireBeanLocal {
                 
             // Envoie le message dans le topic
             this.sendJMSMessageToNotificationAffaire(affaireTransient, idChargerAffaire);
-            System.out.println(" *** Service Charger Affaire - NotificationAffaireBean : message déposé dans le topic NotificationAffaire");
-            
-                    
+            System.out.println(" *** Service Charger Affaire - NotificationAffaireBean : message déposé dans le topic NotificationAffaire");     
         } catch (AffaireInconnueException | JMSException ex) {
             System.out.println("Erreur : " + ex.getMessage());
             Logger.getLogger(NotificationAffaireBean.class.getName()).log(Level.SEVERE, null, ex);

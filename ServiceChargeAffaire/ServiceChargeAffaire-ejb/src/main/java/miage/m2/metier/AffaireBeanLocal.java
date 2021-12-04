@@ -10,7 +10,6 @@ import miage.m2.entities.Affaire;
 import miage.m2.entities.ChargerAffaire;
 import miage.m2.entities.EtatAffaire;
 import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.exceptions.ChargerAffaireInconnuException;
 import miage.m2.exceptions.CreerAffaireException;
 
 /**
@@ -31,5 +30,7 @@ public interface AffaireBeanLocal {
     public Affaire obtenirAffaire(int idAffaire) throws AffaireInconnueException;
     
     public ArrayList<Affaire> affairesPourUnChargerAffaireRdvPoseurNonSaisi(int idChargerAffaire);
+    
+    public ArrayList<Affaire> affairesPourUnChargerAffaireACloturer(int idChargerAffaire);
 
 }

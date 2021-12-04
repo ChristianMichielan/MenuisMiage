@@ -48,10 +48,11 @@ public class AppCACLI {
     private final int MENU_CHOIX_TROIS = 3;
     private final int MENU_CHOIX_QUATRE = 4;
     private final int MENU_CHOIX_CINQ = 5;
+    private final int MENU_CHOIX_SIX = 6;
     private final int MENU_CHOIX_QUITTER_PREMIER_MENU = 2;
-    private final int MENU_CHOIX_QUITTER_DEUXIEME_MENU = 6;
+    private final int MENU_CHOIX_QUITTER_DEUXIEME_MENU = 7;
     private final int PREMIER_MENU_CHOIX_MAX = 2;
-    private final int DEUXIEME_MENU_CHOIX_MAX = 6;
+    private final int DEUXIEME_MENU_CHOIX_MAX = 7;
     private final GestionAffaireRemote gestionAffaireRemote;
     private final Scanner scanner = new Scanner(System.in);
     private final String FACTORY_NAME = "TPEAIConnectionFactory";
@@ -127,13 +128,16 @@ public class AppCACLI {
                     case MENU_CHOIX_CINQ:
                         this.voirNotificationAffaire();
                         break;
+                    case MENU_CHOIX_SIX:
+                        this.cloturerAffaire();
+                        break;
                     case MENU_CHOIX_QUITTER_DEUXIEME_MENU:
                         this.deconnexionCA();
                         break;
                     default:
                         CLICA.afficherMessageErreur("Vous avez fait une erreur dans votre choix");
                 }
-            } while (choixDeuxiemeMenu != 6);
+            } while (choixDeuxiemeMenu != 7);
         } while (!menuDeuxQuitte);
     }
     
@@ -383,6 +387,49 @@ public class AppCACLI {
             reponseRetourMenu = CLICA.yesQuestion(scanner, "Revenir au menu (y)");
         }
         CLICA.afficherInformation("");
+    }
+    
+    /**
+     * Permet de cloturer une affaire
+     */
+    private void cloturerAffaire() {
+        // todo
+        int idAffaireSelectionnee = 0;
+        HashMap<Integer, AffaireTransient> listeSelectionAffaire = new HashMap<>();
+        AffaireTransient affaireSelectionnee = null;
+        boolean confirmerCloture = false;
+        
+        // Affiche les affaires à cloturer
+        CLICA.afficherInformation("Sélectionner une affaire avec son id : ");
+        ArrayList<AffaireTransient> affaires = this.gestionAffaireRemote.affairesPourUnChargerAffaireACloturer(this.chargerAffaire.getId());
+        if(affaires.isEmpty()) {
+            CLICA.afficherInformation("\tAucune affaire à cloturer");
+        } else {
+            for(AffaireTransient item : affaires) {
+                listeSelectionAffaire.put(item.getIdAffaire(), item);
+                CLICA.afficherInformation("\t" + item.getIdAffaire() + " - " + item.getNomC());
+            }
+        }
+                
+        // Sélectionner une affaire de la liste
+        do {
+            idAffaireSelectionnee = CLICA.saisirEntier(scanner, "Saisir id de l'affaire : ", affaires.size());
+            affaireSelectionnee = listeSelectionAffaire.get(idAffaireSelectionnee);
+        } while (affaireSelectionnee == null);
+        
+        // Confirmer la cloture de l'affaire
+        confirmerCloture = CLICA.yesNoQuestion(scanner, "Confirmer la cloture de l'affaire n° : " + affaireSelectionnee.getIdAffaire() + " | client :"  + affaireSelectionnee.getNomC() + " ? (y/n) ");
+        if(confirmerCloture) {
+            try {
+                this.gestionAffaireRemote.cloturerAffaire(idAffaireSelectionnee);
+                CLICA.afficherInformationFinEtape("Affaire n° " + idAffaireSelectionnee + " CLOTUIREE avec succès !");
+            } catch (AffaireInconnueException ex) {
+                CLICA.afficherMessageErreur(ex.getMessage());
+                Logger.getLogger(AppCACLI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+             CLICA.afficherInformationFinEtape("Cloture de l'affaire n° " + idAffaireSelectionnee +" ANNULEE");
+        }        
     }
     
     /**

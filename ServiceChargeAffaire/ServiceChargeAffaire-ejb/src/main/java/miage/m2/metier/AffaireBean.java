@@ -100,15 +100,7 @@ public class AffaireBean implements AffaireBeanLocal {
      */
     @Override
     public ArrayList<Affaire> affairesPourUnChargerAffaireRdvCommercialNonSaisi(int idChargerAffaire) {
-        // Recherche les affaire du CA selon son id et leur état
-        ArrayList toReturn = new ArrayList();
-        for(Affaire affaire : this.listeAffaire.values()) {
-            if(affaire.getChargerAffaire().getIdChargerAffaire() == idChargerAffaire && affaire.getEtat() == EtatAffaire.RDV_COMMERCIAL_NON_SAISIE) {
-                toReturn.add(affaire);
-            }
-        }
-        
-        return toReturn;  
+        return this.affairesChargerAffaireSelonEtat(idChargerAffaire, EtatAffaire.RDV_COMMERCIAL_NON_SAISIE);
     }
     
     /**
@@ -134,17 +126,35 @@ public class AffaireBean implements AffaireBeanLocal {
      */
     @Override
     public ArrayList<Affaire> affairesPourUnChargerAffaireRdvPoseurNonSaisi(int idChargerAffaire) {
-        // Recherche les affaire du CA selon son id et leur état
+        return this.affairesChargerAffaireSelonEtat(idChargerAffaire, EtatAffaire.RDV_POSEUR_NON_SAISIE);
+    }
+    
+    /**
+     * Retourne les affaires à cloturer d'un charger d'affaire
+     * @param idChargerAffaire
+     * @return 
+     */
+    @Override
+    public ArrayList<Affaire> affairesPourUnChargerAffaireACloturer(int idChargerAffaire) {
+        return this.affairesChargerAffaireSelonEtat(idChargerAffaire, EtatAffaire.POSE_VALIDEE);
+    }
+    
+    /**
+     * Recherche les affaires dans le système pour un charger d'affaire selon un état d'avancement d'une affaire
+     * @param idCA
+     * @param etat
+     * @return 
+     */
+    private ArrayList<Affaire> affairesChargerAffaireSelonEtat(int idCA, EtatAffaire etat) {
         ArrayList toReturn = new ArrayList();
         for(Affaire affaire : this.listeAffaire.values()) {
-            if(affaire.getChargerAffaire().getIdChargerAffaire() == idChargerAffaire && affaire.getEtat() == EtatAffaire.RDV_POSEUR_NON_SAISIE) {
+            if(affaire.getChargerAffaire().getIdChargerAffaire() == idCA && affaire.getEtat() == etat) {
                 toReturn.add(affaire);
             }
         }
         
-        return toReturn; 
+        return toReturn;
     }
-    
     
     
     
@@ -152,9 +162,10 @@ public class AffaireBean implements AffaireBeanLocal {
     private void initDonnees() {
         ChargerAffaire ca = new ChargerAffaire(1, "toto", "toto");
         Affaire aff = new Affaire(this.idAffaire, "ae", "ae", "ae", "ae", "ae", "ae", ca);
-        aff.setEtat(EtatAffaire.RDV_POSEUR_NON_SAISIE);
+        aff.setEtat(EtatAffaire.POSE_VALIDEE);
         this.listeAffaire.put(aff.getIdAffaire(), aff);
         this.idAffaire++;
     }
-    
+
+  
 }

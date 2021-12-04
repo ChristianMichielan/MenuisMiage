@@ -13,5 +13,16 @@
         <jndi-name>NotificationAffaire</jndi-name>
       </message-destination-ref>
     </ejb>
+    <ejb>
+      <ejb-name>EncaissementMessageBean</ejb-name>
+      <resource-ref>
+        <res-ref-name>TPEAIConnectionFactory</res-ref-name>
+        <jndi-name>TPEAIConnectionFactory</jndi-name>
+      </resource-ref>
+      <message-destination-ref>
+        <message-destination-ref-name>Encaissement</message-destination-ref-name>
+        <jndi-name>Encaissement</jndi-name>
+      </message-destination-ref>
+    </ejb>
   </enterprise-beans>
 </glassfish-ejb-jar>

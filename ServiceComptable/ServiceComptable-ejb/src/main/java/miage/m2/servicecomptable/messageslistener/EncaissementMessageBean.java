@@ -17,21 +17,15 @@ import miage.m2.servicecomptable.metier.EncaissementBeanLocal;
 import miage.m2.sharedcomptable.exceptions.EncaissementException;
 
 /**
- * EJB qui écoute les messages déposés dans le topic CommandeTransmiseFourn
+ * EJB qui écoute les messages déposés dans la queue Encaissement
  * @author QuentinDouris
  */
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "CommandeTransmiseFournComptable")
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "Encaissement")
     ,
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "CommandeTransmiseFourn")
-    ,
-        @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
-    ,
-        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "CommandeTransmiseFourn")
-    ,
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
-public class CommandeTransmiseFournMessageBean implements MessageListener {
+public class EncaissementMessageBean implements MessageListener {
 
     @EJB
     private EncaissementBeanLocal encaissementBean;
@@ -39,11 +33,11 @@ public class CommandeTransmiseFournMessageBean implements MessageListener {
     /**
      * Constructeur
      */
-    public CommandeTransmiseFournMessageBean() {
+    public EncaissementMessageBean() {
     }
     
     /**
-     * Ecoute le message sur le topic
+     * Ecoute les messages sur la queue
      * @param message 
      */
     @Override
@@ -54,9 +48,8 @@ public class CommandeTransmiseFournMessageBean implements MessageListener {
                 int idAffaireMessage = Integer.parseInt(((TextMessage) message).getText());
                 
                 // Enregistrer le premier encaissement pour l'affaire
-                this.encaissementBean.encaisserPremierCheque(idAffaireMessage);
-                
-                System.out.println(" *** Message recu dans ServiceComptable (CommandeTransmiseFournisseur) : " + idAffaireMessage);
+                this.encaissementBean.encaisserDeuxiemeCheque(idAffaireMessage);
+                System.out.println(" *** Message recu dans ServiceComptable (Encaissement) : " + idAffaireMessage);
                 
             } catch (JMSException | EncaissementException ex) {
                 System.out.println(ex.getMessage());
