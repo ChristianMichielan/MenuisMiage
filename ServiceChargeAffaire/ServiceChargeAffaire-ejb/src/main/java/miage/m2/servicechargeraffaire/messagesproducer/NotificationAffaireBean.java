@@ -18,10 +18,10 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.Topic;
-import miage.m2.entities.Affaire;
-import miage.m2.exceptions.AffaireInconnueException;
-import miage.m2.metier.AffaireBeanLocal;
-import miage.m2.transientobjects.AffaireTransient;
+import miage.m2.servicechargeraffaire.entities.Affaire;
+import miage.m2.sharedmenuis.exceptions.AffaireInconnueException;
+import miage.m2.servicechargeraffaire.metier.AffaireBeanLocal;
+import miage.m2.sharedmenuis.transientobjects.AffaireTransient;
 
 /**
  * EJB qui notifi les chargés d'affaire de l'avancement de l'état de leur affaire
@@ -55,9 +55,7 @@ public class NotificationAffaireBean implements NotificationAffaireBeanLocal {
                 
             // Envoie le message dans le topic
             this.sendJMSMessageToNotificationAffaire(affaireTransient, idChargerAffaire);
-            System.out.println(" *** Service Charger Affaire - NotificationAffaireBean : message déposé dans le topic NotificationAffaire");
-            
-                    
+            System.out.println(" *** Service Charger Affaire - NotificationAffaireBean : message déposé dans le topic NotificationAffaire");     
         } catch (AffaireInconnueException | JMSException ex) {
             System.out.println("Erreur : " + ex.getMessage());
             Logger.getLogger(NotificationAffaireBean.class.getName()).log(Level.SEVERE, null, ex);

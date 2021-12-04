@@ -7,8 +7,8 @@ package miage.m2.serviceposeur.metier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.ejb.Singleton;
-import miage.m2.exceptions.AucuneEquipePoseurException;
-import miage.m2.exceptions.EquipePoseurInconnuException;
+import miage.m2.sharedmenuis.exceptions.AucuneEquipePoseurException;
+import miage.m2.sharedmenuis.exceptions.EquipePoseurInconnuException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
 
 /**
@@ -32,7 +32,7 @@ public class EquipePoseursBean implements EquipePoseursBeanLocal {
     }
     
     /**
-     * 
+     * Recherche une équipe poseur dans le systéme selon son identifiant
      * @param idEquipe
      * @return
      * @throws EquipePoseurInconnuException 
@@ -47,7 +47,7 @@ public class EquipePoseursBean implements EquipePoseursBeanLocal {
     }
 
     /**
-     * 
+     * Retourne toutes les équipes enregistrés dans le système
      * @return
      * @throws AucuneEquipePoseurException 
      */

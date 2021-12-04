@@ -31,7 +31,8 @@ public class CLICA {
         System.out.println("\t3. Définir rendez-vous commercial");
         System.out.println("\t4. Définir rendez-vous poseur ");
         System.out.println("\t5. Consulter les notifications");
-        System.out.println("\t6. Quitter");
+        System.out.println("\t6. Cloturer une affaire");
+        System.out.println("\t7. Quitter");
     }
     
     /**

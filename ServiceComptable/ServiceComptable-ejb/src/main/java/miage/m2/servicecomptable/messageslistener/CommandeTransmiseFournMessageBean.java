@@ -17,7 +17,7 @@ import miage.m2.servicecomptable.metier.EncaissementBeanLocal;
 import miage.m2.sharedcomptable.exceptions.EncaissementException;
 
 /**
- *
+ * EJB qui écoute les messages déposés dans le topic CommandeTransmiseFourn
  * @author QuentinDouris
  */
 @MessageDriven(activationConfig = {
@@ -53,11 +53,10 @@ public class CommandeTransmiseFournMessageBean implements MessageListener {
                 // Lire le message reçu
                 int idAffaireMessage = Integer.parseInt(((TextMessage) message).getText());
                 
-                // Enregistrer le premier encaissement pour l'affaire
-                this.encaissementBean.encaisserPremierCheque(idAffaireMessage);
-                
                 System.out.println(" *** Message recu dans ServiceComptable (CommandeTransmiseFournisseur) : " + idAffaireMessage);
                 
+                // Enregistrer le premier encaissement pour l'affaire
+                this.encaissementBean.encaisserPremierCheque(idAffaireMessage);                
             } catch (JMSException | EncaissementException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(CommandeTransmiseFournMessageBean.class.getName()).log(Level.SEVERE, null, ex);

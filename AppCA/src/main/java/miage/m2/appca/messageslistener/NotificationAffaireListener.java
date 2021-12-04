@@ -11,7 +11,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import miage.m2.transientobjects.AffaireTransient;
+import miage.m2.sharedmenuis.transientobjects.AffaireTransient;
 
 /**
  * Objet qui va écouter les messages reçu dans le topic NotificationAffaire
