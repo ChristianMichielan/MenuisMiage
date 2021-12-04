@@ -32,6 +32,7 @@ public class RDVPoseurService implements RDVPoseurServiceLocal {
     @EJB
     private EquipePoseursBeanLocal equipePoseursBean;
 
+    // Convertisseur json
     private Gson gson;
 
     /**
@@ -86,7 +87,7 @@ public class RDVPoseurService implements RDVPoseurServiceLocal {
      * @throws EquipePoseurInconnuException 
      */
     @Override
-    public String valideRdvPoseur(RDVPoseurTransient rdv) throws PoseurConfirmRDVException, EquipePoseurInconnuException {
+    public String valideRDVPoseur(RDVPoseurTransient rdv) throws PoseurConfirmRDVException, EquipePoseurInconnuException {
         EquipePoseurs equipe = this.equipePoseursBean.obtenirEquipePoseur(rdv.getIdEquipePoseur());
         boolean equipeDispo = this.rdvPoseurBean.equipePoseurDisponible(rdv.getDate(), equipe);
         
@@ -95,7 +96,7 @@ public class RDVPoseurService implements RDVPoseurServiceLocal {
             throw new PoseurConfirmRDVException();
         }
         
-        // L'équipe poseur est toujours disponible donc on enreistre le rdv
+        // L'équipe poseur est toujours disponible donc on enregistre le rdv
         this.rdvPoseurBean.creerRdvPoseur(
                 rdv.getDate(), 
                 rdv.getIdAffaire(), 

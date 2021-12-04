@@ -32,7 +32,7 @@ public class EquipePoseursBean implements EquipePoseursBeanLocal {
     }
     
     /**
-     * 
+     * Recherche une équipe poseur dans le systéme selon son identifiant
      * @param idEquipe
      * @return
      * @throws EquipePoseurInconnuException 
@@ -47,7 +47,7 @@ public class EquipePoseursBean implements EquipePoseursBeanLocal {
     }
 
     /**
-     * 
+     * Retourne toutes les équipes enregistrés dans le système
      * @return
      * @throws AucuneEquipePoseurException 
      */

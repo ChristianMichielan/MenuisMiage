@@ -29,6 +29,8 @@ public class AffaireBean implements AffaireBeanLocal {
     public AffaireBean() {
         this.listeAffaire = new HashMap<>();
         this.idAffaire = 1;
+        
+        this.initDonnees();
     }
 
     /**
@@ -141,6 +143,18 @@ public class AffaireBean implements AffaireBeanLocal {
         }
         
         return toReturn; 
+    }
+    
+    
+    
+    
+    
+    private void initDonnees() {
+        ChargerAffaire ca = new ChargerAffaire(1, "toto", "toto");
+        Affaire aff = new Affaire(this.idAffaire, "ae", "ae", "ae", "ae", "ae", "ae", ca);
+        aff.setEtat(EtatAffaire.RDV_POSEUR_NON_SAISIE);
+        this.listeAffaire.put(aff.getIdAffaire(), aff);
+        this.idAffaire++;
     }
     
 }

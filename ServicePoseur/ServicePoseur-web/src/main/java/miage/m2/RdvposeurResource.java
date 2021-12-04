@@ -86,7 +86,7 @@ public class RdvposeurResource {
             RDVPoseurTransient rdv = new RDVPoseurTransient(daterdv, idEquipePoseurParam, localisation, idAffaireParam);
             
             // Valide auprès du service
-            return Response.ok(this.rdvPoseurService.valideRdvPoseur(rdv)).build();
+            return Response.ok(this.rdvPoseurService.valideRDVPoseur(rdv)).build();
         } catch (NumberFormatException | PoseurConfirmRDVException | EquipePoseurInconnuException ex) {
             Logger.getLogger(RdvposeurResource.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Status.REQUESTED_RANGE_NOT_SATISFIABLE).build();

@@ -17,7 +17,7 @@ import miage.m2.serviceposeur.entities.RDVPoseur;
  */
 @Singleton
 public class RDVPoseurBean implements RDVPoseurBeanLocal {
-    // clé de HashMap correspond a l'id de l'equipePoseur
+    // clé de HashMap correspond a l'id de l'affaire
     private HashMap<Integer, RDVPoseur> listeRdvPoseur;
 
     /**
@@ -29,7 +29,7 @@ public class RDVPoseurBean implements RDVPoseurBeanLocal {
     
     
     /**
-     * Retourne la liste de rdv d'une equipe poseur
+     * Retourne tous les rendez-vous d'une équipe poseur (planning)
      * @param idEquipe
      * @return 
      */
@@ -58,6 +58,7 @@ public class RDVPoseurBean implements RDVPoseurBeanLocal {
      */
     @Override
     public boolean creerRdvPoseur(String date, int idAffaire, EquipePoseurs equipePoseur, String localisation) throws PoseurConfirmRDVException {
+        // Vérification que pour l'id de l'affaire auncun rdv poseur existe déjà
         if (this.listeRdvPoseur.get(idAffaire) != null){
             throw new PoseurConfirmRDVException();
         }

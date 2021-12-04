@@ -20,7 +20,7 @@ public interface RDVPoseurServiceLocal {
     
     public String obtenirRdvPoseur(String dateDispoC) throws PoseurDemandeRDVException, AucuneEquipePoseurException;
 
-    public String valideRdvPoseur(RDVPoseurTransient rdv) throws PoseurConfirmRDVException, EquipePoseurInconnuException;
+    public String valideRDVPoseur(RDVPoseurTransient rdv) throws PoseurConfirmRDVException, EquipePoseurInconnuException;
 
     public String obtenirPlanning(int idEquipePoseur);
 }

@@ -58,7 +58,7 @@ public class RDVCommercialBean implements RDVCommercialBeanLocal {
      */
     @Override
     public boolean creerRdvCommercial(String date, Commercial commercial, String localisation, int idAffaire) throws CommercialConfirmRDVException {
-        // Vérification que pour l'id de la nouvelle affaire auncune affaire existe déjà
+        // Vérification que pour l'id de l'affaire auncun rdv commercial existe déjà
         if (this.listeRDVCommercial.get(idAffaire) != null) {
             throw new CommercialConfirmRDVException();
         }
