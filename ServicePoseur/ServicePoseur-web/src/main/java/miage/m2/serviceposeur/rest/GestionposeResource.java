@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2;
+package miage.m2.serviceposeur.rest;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ import miage.m2.exceptions.AucunRDVPoseur;
 import miage.m2.serviceposeur.services.GestionPoseServiceLocal;
 
 /**
- * REST Web Service
+ * REST Web Service - Service Poseur - gestionpose
  *
  * @author QuentinDouris
  */
