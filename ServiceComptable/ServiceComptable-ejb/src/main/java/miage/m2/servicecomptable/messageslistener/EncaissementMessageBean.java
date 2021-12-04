@@ -47,10 +47,10 @@ public class EncaissementMessageBean implements MessageListener {
                 // Lire le message reçu
                 int idAffaireMessage = Integer.parseInt(((TextMessage) message).getText());
                 
-                // Enregistrer le premier encaissement pour l'affaire
-                this.encaissementBean.encaisserDeuxiemeCheque(idAffaireMessage);
                 System.out.println(" *** Message recu dans ServiceComptable (Encaissement) : " + idAffaireMessage);
                 
+                // Enregistrer le premier encaissement pour l'affaire
+                this.encaissementBean.encaisserDeuxiemeCheque(idAffaireMessage);                
             } catch (JMSException | EncaissementException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(CommandeTransmiseFournMessageBean.class.getName()).log(Level.SEVERE, null, ex);
