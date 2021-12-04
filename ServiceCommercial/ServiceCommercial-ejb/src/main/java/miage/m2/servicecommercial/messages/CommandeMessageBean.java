@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.messages;
+package miage.m2.servicecommercial.messages;
 
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -18,10 +18,10 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.Topic;
-import miage.m2.entities.Commercial;
+import miage.m2.servicecommercial.entities.Commercial;
 import miage.m2.exceptions.CommercialInconnuException;
-import miage.m2.metier.CommandeBeanLocal;
-import miage.m2.metier.CommercialBeanLocal;
+import miage.m2.servicecommercial.metier.CommandeBeanLocal;
+import miage.m2.servicecommercial.metier.CommercialBeanLocal;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
 import miage.m2.sharedachat.transientobjects.CommandeTransient;
 

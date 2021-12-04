@@ -1,9 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Projet EAI MenuisMIAGE.
+ * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2;
+package miage.m2.servicecommercial.rest;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,10 +18,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import miage.m2.exceptions.AucunPlanningCommercialException;
-import miage.m2.services.RDVCommercialServiceLocal;
+import miage.m2.servicecommercial.services.PlanningServiceLocal;
 
 /**
- * REST Web Service
+ * REST Web Service - Service Commercial - planningcommercial
  *
  * @author ChristianMichielan
  */
@@ -30,8 +29,8 @@ import miage.m2.services.RDVCommercialServiceLocal;
 @RequestScoped
 public class PlanningcommercialResource {
 
-    RDVCommercialServiceLocal rDVCommercialService = lookupRDVCommercialServiceLocal();
-
+    PlanningServiceLocal planningService = lookupPlanningServiceLocal();
+    
     @Context
     private UriInfo context;
 
@@ -52,7 +51,7 @@ public class PlanningcommercialResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJson(@PathParam("idCommercial") String idCommercial) {
         try {
-            return Response.ok(this.rDVCommercialService.obtenirPlanning(Integer.parseInt(idCommercial))).build();
+            return Response.ok(this.planningService.obtenirPlanning(Integer.parseInt(idCommercial))).build();
         } catch (AucunPlanningCommercialException ex) {
             Logger.getLogger(RdvcommercialResource.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Response.Status.NO_CONTENT).build();
@@ -63,10 +62,10 @@ public class PlanningcommercialResource {
      * Recherche le service configuré pour interragir avec le système
      * @return 
      */
-    private RDVCommercialServiceLocal lookupRDVCommercialServiceLocal() {
+    private PlanningServiceLocal lookupPlanningServiceLocal() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (RDVCommercialServiceLocal) c.lookup("java:global/ServiceCommercial-ear/ServiceCommercial-ejb-1.0-SNAPSHOT/RDVCommercialService");
+            return (PlanningServiceLocal) c.lookup("java:global/ServiceCommercial-ear/ServiceCommercial-ejb-1.0-SNAPSHOT/PlanningService!miage.m2.servicecommercial.services.PlanningServiceLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2;
+package miage.m2.servicecommercial.rest;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +28,7 @@ import miage.m2.exceptions.CommercialInconnuException;
 import miage.m2.transientobjects.RDVCommercialTransient;
 
 /**
- * REST Web Service
+ * REST Web Service - Service Commercial - rdvcommercial
  *
  * @author QuentinDouris
  */
@@ -37,7 +37,7 @@ import miage.m2.transientobjects.RDVCommercialTransient;
 public class RdvcommercialResource {
 
     // Lien avec notre service
-    miage.m2.services.RDVCommercialServiceLocal rdvCommercialService = lookupRDVCommercialServiceLocal();
+    miage.m2.servicecommercial.services.RDVCommercialServiceLocal rdvCommercialService = lookupRDVCommercialServiceLocal();
 
     @Context
     private UriInfo context;
@@ -99,10 +99,10 @@ public class RdvcommercialResource {
      * Recherche le service configuré pour interragir avec le système
      * @return 
      */
-    private miage.m2.services.RDVCommercialServiceLocal lookupRDVCommercialServiceLocal() {
+    private miage.m2.servicecommercial.services.RDVCommercialServiceLocal lookupRDVCommercialServiceLocal() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (miage.m2.services.RDVCommercialServiceLocal) c.lookup("java:global/ServiceCommercial-ear/ServiceCommercial-ejb-1.0-SNAPSHOT/RDVCommercialService");
+            return (miage.m2.servicecommercial.services.RDVCommercialServiceLocal) c.lookup("java:global/ServiceCommercial-ear/ServiceCommercial-ejb-1.0-SNAPSHOT/RDVCommercialService");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

@@ -1,9 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Projet EAI MenuisMIAGE.
+ * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2;
+package miage.m2.servicecommercial.rest;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,10 +19,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import miage.m2.exceptions.CommercialInconnuException;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
-import miage.m2.messages.CommandeMessageBeanLocal;
+import miage.m2.servicecommercial.services.GestionCommandeServiceLocal;
 
 /**
- * REST Web Service
+ * REST Web Service - Service Commercial - gestioncommande
  *
  * @author ChristianMichielan
  */
@@ -31,8 +30,9 @@ import miage.m2.messages.CommandeMessageBeanLocal;
 @RequestScoped
 public class GestioncommandeResource {
 
-    CommandeMessageBeanLocal commandeMessageBean = lookupCommandeMessageBeanLocal();
+    GestionCommandeServiceLocal gestionCommandeService = lookupGestionCommandeServiceLocal();
 
+    
     @Context
     private UriInfo context;
 
@@ -65,7 +65,7 @@ public class GestioncommandeResource {
             int idCommercialParam = Integer.parseInt(idCommercial);
             
             // Enregistrement de la commande dans le système
-            return Response.ok(this.commandeMessageBean.saisirCommande(refCatCmd, coteLargeurCmdParam, coteLongueurCmdParam, montantNegoCmdParam, idAffaireParam, idCommercialParam)).build();
+            return Response.ok(this.gestionCommandeService.saisirCommande(refCatCmd, coteLargeurCmdParam, coteLongueurCmdParam, montantNegoCmdParam, idAffaireParam, idCommercialParam)).build();
         } catch (SaisirCommandeException | CommercialInconnuException ex) {
             Logger.getLogger(RdvcommercialResource.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Response.Status.REQUESTED_RANGE_NOT_SATISFIABLE).build();
@@ -76,13 +76,14 @@ public class GestioncommandeResource {
      * Recherche le service configuré pour interragir avec le système
      * @return 
      */
-    private CommandeMessageBeanLocal lookupCommandeMessageBeanLocal() {
+    private GestionCommandeServiceLocal lookupGestionCommandeServiceLocal() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (CommandeMessageBeanLocal) c.lookup("java:global/ServiceCommercial-ear/ServiceCommercial-ejb-1.0-SNAPSHOT/CommandeMessageBean");
+            return (GestionCommandeServiceLocal) c.lookup("java:global/ServiceCommercial-ear/ServiceCommercial-ejb-1.0-SNAPSHOT/GestionCommandeService");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
+    
 }

@@ -2,12 +2,12 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.metier;
+package miage.m2.servicecommercial.metier;
 
 import java.util.HashMap;
 import javax.ejb.Singleton;
-import miage.m2.entities.Commande;
-import miage.m2.entities.Commercial;
+import miage.m2.servicecommercial.entities.Commande;
+import miage.m2.servicecommercial.entities.Commercial;
 import miage.m2.sharedachat.exceptions.SaisirCommandeException;
 
 /**

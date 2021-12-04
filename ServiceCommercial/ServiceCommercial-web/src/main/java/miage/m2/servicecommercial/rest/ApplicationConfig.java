@@ -2,7 +2,7 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2;
+package miage.m2.servicecommercial.rest;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -28,9 +28,9 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(miage.m2.GestioncommandeResource.class);
-        resources.add(miage.m2.PlanningcommercialResource.class);
-        resources.add(miage.m2.RdvcommercialResource.class);
+        resources.add(miage.m2.servicecommercial.rest.GestioncommandeResource.class);
+        resources.add(miage.m2.servicecommercial.rest.PlanningcommercialResource.class);
+        resources.add(miage.m2.servicecommercial.rest.RdvcommercialResource.class);
     }
     
 }

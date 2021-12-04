@@ -2,25 +2,25 @@
  * Projet EAI MenuisMIAGE.
  * Projet réalisé par Quentin DOURIS, Christian MICHIELAN, Trung LE DUC
  */
-package miage.m2.services;
+package miage.m2.servicecommercial.services;
 
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import miage.m2.entities.Commercial;
-import miage.m2.entities.RDVCommercial;
+import miage.m2.servicecommercial.entities.Commercial;
+import miage.m2.servicecommercial.entities.RDVCommercial;
 import miage.m2.exceptions.AucunCommercialException;
 import miage.m2.exceptions.CommercialConfirmRDVException;
 import miage.m2.exceptions.CommercialDemandeRDVException;
 import miage.m2.exceptions.CommercialInconnuException;
-import miage.m2.metier.CommercialBeanLocal;
-import miage.m2.metier.RDVCommercialBeanLocal;
+import miage.m2.servicecommercial.metier.CommercialBeanLocal;
+import miage.m2.servicecommercial.metier.RDVCommercialBeanLocal;
 import miage.m2.transientobjects.PropositionRDVCommercialTransient;
 import miage.m2.transientobjects.RDVCommercialTransient;
 
 /**
- * EJB qui gère l'encapsulation JSON
+ * EJB qui gère l'encapsulation JSON pour les rendez-vous commerciaux
  * @author QuentinDouris
  */
 @Stateless
@@ -103,17 +103,6 @@ public class RDVCommercialService implements RDVCommercialServiceLocal {
                 rdv.getIdAffaire());
         
         return this.gson.toJson(rdv);
-    }
-    
-    /**
-     * Obtenir les RDV pour un commercial
-     * @param idCommercial
-     * @return le planning d'un commercial
-     */
-    @Override
-    public String obtenirPlanning(int idCommercial) {
-        ArrayList<RDVCommercial> listeRDV = this.rdvCommercialBean.rdvPourUnCommercial(idCommercial);
-        return this.gson.toJson(listeRDV);
     }
 
 }
