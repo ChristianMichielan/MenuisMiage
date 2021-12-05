@@ -13,6 +13,7 @@ son fonctionnement, nous avons mis en place différents clients.
 
 ## Service Commercial
 `ServiceCommercial` : Projet Maven JEE (EAR, EJB, Web).    
+`Postman-AppCommercial` : Collection Postman avec les différents appels vers l'API Rest du Service Commercial.  
 
 ## Service Achat
 `ServiceAchat` : Projet Maven JEE (EAR, EJB, Web).  
@@ -25,6 +26,7 @@ son fonctionnement, nous avons mis en place différents clients.
 
 ## Service Poseur
 `ServicePoseur` : Projet Maven JEE (EAR, EJB, Web).  
+`Postman-AppPoseur` : Collection Postman avec les différents appels vers l'API Rest du Service Poseur.  
 
 ## Architecture JMS
 
@@ -36,6 +38,8 @@ Voici l'architecture JMS mise en place dans le projet.
 
 Pour exécuter le projet correctement le projet sur votre PC, il vous faudra installer et configurer [Glassfish 5.0](https://javaee.github.io/glassfish/download)  
 Ensuite, il faudra lancer le serveur Glassfish et vous rendre dans la console d'adminstration pour configurer JMS.
+
+__Attention : Pour les clients lourds, il faudra vérifier la configuration RMI avec le port ORB.__  
 
 ## Connection Factory
 
