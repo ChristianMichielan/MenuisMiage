@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "768bc0af-dd0b-407d-9b3e-916cca67bf8f",
+		"name": "ServicePoseur",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/v1/rdvposeur/{date}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ServicePoseur-web/webresources/rdvposeur/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServicePoseur-web",
+						"webresources",
+						"rdvposeur",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Démo demande RDV",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ServicePoseur-web/webresources/rdvposeur/20-01-2022",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ServicePoseur-web",
+								"webresources",
+								"rdvposeur",
+								"20-01-2022"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "/api/v1/rdvposeur/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ServicePoseur-web/webresources/rdvposeur/?daterdv=&idequipeposeur=&localisation=&idaffaire=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServicePoseur-web",
+						"webresources",
+						"rdvposeur",
+						""
+					],
+					"query": [
+						{
+							"key": "daterdv",
+							"value": ""
+						},
+						{
+							"key": "idequipeposeur",
+							"value": ""
+						},
+						{
+							"key": "localisation",
+							"value": ""
+						},
+						{
+							"key": "idaffaire",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Démo confirm RDV",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ServicePoseur-web/webresources/rdvposeur/?daterdv=20-01-2022&idequipeposeur=1&localisation=Rue des fleurs&idaffaire=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ServicePoseur-web",
+								"webresources",
+								"rdvposeur",
+								""
+							],
+							"query": [
+								{
+									"key": "daterdv",
+									"value": "20-01-2022"
+								},
+								{
+									"key": "idequipeposeur",
+									"value": "1"
+								},
+								{
+									"key": "localisation",
+									"value": "Rue des fleurs"
+								},
+								{
+									"key": "idaffaire",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "/api/v1/planningposeur/{idEquipePoseur}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ServicePoseur-web/webresources/planningposeur/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServicePoseur-web",
+						"webresources",
+						"planningposeur",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Démo planning équipe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ServicePoseur-web/webresources/planningposeur/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ServicePoseur-web",
+								"webresources",
+								"planningposeur",
+								"1"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "/api/v1/gestionpose/{idAffaire}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ServicePoseur-web/webresources/gestionpose/?idaffaire=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServicePoseur-web",
+						"webresources",
+						"gestionpose",
+						""
+					],
+					"query": [
+						{
+							"key": "idaffaire",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Démo valide pose",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ServicePoseur-web/webresources/gestionpose/?idaffaire=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ServicePoseur-web",
+								"webresources",
+								"gestionpose",
+								""
+							],
+							"query": [
+								{
+									"key": "idaffaire",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}
