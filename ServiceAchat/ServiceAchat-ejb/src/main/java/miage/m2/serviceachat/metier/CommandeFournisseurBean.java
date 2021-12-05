@@ -93,7 +93,7 @@ public class CommandeFournisseurBean implements CommandeFournisseurBeanLocal {
         int reponse = this.refCommandeFournisseur; 
         this.refCommandeFournisseur++;
         
-        System.out.println("\t\t [Simulation retour API] Référence commande fournisseur générée : " + reponse);
+        System.out.println(" *** [ServiceAchat - Simulation retour API] Référence commande fournisseur générée : " + reponse);
         
         return reponse;
     }
