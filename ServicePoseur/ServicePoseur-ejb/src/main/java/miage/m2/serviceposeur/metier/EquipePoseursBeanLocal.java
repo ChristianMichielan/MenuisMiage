@@ -6,8 +6,8 @@ package miage.m2.serviceposeur.metier;
 
 import java.util.ArrayList;
 import javax.ejb.Local;
-import miage.m2.exceptions.AucuneEquipePoseurException;
-import miage.m2.exceptions.EquipePoseurInconnuException;
+import miage.m2.sharedmenuis.exceptions.AucuneEquipePoseurException;
+import miage.m2.sharedmenuis.exceptions.EquipePoseurInconnuException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
 
 

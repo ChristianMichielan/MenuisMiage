@@ -57,7 +57,7 @@ public class CommandeSaisieMessageBean implements MessageListener {
                 // Lire le message reçu
                 CommandeTransient object = (CommandeTransient) ((ObjectMessage) message).getObject();
                 System.out.println(" *** Message recu dans ServiceAchat (CommandeSaisi) : " + object.getIdAffaire());
-                System.out.println(" *** [Simulation appel API Fournisseur] La commande a été passé auprès du fournisseur avec ces informations :");
+                System.out.println(" *** [ServiceAchat - Simulation appel API Fournisseur] La commande a été passé auprès du fournisseur avec ces informations :");
                 System.out.println("\t\t refCatCmd : " + object.getRefCatCmd());
                 System.out.println("\t\t CoteLargeurCmd : " + object.getCoteLargeurCmd());
                 System.out.println("\t\t CoteLongueurCmd : " + object.getCoteLongueurCmd());

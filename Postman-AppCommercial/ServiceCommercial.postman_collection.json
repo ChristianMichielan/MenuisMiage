@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "8fd1ffa4-54dd-4332-87de-025918ef6b2b",
+		"name": "ServiceCommercial",
+		"description": "API REST du ServiceCommercial.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/v1/rdvcommercial/{date}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServiceCommercial-web",
+						"webresources",
+						"rdvcommercial",
+						""
+					]
+				},
+				"description": "Obtenir un RDV pour un commercial disponible à une date (date donnée par le client selon sa disponibilité)."
+			},
+			"response": [
+				{
+					"name": "Démo demande RDV",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/01-01-2022",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ServiceCommercial-web",
+								"webresources",
+								"rdvcommercial",
+								"01-01-2022"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "/api/v1/rdvcommercial/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/?daterdv=&idcommercial=&localisation=&idaffaire=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServiceCommercial-web",
+						"webresources",
+						"rdvcommercial",
+						""
+					],
+					"query": [
+						{
+							"key": "daterdv",
+							"value": ""
+						},
+						{
+							"key": "idcommercial",
+							"value": ""
+						},
+						{
+							"key": "localisation",
+							"value": ""
+						},
+						{
+							"key": "idaffaire",
+							"value": ""
+						}
+					]
+				},
+				"description": "Ajouter un RDV pour un commercial"
+			},
+			"response": [
+				{
+					"name": "Démo comfirme RDV",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ServiceCommercial-web/webresources/rdvcommercial/?daterdv=01-01-2023&idcommercial=1&localisation=Rue des fleurs&idaffaire=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ServiceCommercial-web",
+								"webresources",
+								"rdvcommercial",
+								""
+							],
+							"query": [
+								{
+									"key": "daterdv",
+									"value": "01-01-2023"
+								},
+								{
+									"key": "idcommercial",
+									"value": "1"
+								},
+								{
+									"key": "localisation",
+									"value": "Rue des fleurs"
+								},
+								{
+									"key": "idaffaire",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "/api/v1/planningcommercial/{idCommercial}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ServiceCommercial-web/webresources/planningcommercial/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServiceCommercial-web",
+						"webresources",
+						"planningcommercial",
+						""
+					]
+				},
+				"description": "Obtenir les rdv du jour pour un commercial."
+			},
+			"response": [
+				{
+					"name": "Démo planning commercial",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ServiceCommercial-web/webresources/planningcommercial/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ServiceCommercial-web",
+								"webresources",
+								"planningcommercial",
+								"1"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "/api/v1/gestioncommande/commande/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ServiceCommercial-web/webresources/gestioncommande/?refcatcmd=&cotelargeurcmd=&cotelongueurcmd=&montantnegocmd=&idaffaire=&idcommercial=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServiceCommercial-web",
+						"webresources",
+						"gestioncommande",
+						""
+					],
+					"query": [
+						{
+							"key": "refcatcmd",
+							"value": ""
+						},
+						{
+							"key": "cotelargeurcmd",
+							"value": ""
+						},
+						{
+							"key": "cotelongueurcmd",
+							"value": ""
+						},
+						{
+							"key": "montantnegocmd",
+							"value": ""
+						},
+						{
+							"key": "idaffaire",
+							"value": ""
+						},
+						{
+							"key": "idcommercial",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Démo saisir commande",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ServiceCommercial-web/webresources/gestioncommande/?refcatcmd=PORTALU-123&cotelargeurcmd=12.4&cotelongueurcmd=4.2&montantnegocmd=120.5&idaffaire=2&idcommercial=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ServiceCommercial-web",
+								"webresources",
+								"gestioncommande",
+								""
+							],
+							"query": [
+								{
+									"key": "refcatcmd",
+									"value": "PORTALU-123"
+								},
+								{
+									"key": "cotelargeurcmd",
+									"value": "12.4"
+								},
+								{
+									"key": "cotelongueurcmd",
+									"value": "4.2"
+								},
+								{
+									"key": "montantnegocmd",
+									"value": "120.5"
+								},
+								{
+									"key": "idaffaire",
+									"value": "2"
+								},
+								{
+									"key": "idcommercial",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}

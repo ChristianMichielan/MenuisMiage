@@ -7,7 +7,7 @@ package miage.m2.appachat;
 import java.util.Properties;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import miage.m2.serviceachat.exposition.GestionLivraisonRemote;
+import miage.m2.sharedachat.exposition.GestionLivraisonRemote;
 
 /**
  * Classe RMIMenuisMiageAchat qui permet de construire l'accès RMI.

@@ -14,8 +14,18 @@ import miage.m2.sharedcomptable.exceptions.EncaissementException;
 @Local
 public interface EncaissementBeanLocal {
     
+    /**
+     * Encaisse le premier cheque de l'affaire
+     * @param idAffaire 
+     * @throws miage.m2.sharedcomptable.exceptions.EncaissementException 
+     */
     public void encaisserPremierCheque(int idAffaire) throws EncaissementException;
     
+    /**
+     * Encaisse le deuxième cheque de l'affaire
+     * @param idAffaire 
+     * @throws miage.m2.sharedcomptable.exceptions.EncaissementException 
+     */
     public void encaisserDeuxiemeCheque(int idAffaire) throws EncaissementException;
     
 }

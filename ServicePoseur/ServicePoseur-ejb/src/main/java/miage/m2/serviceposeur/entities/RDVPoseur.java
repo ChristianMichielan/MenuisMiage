@@ -13,6 +13,7 @@ public class RDVPoseur {
     private int idAffaire;
     private EquipePoseurs equipePoseur;
     private String locC;
+    private boolean poseValidee;
 
     /**
      * Constructeur
@@ -26,6 +27,7 @@ public class RDVPoseur {
         this.idAffaire = idAffaire;
         this.equipePoseur = equipePoseur;
         this.locC = locC;
+        this.poseValidee = false;
     }  
     
     /**
@@ -91,4 +93,21 @@ public class RDVPoseur {
     public void setLocC(String locC) {
         this.locC = locC;
     }    
+
+    /**
+     * Retourne la valeur true/false si la pose a été effectuée (validée) par une équipe poseur 
+     * @return 
+     */
+    public boolean isPoseValidee() {
+        return poseValidee;
+    }
+
+    /**
+     * Défini la valeur du statut de la pose (validée / non validée)
+     * @param poseValidee 
+     */
+    public void setPoseValidee(boolean poseValidee) {
+        this.poseValidee = poseValidee;
+    }
+    
 }

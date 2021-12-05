@@ -7,7 +7,8 @@ package miage.m2.serviceposeur.metier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.ejb.Singleton;
-import miage.m2.exceptions.PoseurConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.AucunRDVPoseur;
+import miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException;
 import miage.m2.serviceposeur.entities.EquipePoseurs;
 import miage.m2.serviceposeur.entities.RDVPoseur;
 
@@ -17,7 +18,7 @@ import miage.m2.serviceposeur.entities.RDVPoseur;
  */
 @Singleton
 public class RDVPoseurBean implements RDVPoseurBeanLocal {
-    // clé de HashMap correspond a l'id de l'equipePoseur
+    // clé de HashMap correspond a l'id de l'affaire
     private HashMap<Integer, RDVPoseur> listeRdvPoseur;
 
     /**
@@ -29,7 +30,7 @@ public class RDVPoseurBean implements RDVPoseurBeanLocal {
     
     
     /**
-     * Retourne la liste de rdv d'une equipe poseur
+     * Retourne tous les rendez-vous d'une équipe poseur (planning)
      * @param idEquipe
      * @return 
      */
@@ -58,6 +59,7 @@ public class RDVPoseurBean implements RDVPoseurBeanLocal {
      */
     @Override
     public boolean creerRdvPoseur(String date, int idAffaire, EquipePoseurs equipePoseur, String localisation) throws PoseurConfirmRDVException {
+        // Vérification que pour l'id de l'affaire auncun rdv poseur existe déjà
         if (this.listeRdvPoseur.get(idAffaire) != null){
             throw new PoseurConfirmRDVException();
         }
@@ -100,6 +102,22 @@ public class RDVPoseurBean implements RDVPoseurBeanLocal {
         }
         
         return equipePoseurDispo;
+    }
+
+    /**
+     * Valide la pose pour le rendez-vous poseur d'une affaire ET notifi le système que la pose a été validé par l'équipe poseur
+     * @param idAffaire
+     * @throws AucunRDVPoseur 
+     */
+    @Override
+    public void validerPose(int idAffaire) throws AucunRDVPoseur {
+        // Vérifie l'existance du rdv dans le système
+        if(this.listeRdvPoseur.get(idAffaire) == null) {
+            throw new AucunRDVPoseur();
+        }
+
+        // Met à jour le statut de la pose
+        this.listeRdvPoseur.get(idAffaire).setPoseValidee(true);        
     }
 
 }

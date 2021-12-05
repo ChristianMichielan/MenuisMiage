@@ -5,11 +5,12 @@
 package miage.m2.serviceposeur.services;
 
 import javax.ejb.Local;
-import miage.m2.exceptions.AucuneEquipePoseurException;
-import miage.m2.exceptions.EquipePoseurInconnuException;
-import miage.m2.exceptions.PoseurConfirmRDVException;
-import miage.m2.exceptions.PoseurDemandeRDVException;
-import miage.m2.transientobjects.RDVPoseurTransient;
+import miage.m2.sharedmenuis.exceptions.AucunRDVPoseur;
+import miage.m2.sharedmenuis.exceptions.AucuneEquipePoseurException;
+import miage.m2.sharedmenuis.exceptions.EquipePoseurInconnuException;
+import miage.m2.sharedmenuis.exceptions.PoseurConfirmRDVException;
+import miage.m2.sharedmenuis.exceptions.PoseurDemandeRDVException;
+import miage.m2.sharedmenuis.transientobjects.RDVPoseurTransient;
 
 /**
  * Interface de l'EJB qui gère l'encapsulation JSON
@@ -18,9 +19,22 @@ import miage.m2.transientobjects.RDVPoseurTransient;
 @Local
 public interface RDVPoseurServiceLocal {
     
+    /**
+     * Obtenir un rendez-vous poseur selon la disponoibilité du client
+     * @param dateDispoC
+     * @return
+     * @throws PoseurDemandeRDVException
+     * @throws AucuneEquipePoseurException 
+     */
     public String obtenirRdvPoseur(String dateDispoC) throws PoseurDemandeRDVException, AucuneEquipePoseurException;
 
-    public String valideRdvPoseur(RDVPoseurTransient rdv) throws PoseurConfirmRDVException, EquipePoseurInconnuException;
-
-    public String obtenirPlanning(int idEquipePoseur);
+    /**
+     * Confirmation d'un rendez-vous poseur obtenu
+     * @param rdv
+     * @return
+     * @throws PoseurConfirmRDVException
+     * @throws EquipePoseurInconnuException 
+     */
+    public String valideRDVPoseur(RDVPoseurTransient rdv) throws PoseurConfirmRDVException, EquipePoseurInconnuException;
+    
 }
