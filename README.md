@@ -64,3 +64,9 @@ Créer les queues suivantes :
 Lien Swagger vers la documentation des APIs [MenuisMiage Swagger](https://app.swaggerhub.com/apis-docs/christian.michielan/MenuisMiage/1.0.0#/).  
 
 *Nb : l'API du service Fournisseur est hors du périmètre de ce projet, son appel est simulé.*
+
+# Vidéo de démonstration 
+
+Lien vers la vidéo de démonstration du projet [M2 MIAGE - Présentation Projet EAI (DOURIS, LE DUC, MICHIELAN)](https://youtu.be/LF1JoBrulQs).  
+Pour passer le lancement des projets, vous devez vous rendre à `2min30`.
+
