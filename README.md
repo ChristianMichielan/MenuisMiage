@@ -67,6 +67,5 @@ Lien Swagger vers la documentation des APIs [MenuisMiage Swagger](https://app.sw
 
 # Vidéo de démonstration 
 
-Lien vers la vidéo de démonstration du projet [M2 MIAGE - Présentation Projet EAI (DOURIS, LE DUC, MICHIELAN)](https://youtu.be/LF1JoBrulQs).  
-Pour passer le lancement des projets, vous devez vous rendre à `2min30`.
+Lien vers la vidéo de démonstration du projet [M2 MIAGE - Présentation Projet EAI (DOURIS, LE DUC, MICHIELAN)](https://youtu.be/uWLXRlqMvjI).  
 
