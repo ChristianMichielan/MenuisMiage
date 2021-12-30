@@ -49,7 +49,7 @@ Créer une connection factrory : `TPEAIConnectionFactory`
 
 Créer les topics suivants :
 - `CommandeSaisie`
-- `CommandeTransmiseFroun`
+- `CommandeTransmiseFourn`
 - `NotificationAffaire`
 
 ## QUEUES
